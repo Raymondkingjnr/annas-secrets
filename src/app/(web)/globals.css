@@ -22,7 +22,7 @@ body {
   width: 100%;
   opacity: 10;
   background-size: cover;
-  /* filter: brightness(50%); */
+
   position: relative;
 }
 .herobg2 {
@@ -30,7 +30,7 @@ body {
   width: 100%;
   opacity: 10;
   background-size: cover;
-  /* filter: brightness(50%); */
+
   position: relative;
 }
 
