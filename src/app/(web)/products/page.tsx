@@ -36,14 +36,14 @@ const Products = () => {
             id="productName"
             name="productName"
             placeholder="Search product"
-            className="  border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575]  border-black active:outline-none outline-none rounded-md"
+            className="  border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
           />
 
           <select
             id="options"
             name="options"
             defaultValue="Vitamins"
-            className="border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575]  border-black active:outline-none outline-none rounded-md"
+            className="border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
           >
             <option value="" disabled selected>
               Select an option

@@ -68,10 +68,10 @@ const Header = () => {
         </h1>
 
         <main className="hidden md:flex items-center ">
-          <div className="  border border-white p-[11px] rounded-tl-sm rounded-bl-sm">
+          <div className="  border border-white p-[11px] rounded-tl-md rounded-bl-md">
             <IoSearchOutline className=" text-white font-bold" />
           </div>
-          <input className="  border h-[40px] px-2 md:w-[300px] active:outline-none outline-none rounded-tr-sm rounded-br-sm" />
+          <input className="  border h-[40px] px-2 md:w-[300px] active:outline-none outline-none rounded-tr-md rounded-br-md bg-white" />
         </main>
       </div>
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
