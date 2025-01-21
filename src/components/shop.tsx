@@ -53,7 +53,7 @@ const ShopGoal = () => {
               />
             </div>
             <div className="group bg-white/50 absolute bottom-0 h-[45px] text-center w-full">
-              <p className="pt-3 font-medium text-base capitalize group-hover:scale-110 transition-transform duration-200 ease-in-out">
+              <p className="pt-3 font-medium text-base capitalize group-hover:scale-110 transition-transform duration-200 ease-in-out text-black">
                 {items.name}
               </p>
             </div>
