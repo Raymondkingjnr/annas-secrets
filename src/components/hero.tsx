@@ -32,7 +32,7 @@ const Hero = () => {
             alt=""
             width={300}
             height={300}
-            className="rounded-box object-cover"
+            className="rounded-box object-cover h-full w-full"
           />
         </div>
         <div className=" carousel-item">
@@ -41,7 +41,7 @@ const Hero = () => {
             alt=""
             width={300}
             height={300}
-            className="rounded-box object-cover"
+            className="rounded-box object-cover h-full w-full"
           />
         </div>
         <div className=" carousel-item">
@@ -50,7 +50,7 @@ const Hero = () => {
             alt=""
             width={300}
             height={300}
-            className="rounded-box object-cover"
+            className="rounded-box object-cover h-full w-full"
           />
         </div>
         <div className=" carousel-item">
@@ -59,7 +59,7 @@ const Hero = () => {
             alt=""
             width={300}
             height={300}
-            className="rounded-box object-cover"
+            className="rounded-box object-cover h-full w-full"
           />
         </div>
       </section>

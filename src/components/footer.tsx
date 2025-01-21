@@ -28,7 +28,7 @@ const Footer = () => {
         <div>
           <input
             placeholder="Enter email address"
-            className="  border h-[40px] px-2 w-full lg:w-[400px] text-xs text-black active:outline-none outline-none rounded-md"
+            className="  border h-[40px] px-2 w-full lg:w-[400px] text-xs text-black bg-white active:outline-none outline-none rounded-md"
           />
 
           <Image
