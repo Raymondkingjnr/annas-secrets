@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@400..700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+}
+.herobg {
+  background: url("../../asset/images/herobg2.jpg") no-repeat center;
+  width: 100%;
+  opacity: 10;
+  background-size: cover;
+  /* filter: brightness(50%); */
+  position: relative;
+}
+.herobg2 {
+  background: url("../../asset/images/herobg4.jpg") no-repeat center;
+  width: 100%;
+  opacity: 10;
+  background-size: cover;
+  /* filter: brightness(50%); */
+  position: relative;
+}
+
+.herobg3 {
+  background: url("../../asset/images/herobg3.jpg") no-repeat center;
+  width: 100%;
+  opacity: 10;
+  background-size: cover;
+  position: relative;
+}
+
+.herobg4 {
+  background: url("../../asset/images/hero.jpg") no-repeat center;
+  width: 100%;
+  opacity: 10;
+  background-size: cover;
+
+  position: relative;
+}
+.herobg5 {
+  background: url("../../asset/images/herobg5.jpg") no-repeat center;
+  width: 100%;
+  opacity: 10;
+  background-size: cover;
+
+  position: relative;
+}

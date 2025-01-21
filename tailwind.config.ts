@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        font: "Dancing Script",
+        font2: "Abril Fatface",
+      },
     },
   },
   plugins: [],
