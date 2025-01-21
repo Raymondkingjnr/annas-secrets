@@ -18,7 +18,7 @@
 body {
 }
 .herobg {
-  background: url("../../asset/images/herobg2.jpg") no-repeat center;
+  /* background: url("../../asset/images/herobg2.jpg") no-repeat center; */
   width: 100%;
   opacity: 10;
   background-size: cover;
@@ -26,7 +26,7 @@ body {
   position: relative;
 }
 .herobg2 {
-  background: url("../../asset/images/herobg4.jpg") no-repeat center;
+  /* background: url("../../asset/images/herobg4.jpg") no-repeat center; */
   width: 100%;
   opacity: 10;
   background-size: cover;
@@ -35,7 +35,7 @@ body {
 }
 
 .herobg3 {
-  background: url("../../asset/images/herobg3.jpg") no-repeat center;
+  /* background: url("../../asset/images/herobg3.jpg") no-repeat center; */
   width: 100%;
   opacity: 10;
   background-size: cover;
@@ -43,7 +43,7 @@ body {
 }
 
 .herobg4 {
-  background: url("../../asset/images/hero.jpg") no-repeat center;
+  /* background: url("../../asset/images/hero.jpg") no-repeat center; */
   width: 100%;
   opacity: 10;
   background-size: cover;
@@ -51,7 +51,7 @@ body {
   position: relative;
 }
 .herobg5 {
-  background: url("../../asset/images/herobg5.jpg") no-repeat center;
+  /* background: url("../../asset/images/herobg5.jpg") no-repeat center; */
   width: 100%;
   opacity: 10;
   background-size: cover;

@@ -22,7 +22,7 @@ const Hero = () => {
   return (
     <section className=" overflow-hidden">
       <Slider {...settings}>
-        <div className=" w-full md:h-[700px] min-h-screen bg-fixed  bg-center herobg px-[1rem] md:px-[2rem] lg:px-[4rem]">
+        <div className=" w-full md:h-[700px] min-h-screen bg-fixed  bg-center herobg px-[1rem] md:px-[2rem] lg:px-[4rem] bg-[url('../../asset/images/herobg4.jpg')]">
           <div className=" absolute bg-black/50 md:h-[700px] min-h-screen w-[100%] z-0 left-0" />
           <div className=" z-10 bottom-0 md:bottom-[200px] absolute pr-[2rem] grid gap-6 pb-[3rem] text-white">
             <h3 className=" md:w-[500px] font-semibold text-2xl leading-9 text-[#4CAF50]">
@@ -42,7 +42,7 @@ const Hero = () => {
           </div>
         </div>
         {/*  */}
-        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center  herobg2 px-[1rem] md:px-[2rem] lg:px-[4rem]">
+        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center  herobg2 px-[1rem] md:px-[2rem] lg:px-[4rem] bg-[url('../../asset/images/herobg3.jpg')]">
           <div className=" absolute bg-black/50 md:h-[700px] min-h-screen  w-[100%] z-0 left-0" />
           <div className=" z-10 bottom-0 md:bottom-[200px] absolute  pr-[2rem] grid gap-6 pb-[3rem] text-white">
             <h3 className=" md:w-[500px] font-semibold text-2xl leading-9 text-[#4CAF50]">
@@ -61,7 +61,7 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg5 px-[1rem] md:px-[2rem] lg:px-[4rem]">
+        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg5 px-[1rem] md:px-[2rem] lg:px-[4rem] bg-[url('../../asset/images/hero.jpg')]">
           <div className=" absolute bg-black/50 md:h-[700px] min-h-screen  w-[100%] z-0 left-0" />
           <div className=" z-10 bottom-0 md:bottom-[200px] absolute  pr-[2rem] grid gap-6 pb-[3rem] text-white">
             <h3 className="md:w-[500px] font-semibold text-2xl leading-9 text-[#4CAF50]">
@@ -81,7 +81,7 @@ const Hero = () => {
           </div>
         </div>
         {/*  */}
-        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg3 px-[1rem] md:px-[2rem] lg:px-[4rem]">
+        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg3 px-[1rem] md:px-[2rem] lg:px-[4rem] bg-[url('../../asset/images/herobg5.jpg')]">
           <div className=" absolute bg-black/50 md:h-[700px] min-h-screen  w-[100%] z-0 left-0" />
           <div className=" z-10 bottom-0 md:bottom-[200px] absolute  pr-[2rem] grid gap-6 pb-[3rem] text-white">
             <h3 className=" md:w-[500px] font-semibold text-2xl leading-9 text-[#4CAF50]">
@@ -101,7 +101,7 @@ const Hero = () => {
           </div>
         </div>
         {/*  */}
-        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg4 px-[1rem] md:px-[2rem] lg:px-[4rem]">
+        <div className=" w-full md:h-[700px] min-h-screen bg-fixed bg-center herobg4 px-[1rem] md:px-[2rem] lg:px-[4rem] bg-[url('../../asset/images/herobg2.jpg')]">
           <div className=" absolute bg-black/50 md:h-[700px] min-h-screen  w-[100%] z-0 left-0" />
           <div className=" z-10 bottom-0 md:bottom-[200px] absolute  pr-[2rem] grid gap-6 pb-[3rem] text-white">
             <h3 className=" md:w-[500px] font-semibold text-2xl leading-9 text-[#4CAF50]">
