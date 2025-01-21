@@ -3,8 +3,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "../../components/header";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const urbanist = Poppins({
   subsets: ["latin"],
