@@ -28,9 +28,9 @@ const ProductCard = ({ name, price, image, stock, AddCart }: Product) => {
       </div>
 
       <p className=" text-base font-medium capitalize text-[#333333]">{name}</p>
-      <h4 className=" text-base font-medium">stock: {stock}</h4>
+      <h4 className=" text-base font-medium text-[#333333]">stock: {stock}</h4>
 
-      <h2 className=" font-semibold">
+      <h2 className=" font-semibold text-[#333333]">
         {naira_sign} {currencyFormatter(price)}
       </h2>
       <button
