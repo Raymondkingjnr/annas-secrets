@@ -21,17 +21,21 @@ const ShopGoal = () => {
   };
 
   return (
-    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] my-[5rem]">
+    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] my-[10rem]">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
+        className="md:max-w-[400px] px-4 mx-auto text-center"
       >
-        <h2 className="md:text-3xl text-2xl font-thin text-black">
-          Shop By Goal
-        </h2>
-        <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" />
+        <h2 className="text-xl font-thin text-black">Shop By Goal</h2>
+        <p className=" text-text_color text-sm py-[1.2rem] leading-6">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Exercitationem, id similique consequatur dolorum officia quis magnam
+          sunt odit eaque hic.
+        </p>
+        {/* <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" /> */}
       </motion.div>
 
       <motion.div

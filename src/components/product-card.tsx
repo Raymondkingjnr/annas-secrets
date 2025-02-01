@@ -3,46 +3,52 @@
 import { currencyFormatter } from "@/utilis/formatter";
 import Image from "next/image";
 import React from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-
-type Product = {
-  name: string;
-  price: number;
-  image: string;
-  stock: number;
-  AddCart: () => void;
-};
+import { Product } from "../../sanity.types";
+import { imageUrl } from "@/lib/image-url";
+import Link from "next/link";
+import { shortenDescription } from "@/utilis/descriptionShorten";
 
 const naira_sign = "\u20A6";
-const ProductCard = ({ name, price, image, stock, AddCart }: Product) => {
+const ProductCard = ({ product }: { product: Product }) => {
+  const isOutOfStock = product?.stock != null && product?.stock <= 0;
   return (
-    <div className=" grid gap-4 w-[160px] md:w-full">
-      <div className="">
-        <Image
-          src={image}
-          alt={name}
-          width={300}
-          height={300}
-          className=" object-contain rounded-md w-full"
-        />
+    <Link
+      href={`/product/${product?.slug?.current}`}
+      className={`group grid shadow-md rounded-md p-4 w-full md:w-full ${isOutOfStock ? " opacity-50" : ""}`}
+    >
+      <div className=" relative aspect-square overflow-hidden">
+        {product.image && (
+          <div className=" grid place-content-center">
+            <Image
+              src={imageUrl(product?.image).url()}
+              alt={product.name ?? ""}
+              width={200}
+              height={200}
+              className="  rounded-lg w-[340px] object-contain transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        )}
+        {isOutOfStock && (
+          <div className=" absolute inset-0 flex items-center justify-center">
+            <span className=" text-black font-bold text-lg z-10">
+              Out of Stock
+            </span>
+          </div>
+        )}
       </div>
 
-      <p className=" text-base font-medium capitalize text-[#333333]">{name}</p>
-      <h4 className=" text-base font-medium text-[#333333]">stock: {stock}</h4>
-
-      <h2 className=" font-semibold text-[#333333]">
-        {naira_sign} {currencyFormatter(price)}
-      </h2>
-      <button
-        onClick={AddCart}
-        className="group w-full flex items-center place-content-center gap-3 border-[#ddddd] border h-[45px] text-white rounded-md bg-[#4CAF50] hover:bg-[#388E3C] duration-300 ease-in-out transition "
-      >
-        <p className="pt-[1.3px] font-extralight flex items-center place-content-center gap-3 group-hover:scale-110 transition-transform duration-200 ease-in-out">
-          <span>Add</span>
-          <HiOutlineShoppingBag />
+      <div className=" pl-1">
+        <p className="  text-sm md:text-lg mt-8  font-bold capitalize text-[#333333]">
+          {product.name ?? ""}
         </p>
-      </button>
-    </div>
+        <p className=" text-xs font-semibold text-text_color py-3 leading-6 ">
+          {shortenDescription(product?.description ?? "", 170)}
+        </p>
+        <h2 className=" font-semibold text-sm  text-[#333333]">
+          {naira_sign} {currencyFormatter(Number(product?.price))}
+        </h2>
+      </div>
+    </Link>
   );
 };
 

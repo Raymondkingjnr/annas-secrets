@@ -4,11 +4,9 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "../../components/header";
 
-const urbanist = Poppins({
+const poppins = Poppins({
+  weight: "400", // or any other weight
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  style: ["italic", "normal"],
-  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -23,10 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={urbanist.className}>
-        <Header />
-        <div>{children}</div>
-        <Footer />
+      <body className={poppins.className}>
+        <main>
+          <Header />
+          <div className=" min-h-screen ">{children}</div>
+          <Footer />
+        </main>
       </body>
     </html>
   );

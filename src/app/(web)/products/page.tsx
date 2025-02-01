@@ -1,27 +1,61 @@
 "use client";
 
-import React from "react";
-import useSWR from "swr";
-import { getProducts } from "@/lib/api";
+import React, { useEffect } from "react";
+// import { motion } from "framer-motion";
+// import useSWR from "swr";
+import { getProducts, getCategory } from "@/lib/api";
 import ProductCard from "@/components/product-card";
+import { Product } from "../../../../sanity.types";
+import { Category } from "@/modals/products";
+// import Loader from "@/components/loader";
+import { PiEmptyThin } from "react-icons/pi";
 
 const Products = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const pageSize = 5;
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [categories, setCategories] = React.useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const [sortByPrice, setSortByPrice] = React.useState<"asc" | "desc" | "">("");
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  const fetchProducts = async () => {
-    const products = await getProducts(currentPage, pageSize);
+  const [page, setPage] = React.useState<number>(1);
+  const pageSize = 4;
 
-    return products;
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const productsData = await getProducts(
+        page,
+        pageSize,
+        selectedCategory,
+        searchQuery,
+        sortByPrice
+      );
+      const categoriesData = await getCategory();
+      setProducts(productsData);
+      setCategories(categoriesData);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [page, selectedCategory, searchQuery, sortByPrice]);
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
+    setPage(1); // Reset to the first page when category changes
   };
 
-  const {
-    data: products,
-    // isLoading,
-    // error,
-  } = useSWR(`get/allPost?page=${currentPage}`, fetchProducts);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    setPage(1); // Reset to the first page when search query changes
+  };
 
-  console.log(setCurrentPage);
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortByPrice(event.target.value as "asc" | "desc");
+    setPage(1); // Reset to the first page when sort changes
+  };
 
   return (
     <div className=" min-h-screen">
@@ -33,36 +67,35 @@ const Products = () => {
         <h2 className=" font-thin text-lg md:text-2xl">Sort</h2>
         <form className="mt-5 flex flex-col md:flex-row gap-4 border-gray-300 ">
           <input
-            id="productName"
-            name="productName"
-            placeholder="Search product"
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={handleSearchChange}
             className="  border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
           />
+          {/*  */}
 
           <select
-            id="options"
-            name="options"
-            defaultValue="Vitamins"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
             className="border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
           >
-            <option value="" disabled selected>
-              Select an option
-            </option>
-            <option className=" capitalize" value="vitamins">
-              vitamins
-            </option>
-            <option className=" capitalize" value="skins">
-              skins
-            </option>
-            <option className=" capitalize" value="boosters">
-              boosters
-            </option>
-            <option className=" capitalize" value="vagina">
-              vagina
-            </option>
-            <option className=" capitalize" value="weight">
-              weight
-            </option>
+            <option value="">All Categories</option>
+            {categories.map((category) => (
+              <option key={category._id} value={category.slug.current}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={sortByPrice}
+            onChange={handleSortChange}
+            className="border h-[40px] px-2 w-full md:w-[140px]  text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
+          >
+            <option value="">Sort by Price</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
           </select>
 
           <button className=" h-[40px] rounded-md w-[150px] border border-[#4CAF50] text-[#4CAF50] px-4 py-2 hover:bg-[#4CAF50] hover:text-white duration-500 transition-all">
@@ -70,19 +103,24 @@ const Products = () => {
           </button>
         </form>
       </main>
-
-      <main className=" grid grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7 px-[1rem] md:px-[2rem] lg:px-[4rem] my-8">
-        {products?.map((item) => (
-          <ProductCard
-            key={item._id}
-            image={item.image.asset.url}
-            name={item.name}
-            price={item.price}
-            stock={item.stock}
-            AddCart={() => {}}
-          />
-        ))}
-      </main>
+      {products.length === 0 && !loading && (
+        <div className="flex flex-col items-center gap-6 justify-center h-[50vh] text-gray-600">
+          <PiEmptyThin size={40} />
+          <h2 className="text-xl font-semibold">No products found</h2>
+          <p className="text-gray-500">Try searching for something else.</p>
+        </div>
+      )}
+      {loading ? (
+        <div className=" flex justify-center items-center my-[4rem] ">
+          <div className=" animate-spin rounded-full h-32 w-32 border-b-2 border-base_color" />
+        </div>
+      ) : (
+        <main className="grid grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7 px-[1rem] md:px-[2rem] lg:px-[4rem] my-8">
+          {products?.map((item) => (
+            <ProductCard key={item._id} product={item} />
+          ))}
+        </main>
+      )}
     </div>
   );
 };

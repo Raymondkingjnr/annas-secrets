@@ -11,6 +11,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        base_color: "#309185",
+        secondary_color: "#FFB23F",
+        text_color: "#AFADB5",
       },
       fontFamily: {
         font: "Dancing Script",

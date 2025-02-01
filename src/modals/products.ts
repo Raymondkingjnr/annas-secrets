@@ -28,4 +28,5 @@ export type product = {
   _updatedAt: string;
   price: number;
   stock: number;
+  description: string;
 };
