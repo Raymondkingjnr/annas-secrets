@@ -58,7 +58,7 @@ const CartPage = () => {
     const totalAmount = useBasketStore.getState().getTotalPrice();
 
     paystack.newTransaction({
-      key: process.env.NEXT_PUBLIC_PAYSTACK_KEY || "", // Your Paystack public key
+      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "", // Your Paystack public key
       email,
       amount: totalAmount * 100, // Convert to kobo
       currency: "NGN",
