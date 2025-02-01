@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import useSWR from "swr";
+import React, { useEffect } from "react";
+// import { motion } from "framer-motion";
+// import useSWR from "swr";
 import { getProducts, getCategory } from "@/lib/api";
 import ProductCard from "@/components/product-card";
 import { Product } from "../../../../sanity.types";
 import { Category } from "@/modals/products";
-import Loader from "@/components/loader";
+// import Loader from "@/components/loader";
 import { PiEmptyThin } from "react-icons/pi";
 
 const Products = () => {

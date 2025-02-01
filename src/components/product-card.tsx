@@ -3,7 +3,6 @@
 import { currencyFormatter } from "@/utilis/formatter";
 import Image from "next/image";
 import React from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { Product } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
 import Link from "next/link";

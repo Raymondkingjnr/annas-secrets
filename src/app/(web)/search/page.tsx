@@ -8,7 +8,7 @@ function SearchPage({ searchParams }: { searchParams: { query: string } }) {
     <section className="min-h-screen pt-[7rem] flex flex-col items-center">
       <div className=" shadow-md rounded-md max-w-[700px] p-[40px] m-auto">
         <h1 className="text-base font-normal text-gray-800">
-          Search results for "<span className="text-black">{query}</span>"
+          Search results for<span className="text-black">{query}</span>
         </h1>
       </div>
 

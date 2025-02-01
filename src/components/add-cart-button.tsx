@@ -1,5 +1,5 @@
 "use client";
-import { product } from "@/modals/products";
+// import { product } from "@/modals/products";
 import useBasketStore from "@/store/store";
 import React, { useEffect } from "react";
 import { Product } from "../../sanity.types";
