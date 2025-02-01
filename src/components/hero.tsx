@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import Form from "next/form";
 import { IoSearchOutline } from "react-icons/io5";
 import { VectorIcon } from "@/asset/icons/vector";
-import Typical from "react-typical";
+import TypingEffect from "./typing-effect";
 
 const Hero = () => {
   const { push } = useRouter();
@@ -27,11 +27,7 @@ const Hero = () => {
     <section className=" pt-[5rem] relative pb-3 md:pb-[6rem] flex flex-col items-center text-center justify-between px-[1rem] md:px-[4rem] lg:px-[6rem] bg-white">
       <section className="  md:w-[600px] pt-[4rem] gap-[2rem] flex flex-col justify-end pb-7 ">
         <h3 className=" font-semibold text-2xl text-center leading-9 text-black/70">
-          <Typical
-            steps={["Optimize Your Health, Naturally", 5000]}
-            loop={Infinity}
-            wrapper="span"
-          />
+          <TypingEffect text=" Optimize Your Health, Naturally" speed={100} />
         </h3>
         <p className=" w-full leading-6 text-text_color py-5 text-base">
           Discover premium supplements designed to support your health and
