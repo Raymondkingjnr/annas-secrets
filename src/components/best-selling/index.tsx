@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
-import ProductCard from "./product-card";
+import ProductCard from "../product-card";
 import { motion } from "framer-motion";
+// import { getAllProduct } from "@/lib/product/getAllProducts";
 import { getProducts } from "@/lib/api";
 import useSWR from "swr";
 
@@ -23,6 +24,8 @@ const BestSelling = () => {
 
   console.log(setCurrentPage);
 
+  console.log(products);
+
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -43,14 +46,13 @@ const BestSelling = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
+        className="md:max-w-[400px] px-4 mx-auto text-center"
       >
-        <div>
-          <h2 className=" md:text-3xl text-2xl font-thin text-black">
-            Best Selling Products
-          </h2>
-
-          <div className=" h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" />
-        </div>
+        <h2 className="text-xl font-thin text-black">Best Selling Products</h2>
+        <p className=" text-text_color text-sm py-[1.2rem] leading-6">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam placeat
+          minus dolor veniam culpa labore porro ab excepturi quia fugiat.
+        </p>
       </motion.div>
 
       <motion.div
@@ -60,16 +62,13 @@ const BestSelling = () => {
         viewport={{ once: true, amount: 0.2 }}
         variants={itemVariants}
       >
-        {products?.map((item, index) => (
-          <motion.main key={index} className="relative" variants={itemVariants}>
-            <ProductCard
-              key={index}
-              image={item.image.asset.url}
-              name={item.name}
-              price={item.price}
-              stock={item.stock}
-              AddCart={() => {}}
-            />
+        {products?.map((item) => (
+          <motion.main
+            key={item._id}
+            className="relative"
+            variants={itemVariants}
+          >
+            <ProductCard key={item._id} product={item} />
           </motion.main>
         ))}
       </motion.div>

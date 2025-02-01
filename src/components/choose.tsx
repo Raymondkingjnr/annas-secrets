@@ -1,60 +1,50 @@
-import { ApprovedIcon, QualityIcon } from "@/asset/icons";
+import { ChoicesIcon, PriceIcon, TimeIcon } from "@/asset/icons/choosIcon";
 import React from "react";
 
 const Choose = () => {
   return (
-    <div className=" bg-[#F5F5F5] py-8 md:py-[5rem] px-[1rem] md:px-[2rem] lg:px-[4rem]">
-      <h2 className=" md:text-3xl text-2xl font-thin text-black text-center pt-6">
-        WHY CHOOSE ANNAS SECRETS
-      </h2>
-
-      <main className=" grid md:grid-cols-3 lg:grid-cols-4 gap-7 py-8 place-content-center items-center">
-        <div className=" flex flex-col items-center">
-          <div className=" grid  place-content-center">
-            <QualityIcon />
+    <div className=" bg-[#F5F5F5] py-[7px] px-[1rem] md:px-[2rem] lg:px-[4rem]">
+      <main className=" grid md:grid-cols-3 gap-7 py-8 items-center">
+        <div className="flex flex-col bg-white p-[1rem] rounded">
+          <div>
+            <ChoicesIcon />
           </div>
-          <h4 className=" text-center py-4 font-thin text-xl text-[#333333]">
-            HIGHEST QUALITY
+          <h4 className="  py-4 font-thin text-xl text-[#333333]">
+            Many Choices
           </h4>
-          <p className=" text-sm leading-6 w-[200px] text-center text-[#757575]">
-            Manufactured in the UK. ISO/GMP Accredited Facility. Fully Traceable
-            Certificate of Analysis.
+          <p className=" text-xs leading-6 text-text_color">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
+            mollitia error alias obcaecati illum exercitationem, suscipit harum
+            ipsam adipisci iste architecto quae modi. Iure ducimus soluta
+            similique adipisci corrupti sed?
           </p>
         </div>
-        <div className=" flex flex-col items-center">
-          <div className=" grid  place-content-center">
-            <ApprovedIcon />
+        <div className=" flex flex-col bg-white p-[1rem] rounded">
+          <div>
+            <TimeIcon />
           </div>
-          <h4 className=" text-center py-4 font-thin text-xl text-[#333333] ">
-            FULLY TRANSPARENT
+          <h4 className="  py-4 font-thin text-xl text-[#333333] ">
+            Fast and On Time
           </h4>
-          <p className=" text-sm leading-6 w-[200px] text-center text-[#757575]">
-            Full Transparency on all Labels No hidden fillers. Zero Proprietary
-            Blends. Halal Trust Certified.
+          <p className=" text-xs leading-6 text-text_color">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            quibusdam officia voluptatum ex aperiam dolores ut itaque. Labore
+            tenetur dolorum pariatur, rerum consectetur laborum provident
+            tempora dolore a nobis vero.
           </p>
         </div>
-        <div className=" flex flex-col items-center">
-          <div className=" grid  place-content-center">
-            <QualityIcon />
+        <div className=" flex flex-col bg-white p-[1rem] rounded">
+          <div>
+            <PriceIcon />
           </div>
-          <h4 className=" text-center py-4 font-thin text-xl text-[#333333]">
-            RESEARCH Backed
+          <h4 className="  py-4 font-thin text-xl text-[#333333]">
+            Affordable Price
           </h4>
-          <p className=" text-sm leading-6 w-[200px] text-center text-[#757575]">
-            Research driven formulas. Clinically dosed ingredients. Formulated
-            by Dr Dean St Mart PhD.
-          </p>
-        </div>
-        <div className=" flex flex-col items-center">
-          <div className=" grid  place-content-center">
-            <QualityIcon />
-          </div>
-          <h4 className=" text-center py-4 font-thin text-xl text-[#333333]">
-            Maximum Absorption
-          </h4>
-          <p className=" text-sm leading-6 w-[200px] text-center text-[#757575]">
-            Bioavailable forms for maximum efficacy. Trademark quality
-            ingredients. Liposomal formulations.
+          <p className=" text-xs leading-6 text-text_color">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+            deleniti quibusdam? Recusandae sunt doloremque earum ullam impedit
+            necessitatibus aliquam unde debitis id, fuga at laudantium eveniet
+            culpa, non autem consectetur.
           </p>
         </div>
       </main>

@@ -1,20 +1,21 @@
 "use client";
 
 import React from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { IoSearchOutline } from "react-icons/io5";
+import { FiShoppingCart } from "react-icons/fi";
+
 import { IoIosMenu } from "react-icons/io";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
+import useBasketStore from "@/store/store";
 
 const navLinks = [
   // { title: "What we do", href: "/" },
-  { title: "Home", href: "/" },
   { title: "products", href: "/products" },
+  { title: "Service", href: "/" },
   { title: "About Us", href: "/" },
-  { title: "Contact", href: "/" },
+  { title: "Article", href: "/" },
 ];
 
 const Header = () => {
@@ -22,6 +23,10 @@ const Header = () => {
   const toggleMenu = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
+  const itemCount = useBasketStore((state) =>
+    state.items.reduce((acc, item) => acc + item.quantity, 0)
+  );
 
   const menuVars = {
     initial: {
@@ -61,39 +66,42 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-3 fixed z-30 flex bg-[#4CAF50] w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
+    <header className=" py-3 fixed z-30 flex shadow-sm bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" flex gap-3 items-center">
-        <h1 className=" font-thin text-xl text-white  font-font2">
+        <Link
+          href={"/"}
+          className=" font-thin text-xl text-black/65  font-font2"
+        >
           Annas_Secrets
-        </h1>
-
-        <main className="hidden md:flex items-center ">
-          <div className="  border border-white p-[11px] rounded-tl-md rounded-bl-md">
-            <IoSearchOutline className=" text-white font-bold" />
-          </div>
-          <input className="  border h-[40px] px-2 md:w-[300px] active:outline-none outline-none rounded-tr-md rounded-br-md bg-white" />
-        </main>
+        </Link>
       </div>
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
-        <Link href={"/"} className=" cursor-pointer text-white">
-          Home
-        </Link>
-
-        <Link href={"/products"} className=" cursor-pointer text-white">
+        <Link href={"/products"} className=" cursor-pointer text-black/65">
           Products
         </Link>
-        <li className=" cursor-pointer text-white">Blog</li>
+
+        <Link href={"/"} className=" cursor-pointer text-black/65">
+          Service
+        </Link>
+        <Link href={"/"} className=" cursor-pointer text-black/65">
+          Article
+        </Link>
+        <Link href={"/"} className=" cursor-pointer text-black/65">
+          About Us
+        </Link>
       </div>
       <main className=" flex items-center gap-7">
-        <div className=" relative">
-          <HiOutlineShoppingBag size={35} className=" text-white" />
-          <p className=" absolute text-sm right-0 bg-[#4CAF50] text-white  rounded-md text-center pb-2 h-[17px] w-[17px] bottom-0 font-medium">
-            0
-          </p>
-        </div>
+        <Link href={"/cart-page"} className=" relative p-4">
+          <FiShoppingCart size={25} className=" text-black/65" />
+          <div className="flex justify-center items-center">
+            <p className=" absolute text-sm right-0 bg-base_color text-white rounded-3xl text-center pt-[2px] h-6 w-6 top-0 font-semibold">
+              {itemCount}
+            </p>
+          </div>
+        </Link>
         <IoIosMenu
           size={35}
-          className=" md:hidden text-white"
+          className=" lg:hidden text-black/65"
           onClick={toggleMenu}
         />
       </main>
@@ -105,7 +113,7 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 w-full h-screen origin-top bg-[#4CAF50] text-white py-10 px-[1rem]"
+            className="fixed left-0 top-0 w-full h-screen origin-top bg-base_color text-white py-10 px-[1rem]"
           >
             <div className="flex h-full flex-col">
               <div className="flex justify-between">

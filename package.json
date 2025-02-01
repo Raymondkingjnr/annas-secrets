@@ -6,9 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
   },
   "dependencies": {
+    "@paystack/inline-js": "^2.22.1",
+    "@sanity/icons": "^3.5.7",
+    "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.70.0",
     "motion": "^12.0.0",
     "next": "15.1.4",
@@ -16,12 +20,17 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-is": "^19.0.0",
+    "react-paystack": "^6.0.0",
     "sanity": "^3.70.0",
-    "swr": "^2.3.0"
+    "styled-components": "^6.1.14",
+    "swr": "^2.3.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/paystack__inline-js": "^1.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "daisyui": "^4.12.23",

@@ -1,9 +1,11 @@
+import { TrolleyIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "product",
   title: "product",
   type: "document",
+  icon: TrolleyIcon,
   fields: [
     defineField({
       name: "name",
@@ -22,6 +24,12 @@ export default defineType({
       validation: (Rule) => Rule.required().error("Required"),
     }),
     defineField({
+      name: "topSales",
+      title: "top sales",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       title: "Image",
       name: "image",
       type: "image",
@@ -29,6 +37,11 @@ export default defineType({
         hotspot: true, // <-- Defaults to false
       },
       validation: (Rule) => Rule.required().error("Required"),
+    }),
+    defineField({
+      title: "description",
+      name: "description",
+      type: "text",
     }),
     defineField({
       title: "Price",
