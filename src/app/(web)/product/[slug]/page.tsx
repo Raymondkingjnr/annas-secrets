@@ -1,6 +1,7 @@
 import AddCartButton from "@/components/add-cart-button";
 import { getSingleProduct } from "@/lib/api";
 import { imageUrl } from "@/lib/image-url";
+import { shortenDescription } from "@/utilis/descriptionShorten";
 import { currencyFormatter } from "@/utilis/formatter";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -41,23 +42,20 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
 
         <div className=" flex flex-col justify-between">
           <div>
-            <h1 className=" text-2xl text-[#33333] font-bold mb-4">
+            <h1 className=" text-lg text-[#33333] font-medium mb-4">
               {product.name ?? ""}
             </h1>
-            <div className=" text-base  text-[#33333] font-semibold mb-4">
+            <div className=" text-xs  text-black font-semibold mb-4">
               {naira_sign} {currencyFormatter(Number(product.price))}
             </div>
-            <div className=" prose max-w-none mb-6 leading-8 text-sm text-text_color">
+            <div className=" hidden md:flex prose max-w-none mb-6 leading-8 text-sm text-text_color">
               {product?.description}
+            </div>
+            <div className=" flex md:hidden prose max-w-none mb-6 leading-8 text-xs text-text_color">
+              {shortenDescription(product?.description ?? "", 100)}
             </div>
           </div>
           <AddCartButton product={product} disable={isOutOfStock} />
-          {/* <button
-            className=" bg-base_color text-white px-6 py-2 rounded-md hover:bg-[#4CAF50] hover:text-black duration-500 transition-all"
-            disabled={isOutOfStock}
-          >
-            Add To Cart
-          </button> */}
         </div>
       </div>
     </div>

@@ -46,10 +46,10 @@ const BestSelling = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className="md:max-w-[400px] px-4 mx-auto text-center"
+        className="md:max-w-[400px] px-4 mx-auto text-left md:text-center"
       >
         <h2 className="text-xl font-thin text-black">Best Selling Products</h2>
-        <p className=" text-text_color text-sm py-[1.2rem] leading-6">
+        <p className=" text-text_color md:text-sm text-xs py-[1rem] leading-8">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam placeat
           minus dolor veniam culpa labore porro ab excepturi quia fugiat.
         </p>
