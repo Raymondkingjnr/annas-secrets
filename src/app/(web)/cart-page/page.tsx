@@ -7,24 +7,102 @@ import AddCartButton from "@/components/add-cart-button";
 import Image from "next/image";
 import { imageUrl } from "@/lib/image-url";
 import { currencyFormatter } from "@/utilis/formatter";
+import { v4 as uuidv4 } from "uuid";
 import Loader from "@/components/loader";
-// import PaystackPop from '@paystack/inline-js';
 
 const CartPage = () => {
   const groupItems = useBasketStore((state) => state.getGroupedItems());
+  const clearBaseket = useBasketStore((state) => state.clearBasket);
   const { push } = useRouter();
   const [isClient, setIsClient] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [email, setEmail] = React.useState("");
+  const [customerName, setCustomerName] = React.useState("");
+  const [phone, setPhone] = React.useState<string>("");
+  const [address, setAddress] = React.useState<string>("");
 
   React.useEffect(() => {
+    setIsClient(true); // Mark that the component is now running on the client
     setIsLoading(false);
   }, []);
 
-  if (isClient) {
-    return <Loader />;
+  if (!isClient) {
+    return <Loader />; // Show a loader while waiting for client-side rendering
   }
 
-  console.log(setIsClient);
+  const saveOrderToSanity = async (orderDetails) => {
+    try {
+      const response = await fetch("/api/save-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderDetails),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save order");
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("Error saving order to Sanity:", error);
+      throw error;
+    }
+  };
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    const PaystackPop = (await import("@paystack/inline-js")).default;
+    const paystack = new PaystackPop();
+    const totalAmount = useBasketStore.getState().getTotalPrice();
+
+    paystack.newTransaction({
+      key: process.env.NEXT_PUBLIC_PAYSTACK_KEY || "", // Your Paystack public key
+      email,
+      amount: totalAmount * 100, // Convert to kobo
+      currency: "NGN",
+      lastName: customerName,
+      firstName: address,
+      phone,
+
+      onSuccess: async (transaction) => {
+        const orderDetails = {
+          products: groupItems.map((item) => ({
+            _key: uuidv4(),
+            product: {
+              _type: "reference",
+              _ref: item.product._id,
+            },
+            quantity: item.quantity,
+          })),
+          totalPrice: totalAmount,
+          status: "Paid",
+          OrderDate: new Date().toISOString(),
+          email: email,
+          customerName: customerName,
+          phone: phone,
+          address: address,
+        };
+        console.log(transaction);
+
+        try {
+          await saveOrderToSanity(orderDetails);
+          setIsLoading(false);
+          push("/"); // Redirect to a success page
+          clearBaseket();
+        } catch (error) {
+          setIsLoading(false);
+          console.error("Error saving order to Sanity:", error);
+          alert("Failed to save order. Please contact support.");
+        }
+      },
+      onCancel: () => {
+        setIsLoading(false);
+        alert("Payment was cancelled");
+      },
+    });
+  };
 
   const naira_sign = "\u20A6";
   if (groupItems.length === 0) {
@@ -61,7 +139,10 @@ const CartPage = () => {
             </thead>
             <tbody>
               {groupItems.map((item) => (
-                <tr key={item.product._id} className="border-b shadow-md mb-4">
+                <tr
+                  key={item.product._id}
+                  className="border-b shadow-md rounded-lg mb-8 pt-6"
+                >
                   <td className="py-2 flex md:items-center">
                     <div
                       className="w-full h-full flex items-center cursor-pointer"
@@ -69,7 +150,7 @@ const CartPage = () => {
                         push(`/product/${item?.product.slug?.current}`)
                       }
                     >
-                      <div className="w-20 h-20 sm:w-24 flex-shrink-0 mr-4">
+                      <div className="w-20 h-20 sm:w-24 flex-shrink-0 mr-4 pl-3">
                         {item.product.image && (
                           <Image
                             src={imageUrl(item.product.image).url()}
@@ -84,7 +165,7 @@ const CartPage = () => {
                         <h2 className="font-semibold pt-1 truncate text-xs">
                           {item.product.name}
                         </h2>
-                        <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate">
+                        <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate text-black">
                           {naira_sign}{" "}
                           {currencyFormatter(
                             (item.product.price ?? 0) * item.quantity
@@ -113,7 +194,7 @@ const CartPage = () => {
             </tbody>
           </table>
         </div>
-        <div className="  w-full lg:w-80 lg:sticky lg:top-4 h-fit bg-white p-6 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
+        <div className="  w-full lg:w-80 lg:sticky lg:top-4 h-fit bg-white p-4 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
           <h1 className=" text-lg font-normal">Order Summary</h1>
           <div className=" mt-4 space-y-2">
             <p className=" flex justify-between">
@@ -130,11 +211,40 @@ const CartPage = () => {
               </span>
             </p>
           </div>
-
+          <main className=" my-6 grid gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+            />
+            <input
+              type="address"
+              placeholder="Enter your address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+            />
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+            />
+            <input
+              type="text"
+              placeholder="Enter your phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+            />
+          </main>
           <button
             disabled={isLoading}
-            onClick={() => {}}
-            className=" mt-[3rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+            onClick={handleCheckout}
+            className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
           >
             {isLoading ? "Processing..." : "Checkout"}
           </button>

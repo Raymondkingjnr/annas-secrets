@@ -11,9 +11,13 @@ interface AddToCartButtonProps {
 const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
   const { addItem, removeItem, getCartCount } = useBasketStore();
   const cartCount = getCartCount(product._id);
+  const stock = product.stock ?? 0;
   const handleAddToCart = () => {
-    addItem(product);
+    if (cartCount < stock) {
+      addItem(product);
+    }
   };
+
   const [isClient, setIsClient] = React.useState(false);
 
   useEffect(() => {
@@ -43,11 +47,11 @@ const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
       <button
         onClick={handleAddToCart}
         className={`w-8 h-8 rounded-3xl flex items-center justify-center transition-colors duration-200 ${
-          disable
+          disable || cartCount >= stock
             ? "bg-[#F5F5F5] cursor-not-allowed text-[#333333]"
             : "bg-base_color text-white hover:bg-base_color"
         }`}
-        disabled={disable}
+        disabled={disable || cartCount >= stock}
       >
         <span className=" text-lg font-bold">+</span>
       </button>

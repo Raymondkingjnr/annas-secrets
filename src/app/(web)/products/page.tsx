@@ -19,7 +19,7 @@ const Products = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [page, setPage] = React.useState<number>(1);
-  const pageSize = 4;
+  const pageSize = 8;
 
   useEffect(() => {
     const fetchData = async () => {

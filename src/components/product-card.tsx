@@ -29,8 +29,8 @@ const ProductCard = ({ product }: { product: Product }) => {
           </div>
         )}
         {isOutOfStock && (
-          <div className=" absolute inset-0 flex items-center justify-center">
-            <span className=" text-black font-bold text-lg z-10">
+          <div className=" absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <span className=" text-white font-bold text-lg z-10">
               Out of Stock
             </span>
           </div>
@@ -41,8 +41,11 @@ const ProductCard = ({ product }: { product: Product }) => {
         <p className="  text-sm md:text-lg mt-8  font-bold capitalize">
           {product.name ?? ""}
         </p>
+        <p className=" pt-[2px] text-xs font-medium text-text_color">
+          In Stock: {product.stock}
+        </p>
         <p className=" text-xs font-semibold text-text_color py-3 leading-6 ">
-          {shortenDescription(product?.description ?? "", 170)}
+          {shortenDescription(product?.description ?? "", 50)}
         </p>
         <h2 className=" font-semibold text-sm  text-[#333333]">
           {naira_sign} {currencyFormatter(Number(product?.price))}
