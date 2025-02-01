@@ -44,7 +44,9 @@ const CartPage = () => {
   }
   return (
     <div className=" container mx-auto pt-[7rem] px-4 md:px-0">
-      <h1 className=" text-xl font-normal mb-4 text-center pb-4">Your Cart</h1>
+      <h1 className=" text-xl font-normal mb-4 text-center pb-4 text-black">
+        Your Cart
+      </h1>
       <div className=" flex flex-col gap-8 lg:flex-row ">
         <div className="flex-grow">
           <table className="min-w-full bg-white">
@@ -61,36 +63,43 @@ const CartPage = () => {
               {groupItems.map((item) => (
                 <tr key={item.product._id} className="border-b shadow-md mb-4">
                   <td className="py-2 flex md:items-center">
-                    <div className="w-20 h-20 sm:w-24 flex-shrink-0 mr-4">
-                      {item.product.image && (
-                        <Image
-                          src={imageUrl(item.product.image).url()}
-                          alt={item.product.name ?? ""}
-                          width={80}
-                          height={80}
-                          className="rounded-md w-[80px] object-contain"
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <h2 className=" font-semibold pt-1 truncate text-xs">
-                        {item.product.name}
-                      </h2>
-                      <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate">
-                        {naira_sign}{" "}
-                        {currencyFormatter(
-                          (item.product.price ?? 0) * item.quantity
+                    <div
+                      className="w-full h-full flex items-center cursor-pointer"
+                      onClick={() =>
+                        push(`/product/${item?.product.slug?.current}`)
+                      }
+                    >
+                      <div className="w-20 h-20 sm:w-24 flex-shrink-0 mr-4">
+                        {item.product.image && (
+                          <Image
+                            src={imageUrl(item.product.image).url()}
+                            alt={item.product.name ?? ""}
+                            width={80}
+                            height={80}
+                            className="rounded-md w-[80px] object-contain"
+                          />
                         )}
-                      </h2>
+                      </div>
+                      <div>
+                        <h2 className="font-semibold pt-1 truncate text-xs">
+                          {item.product.name}
+                        </h2>
+                        <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate">
+                          {naira_sign}{" "}
+                          {currencyFormatter(
+                            (item.product.price ?? 0) * item.quantity
+                          )}
+                        </h2>
+                      </div>
                     </div>
                   </td>
-                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold">
+                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold text-black">
                     {naira_sign} {currencyFormatter(item.product.price ?? 0)}
                   </td>
-                  <td className="py-2 text-center text-xs font-semibold hidden md:table-cell">
+                  <td className="py-2 text-center text-xs font-semibold hidden md:table-cell text-black">
                     {item.quantity}
                   </td>
-                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold">
+                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold text-black">
                     {naira_sign}{" "}
                     {currencyFormatter(
                       (item.product.price ?? 0) * item.quantity
@@ -109,13 +118,13 @@ const CartPage = () => {
           <div className=" mt-4 space-y-2">
             <p className=" flex justify-between">
               <span className=" text-base font-medium">Items:</span>
-              <span>
+              <span className=" text-xs font-semibold text-black">
                 {groupItems.reduce((total, item) => total + item.quantity, 0)}
               </span>
             </p>
             <p className=" flex justify-between text-lg font-thin border-t pt-2">
               <span className=" text-base font-medium">Total:</span>
-              <span className=" text-base font-medium">
+              <span className=" text-base font-medium text-black">
                 {naira_sign}
                 {currencyFormatter(useBasketStore.getState().getTotalPrice())}
               </span>
