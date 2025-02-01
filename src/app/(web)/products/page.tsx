@@ -29,7 +29,7 @@ const Products = () => {
         pageSize,
         selectedCategory,
         searchQuery,
-        sortByPrice
+        sortByPrice || "asc" || "desc" || ""
       );
       const categoriesData = await getCategory();
       setProducts(productsData);
@@ -59,7 +59,7 @@ const Products = () => {
 
   return (
     <div className=" min-h-screen">
-      <div className=" bg-[#F5F5F5] text-black px-[1rem] md:px-[2rem] lg:px-[4rem] h-[150px] md:h-[300px] pt-[5rem] md:pt-[6rem]">
+      <div className=" bg-[#F5F5F5] text-black px-[1rem] md:px-[2rem] lg:px-[4rem] h-[150px] md:h-[300px] pt-[6.4rem] md:pt-[8rem]">
         <h1 className=" font-thin text-lg md:text-2xl">Home / Products</h1>
       </div>
 
@@ -98,9 +98,9 @@ const Products = () => {
             <option value="desc">Price: High to Low</option>
           </select>
 
-          <button className=" h-[40px] rounded-md w-[150px] border border-[#4CAF50] text-[#4CAF50] px-4 py-2 hover:bg-[#4CAF50] hover:text-white duration-500 transition-all">
+          {/* <button className=" h-[40px] rounded-md w-[150px] border border-[#4CAF50] text-[#4CAF50] px-4 py-2 hover:bg-[#4CAF50] hover:text-white duration-500 transition-all">
             search
-          </button>
+          </button> */}
         </form>
       </main>
       {products.length === 0 && !loading && (

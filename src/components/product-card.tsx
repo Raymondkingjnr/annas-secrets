@@ -38,7 +38,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
 
       <div className=" pl-1">
-        <p className="  text-sm md:text-lg mt-8  font-bold capitalize text-[#333333]">
+        <p className="  text-sm md:text-lg mt-8  font-bold capitalize">
           {product.name ?? ""}
         </p>
         <p className=" text-xs font-semibold text-text_color py-3 leading-6 ">

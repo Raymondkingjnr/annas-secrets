@@ -41,8 +41,10 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
 
         <div className=" flex flex-col justify-between">
           <div>
-            <h1 className=" text-2xl font-bold mb-4">{product.name ?? ""}</h1>
-            <div className=" text-xl font-semibold mb-4">
+            <h1 className=" text-2xl text-[#33333] font-bold mb-4">
+              {product.name ?? ""}
+            </h1>
+            <div className=" text-base  text-[#33333] font-semibold mb-4">
               {naira_sign} {currencyFormatter(Number(product.price))}
             </div>
             <div className=" prose max-w-none mb-6 leading-8 text-sm text-text_color">
