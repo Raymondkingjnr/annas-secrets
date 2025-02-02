@@ -9,6 +9,9 @@ import { imageUrl } from "@/lib/image-url";
 import { currencyFormatter } from "@/utilis/formatter";
 import { v4 as uuidv4 } from "uuid";
 import Loader from "@/components/loader";
+// import { M } from "@/components/modal"; // Import the Modal component
+import Modal from "@/components/modal";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
   const groupItems = useBasketStore((state) => state.getGroupedItems());
@@ -20,14 +23,15 @@ const CartPage = () => {
   const [customerName, setCustomerName] = React.useState("");
   const [phone, setPhone] = React.useState<string>("");
   const [address, setAddress] = React.useState<string>("");
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   React.useEffect(() => {
-    setIsClient(true); // Mark that the component is now running on the client
+    setIsClient(true);
     setIsLoading(false);
   }, []);
 
   if (!isClient) {
-    return <Loader />; // Show a loader while waiting for client-side rendering
+    return <Loader />;
   }
 
   const saveOrderToSanity = async (orderDetails) => {
@@ -53,14 +57,18 @@ const CartPage = () => {
 
   const handleCheckout = async () => {
     setIsLoading(true);
+    if (!customerName || !email || !phone || !address) {
+      setIsLoading(false);
+      return toast.error("Please fill all fields");
+    }
     const PaystackPop = (await import("@paystack/inline-js")).default;
     const paystack = new PaystackPop();
     const totalAmount = useBasketStore.getState().getTotalPrice();
 
     paystack.newTransaction({
-      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "", // Your Paystack public key
+      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "",
       email,
-      amount: totalAmount * 100, // Convert to kobo
+      amount: totalAmount * 100,
       currency: "NGN",
       lastName: customerName,
       firstName: address,
@@ -94,12 +102,14 @@ const CartPage = () => {
         } catch (error) {
           setIsLoading(false);
           console.error("Error saving order to Sanity:", error);
-          alert("Failed to save order. Please contact support.");
+          alert(
+            "Failed to save order. Please contact support, with your payment receipt"
+          );
         }
       },
       onCancel: () => {
         setIsLoading(false);
-        alert("Payment was cancelled");
+        toast.error("Payment was cancelled");
       },
     });
   };
@@ -125,8 +135,8 @@ const CartPage = () => {
       <h1 className=" text-xl font-normal mb-4 text-center pb-4 text-black">
         Your Cart
       </h1>
-      <div className=" flex flex-col gap-8 lg:flex-row ">
-        <div className="flex-grow">
+      <div className=" flex flex-col lg:flex-row justify-between gap-8">
+        <div className=" w-full lg:pr-4">
           <table className="min-w-full bg-white">
             <thead className=" hidden md:table-header-group pb-5">
               <tr>
@@ -194,7 +204,7 @@ const CartPage = () => {
             </tbody>
           </table>
         </div>
-        <div className="  w-full lg:w-80 lg:sticky lg:top-4 h-fit bg-white p-4 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
+        <div className="  bg-white p-4 border rounded  w-full lg:w-1/3 h-fit md:mt-10">
           <h1 className=" text-lg font-normal">Order Summary</h1>
           <div className=" mt-4 space-y-2">
             <p className=" flex justify-between">
@@ -211,46 +221,92 @@ const CartPage = () => {
               </span>
             </p>
           </div>
-          <main className=" my-6 grid gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
-            />
-            <input
-              type="address"
-              placeholder="Enter your address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
-            />
+          <button
+            onClick={() => setIsModalOpen(true)} // Open modal on button click
+            className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+          >
+            Proceed To Checkout
+          </button>
+        </div>
+      </div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h1 className=" text-lg font-normal pb-4 pt-8 text-center">
+          Order Summary
+        </h1>
+        <div className=" mt-4 space-y-2">
+          <p className=" flex justify-between">
+            <span className=" text-base font-medium">Items:</span>
+            <span className=" text-xs font-semibold text-black">
+              {groupItems.reduce((total, item) => total + item.quantity, 0)}
+            </span>
+          </p>
+          <p className=" flex justify-between text-lg font-thin border-t pt-2">
+            <span className=" text-base font-medium">Total:</span>
+            <span className=" text-base font-medium text-black">
+              {naira_sign}
+              {currencyFormatter(useBasketStore.getState().getTotalPrice())}
+            </span>
+          </p>
+        </div>
+        <main className=" my-6 grid gap-4">
+          <div>
+            <label htmlFor="customerName" className=" pb-3 text-xs font-normal">
+              Full Name:
+            </label>
             <input
               type="text"
               placeholder="Enter your name"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
             />
+          </div>
+          <div>
+            <label htmlFor="phone" className=" pb-3 text-xs font-normal">
+              Phone Number:
+            </label>
             <input
-              type="text"
+              type="tel"
               placeholder="Enter your phone number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="mt-4 p-2 border active:outline-none outline-none text-sm rounded w-full"
+              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
             />
-          </main>
-          <button
-            disabled={isLoading}
-            onClick={handleCheckout}
-            className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
-          >
-            {isLoading ? "Processing..." : "Checkout"}
-          </button>
-        </div>
-        <div className=" h-64 lg:h-0">{/* SPaceer */}</div>
-      </div>
+          </div>
+          <div>
+            <label htmlFor="email" className=" pb-3 text-xs font-normal">
+              Email Address:
+            </label>
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="address" className=" pb-3 text-xs font-normal">
+              Waybill Address:
+            </label>
+            <input
+              type="address"
+              placeholder="Enter your address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+            />
+          </div>
+        </main>
+        <button
+          disabled={isLoading || !email || !customerName || !phone || !address}
+          onClick={handleCheckout}
+          className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+        >
+          {isLoading ? "Processing..." : "Checkout"}
+        </button>
+      </Modal>
     </div>
   );
 };

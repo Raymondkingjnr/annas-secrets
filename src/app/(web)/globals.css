@@ -18,3 +18,7 @@
 body {
   background-color: #ffffff;
 }
+
+.image-bg {
+  background-image: url("../../asset/images/herobg4.jpg");
+}
