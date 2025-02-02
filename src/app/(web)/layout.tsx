@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "../../components/header";
+import Toast from "@/components/toast";
 
 const poppins = Poppins({
   weight: "400", // or any other weight
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <Toast />
         <main>
           <Header />
           <div className=" min-h-screen ">{children}</div>

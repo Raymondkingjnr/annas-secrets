@@ -13,9 +13,9 @@ import useBasketStore from "@/store/store";
 const navLinks = [
   // { title: "What we do", href: "/" },
   { title: "products", href: "/products" },
-  { title: "Service", href: "/" },
-  { title: "About Us", href: "/" },
-  { title: "Article", href: "/" },
+  { title: "Service", href: "/service" },
+  { title: "About Us", href: "/about-us" },
+  // { title: "Article", href: "/" },
 ];
 
 const Header = () => {
@@ -66,7 +66,7 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-3 fixed z-30 flex shadow-sm bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
+    <header className=" py-3 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" flex gap-3 items-center">
         <Link
           href={"/"}
@@ -80,13 +80,13 @@ const Header = () => {
           Products
         </Link>
 
-        <Link href={"/"} className=" cursor-pointer text-black/65">
+        <Link href={"/service"} className=" cursor-pointer text-black/65">
           Service
         </Link>
-        <Link href={"/"} className=" cursor-pointer text-black/65">
+        {/* <Link href={"/"} className=" cursor-pointer text-black/65">
           Article
-        </Link>
-        <Link href={"/"} className=" cursor-pointer text-black/65">
+        </Link> */}
+        <Link href={"/about-us"} className=" cursor-pointer text-black/65">
           About Us
         </Link>
       </div>
