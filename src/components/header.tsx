@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FiShoppingCart } from "react-icons/fi";
+import { BsCartCheckFill } from "react-icons/bs";
 
 import { IoIosMenu } from "react-icons/io";
 import Link from "next/link";
@@ -9,6 +9,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import useBasketStore from "@/store/store";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
+import { FaWhatsappSquare } from "react-icons/fa";
 
 const navLinks = [
   // { title: "What we do", href: "/" },
@@ -16,6 +19,24 @@ const navLinks = [
   { title: "Service", href: "/service" },
   { title: "About Us", href: "/about-us" },
   // { title: "Article", href: "/" },
+];
+
+const socials = [
+  {
+    title: "Facebook",
+    icon: <FaFacebookSquare size={25} />,
+    href: "https://www.facebook.com/share/19wjUDouzU/?mibextid=wwXIfr",
+  },
+  {
+    title: "Instagram",
+    icon: <FaInstagramSquare size={25} />,
+    href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
+  },
+  {
+    title: "Whatsapp",
+    icon: <FaWhatsappSquare size={25} />,
+    href: "https://wa.me/2348060665069",
+  },
 ];
 
 const Header = () => {
@@ -68,31 +89,50 @@ const Header = () => {
   return (
     <header className=" py-3 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" flex gap-3 items-center">
-        <Link
-          href={"/"}
-          className=" font-thin text-xl text-black/65  font-font2"
-        >
+        <Link href={"/"} className="text-xl text-black/75  font-font2">
           Annas_Secrets
         </Link>
       </div>
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
-        <Link href={"/products"} className=" cursor-pointer text-black/65">
+        <Link
+          href={"/products"}
+          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+        >
           Products
         </Link>
 
-        <Link href={"/service"} className=" cursor-pointer text-black/65">
+        <Link
+          href={"/service"}
+          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+        >
           Service
         </Link>
-        {/* <Link href={"/"} className=" cursor-pointer text-black/65">
+        {/* <Link href={"/"} className=" cursor-pointer text-black/65 text-sm font-semibold font-font2">
           Article
         </Link> */}
-        <Link href={"/about-us"} className=" cursor-pointer text-black/65">
+        <Link
+          href={"/about-us"}
+          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+        >
           About Us
         </Link>
       </div>
       <main className=" flex items-center gap-7">
+        <div className="hidden md:flex gap-3 items-center">
+          {socials.map((social, index) => (
+            <a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-black/75 rounded-lg"
+            >
+              {social.icon}
+            </a>
+          ))}
+        </div>
         <Link href={"/cart-page"} className=" relative p-4">
-          <FiShoppingCart size={25} className=" text-black/65" />
+          <BsCartCheckFill size={25} className=" text-black/75" />
           <div className="flex justify-center items-center">
             <p className=" absolute text-sm right-0 bg-base_color text-white rounded-3xl text-center pt-[2px] h-6 w-6 top-0 font-semibold">
               {itemCount}
@@ -145,6 +185,19 @@ const Header = () => {
                     </div>
                   );
                 })}
+                <div className="flex gap-3 mt-4 items-center">
+                  {socials.map((social, index) => (
+                    <a
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-white rounded-lg"
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
               </motion.div>
             </div>
           </motion.div>
@@ -183,7 +236,7 @@ const MobileNavLink = ({ title, href, onClose }: list) => {
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-2xl capitalize text-white"
+      className="text-xl capitalize text-white"
       onClick={onClose}
     >
       <Link href={href}>{title}</Link>

@@ -58,9 +58,17 @@ const Products = () => {
   };
 
   return (
-    <div className=" min-h-screen">
-      <div className=" bg-[#F5F5F5] text-black px-[1rem] md:px-[2rem] lg:px-[4rem] h-[150px] md:h-[300px] pt-[6.4rem] md:pt-[8rem]">
-        <h1 className=" font-thin text-lg md:text-2xl">Home / Products</h1>
+    <div className=" min-h-screen bg-gray-50 pt-[5rem]">
+      <div className="  bg-cover bg-center  product-bg relative h-[300px]">
+        <div className=" bg-black/50 h-[300px] absolute w-full" />
+        <div className=" py-24  relative z-10 text-center px-4 sm:px-6 lg:px-8">
+          <h1 className=" font-thin text-lg md:text-2xl text-gray-200">
+            Our Products
+          </h1>
+          <p className="mt-4 text-base font-medium leading-7 text-gray-200">
+            Explore our range of high-quality supplements and skincare products.
+          </p>
+        </div>
       </div>
 
       <main className=" px-[1rem] md:px-[2rem] lg:px-[4rem] pt-9">
