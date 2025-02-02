@@ -37,7 +37,7 @@ const Services = () => {
         >
           <div className="bg-black/5 bg-opacity-50 h-[300px] absolute w-full" />
           <div className=" relative z-10 py-24 px-4 sm:px-6 lg:px-8">
-            <h1 className=" font-thin text-lg md:text-2xl text-gray-900">
+            <h1 className="font-medium text-2xl leading-9 text-gray-90">
               Our Services
             </h1>
             <p className="mt-4 text-base font-medium leading-7 text-gray-900">
