@@ -151,7 +151,7 @@ const CartPage = () => {
               {groupItems.map((item) => (
                 <tr
                   key={item.product._id}
-                  className="border-b shadow-md rounded-lg mb-8 pt-6"
+                  className="shadow-lg rounded-lg mb-8 pt-6"
                 >
                   <td className="py-2 flex md:items-center">
                     <div
@@ -204,7 +204,7 @@ const CartPage = () => {
             </tbody>
           </table>
         </div>
-        <div className="  bg-white p-4 border rounded  w-full lg:w-1/3 h-fit md:mt-10">
+        <div className="  bg-white p-4 rounded-lg shadow-lg  w-full lg:w-1/3 h-fit md:mt-10">
           <h1 className=" text-lg font-normal">Order Summary</h1>
           <div className=" mt-4 space-y-2">
             <p className=" flex justify-between">

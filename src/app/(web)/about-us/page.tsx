@@ -1,15 +1,20 @@
+import { hero4 } from "@/asset";
 import React from "react";
 
 const AboutUs = () => {
   return (
     <div className=" bg-gray-50 pt-[5rem] ">
       <div>
-        <div className="text-center bg-cover bg-center image-bg">
-          <div className="bg-black bg-opacity-50 py-20 text-left md:text-center px-4 sm:px-6 lg:px-8">
-            <h1 className=" font-medium text-2xl leading-9 text-gray-200">
+        <div
+          className="text-center relative h-[300px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${hero4})` }}
+        >
+          <div className=" bg-black/5 h-[300px] absolute w-full" />
+          <div className=" py-20  relative z-10 text-center px-4 sm:px-6 lg:px-8">
+            <h1 className=" font-medium text-2xl leading-9 text-gray-900">
               About Us
             </h1>
-            <p className="mt-6 text-base font-medium leading-7 text-gray-200">
+            <p className="mt-4 text-base font-medium leading-7 text-gray-900">
               Your journey to better health and radiant skin starts here.
             </p>
           </div>
