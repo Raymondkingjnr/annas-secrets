@@ -32,12 +32,12 @@ const Services = () => {
       <div className="">
         {/* Hero Section */}
         <div
-          className="text-center bg-cover bg-center relative h-[300px]"
+          className="text-center bg-cover bg-center relative md:h-[300px]"
           style={{
             background: `linear-gradient(to right, #a84545, #6b1a1a)`,
           }}
         >
-          <div className=" relative z-10 py-24 px-4 sm:px-6 lg:px-8">
+          <div className=" text-center relative z-10  py-14 md:py-20 px-4 sm:px-6 lg:px-8">
             <h1 className="font-medium text-2xl leading-9 text-gray-50">
               Our Services
             </h1>

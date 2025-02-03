@@ -46,8 +46,6 @@ const Products = () => {
   };
   const { data: numOfPost } = useSWR("get/totalProduct", totalProduct);
 
-  console.log(numOfPost);
-
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -70,12 +68,12 @@ const Products = () => {
   return (
     <div className=" min-h-screen bg-gray-50 pt-[5rem] ">
       <div
-        className="  bg-cover bg-center  product-bg h-[300px] "
+        className="  bg-cover bg-center  product-bg md:h-[300px] "
         style={{
           background: `linear-gradient(to right, #a84545, #6b1a1a)`,
         }}
       >
-        <div className=" py-24   z-10 text-center px-4 sm:px-6 lg:px-8">
+        <div className="  py-14 md:py-20  text-center z-10  px-4 sm:px-6 lg:px-8">
           <h1 className=" font-medium text-2xl leading-9 text-gray-50">
             Our Products
           </h1>
