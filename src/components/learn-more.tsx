@@ -1,10 +1,11 @@
 import { hero1, hero4 } from "@/asset";
 import React from "react";
 import Image from "next/image";
+import CountUpNumber from "./Counter";
 
 const LearnMore = () => {
   return (
-    <div className="px-5 md:px-[4rem] mt-[10rem] mb-[2rem]">
+    <div className="px-5 md:px-[4rem] mt-[4rem] mb-[2rem]">
       <h2 className=" text-secondary_color font-medium text-base">
         Our Product
       </h2>
@@ -51,17 +52,20 @@ const LearnMore = () => {
         <section className="grid gap-4">
           <main className=" hidden md:flex gap-3 text-center">
             <div>
-              <h2 className=" font-medium text-xl">5+</h2>
+              <h1>
+                {" "}
+                <CountUpNumber duration={3000} endValue={6} />
+              </h1>
               <h1 className=" text-text_color text-sm pt-3">
                 Years of Experience
               </h1>
             </div>
             <div>
-              <h2 className=" font-medium text-xl">200+</h2>
+              <CountUpNumber duration={3000} endValue={2000} />
               <h1 className=" text-text_color text-sm pt-3">Happy Customers</h1>
             </div>
             <div>
-              <h2 className=" font-medium text-xl">100+</h2>
+              <CountUpNumber duration={3000} endValue={400} />
               <h1 className=" text-text_color text-sm pt-3">Products</h1>
             </div>
           </main>

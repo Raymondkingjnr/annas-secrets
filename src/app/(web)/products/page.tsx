@@ -3,13 +3,13 @@
 import React, { useEffect } from "react";
 // import { motion } from "framer-motion";
 // import useSWR from "swr";
-import { getProducts, getCategory } from "@/lib/api";
+import { getProducts, getCategory, getTotalProducts } from "@/lib/api";
 import ProductCard from "@/components/product-card";
 import { Product } from "../../../../sanity.types";
 import { Category } from "@/modals/products";
 // import Loader from "@/components/loader";
 import { PiEmptyThin } from "react-icons/pi";
-import { hero5 } from "@/asset";
+import useSWR from "swr";
 
 const Products = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -20,7 +20,7 @@ const Products = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [page, setPage] = React.useState<number>(1);
-  const pageSize = 8;
+  const pageSize = 12;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +41,11 @@ const Products = () => {
     fetchData();
   }, [page, selectedCategory, searchQuery, sortByPrice]);
 
+  const totalProduct = async () => {
+    return getTotalProducts();
+  };
+  const { data: numOfPost } = useSWR("get/totalProduct", totalProduct);
+
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -58,18 +63,21 @@ const Products = () => {
     setPage(1); // Reset to the first page when sort changes
   };
 
+  const totalPages = Math.ceil(numOfPost / pageSize);
+
   return (
-    <div className=" min-h-screen bg-gray-50 pt-[5rem]">
+    <div className=" min-h-screen bg-gray-50 pt-[5rem] ">
       <div
-        className="  bg-cover bg-center  product-bg relative h-[300px] "
-        style={{ backgroundImage: `url(${hero5})` }}
+        className="  bg-cover bg-center  product-bg md:h-[300px] "
+        style={{
+          background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+        }}
       >
-        <div className=" bg-black/5 h-[300px] absolute w-full" />
-        <div className=" py-24  relative z-10 text-center px-4 sm:px-6 lg:px-8">
-          <h1 className=" font-medium text-2xl leading-9 text-gray-90">
+        <div className="  py-14 md:py-20  text-center z-10  px-4 sm:px-6 lg:px-8">
+          <h1 className=" font-medium text-2xl leading-9 text-gray-50">
             Our Products
           </h1>
-          <p className="mt-4 text-base font-medium leading-7 text-gray-900">
+          <p className="mt-4 text-base font-medium leading-7 text-gray-50">
             Explore our range of high-quality supplements and skincare products.
           </p>
         </div>
@@ -133,6 +141,39 @@ const Products = () => {
           ))}
         </main>
       )}
+      <div className="flex gap-5 justify-center items-center px-[1rem] md:px-[4rem]">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className="rounded-lg w-[120px] border-none text-gray-100 btn btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{
+            background: `linear-gradient(to right, #309185, #1a6b5f)`,
+          }}
+        >
+          Previous
+        </button>
+        <div className=" flex gap-2 items-center">
+          <p className=" h-[20px] w-[20px]  rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
+            {" "}
+            <span>{page}</span>{" "}
+          </p>{" "}
+          <p className=" font-semibold text-sm">Of</p>
+          <p className=" h-[20px] w-[20px] rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
+            {" "}
+            <span>{totalPages}</span>{" "}
+          </p>{" "}
+        </div>
+        <button
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}
+          className="rounded-lg w-[120px] border-none btn btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed text-gray-100"
+          style={{
+            background: `linear-gradient(to right, #309185, #1a6b5f)`,
+          }}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

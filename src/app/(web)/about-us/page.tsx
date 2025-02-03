@@ -1,4 +1,3 @@
-import { hero4 } from "@/asset";
 import React from "react";
 
 const AboutUs = () => {
@@ -6,15 +5,16 @@ const AboutUs = () => {
     <div className=" bg-gray-50 pt-[5rem] ">
       <div>
         <div
-          className="text-center relative h-[300px] bg-cover bg-center"
-          style={{ backgroundImage: `url(${hero4})` }}
+          className="text-center relative md:h-[300px] bg-cover bg-center"
+          style={{
+            background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+          }}
         >
-          <div className=" bg-black/5 h-[300px] absolute w-full" />
-          <div className=" py-20  relative z-10 text-center px-4 sm:px-6 lg:px-8">
-            <h1 className=" font-medium text-2xl leading-9 text-gray-900">
+          <div className=" py-14 md:py-20 text-center relative z-10 px-4 sm:px-6 lg:px-8">
+            <h1 className=" font-medium text-2xl leading-9 text-gray-50">
               About Us
             </h1>
-            <p className="mt-4 text-base font-medium leading-7 text-gray-900">
+            <p className="mt-4 text-base font-medium leading-7 text-gray-50">
               Your journey to better health and radiant skin starts here.
             </p>
           </div>

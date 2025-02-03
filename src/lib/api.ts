@@ -55,3 +55,12 @@ export async function getSingleProduct(slug: string) {
   );
   return result;
 }
+
+export async function getTotalProducts() {
+  const total = await client.fetch<number>(
+    queries.TotalProductQuery,
+    {},
+    { cache: "no-cache" }
+  );
+  return total;
+}
