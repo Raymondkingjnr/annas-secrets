@@ -33,14 +33,15 @@ const Services = () => {
         {/* Hero Section */}
         <div
           className="text-center bg-cover bg-center relative h-[300px]"
-          style={{ backgroundImage: `url(${hero3})` }}
+          style={{
+            background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+          }}
         >
-          <div className="bg-black/5 bg-opacity-50 h-[300px] absolute w-full" />
           <div className=" relative z-10 py-24 px-4 sm:px-6 lg:px-8">
-            <h1 className="font-medium text-2xl leading-9 text-gray-90">
+            <h1 className="font-medium text-2xl leading-9 text-gray-50">
               Our Services
             </h1>
-            <p className="mt-4 text-base font-medium leading-7 text-gray-900">
+            <p className="mt-4 text-base font-medium leading-7 text-gray-50">
               Empowering you with the best in health and skincare.
             </p>
           </div>

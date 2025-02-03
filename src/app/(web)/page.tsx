@@ -8,6 +8,8 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <ShopGoal />
+      <BestSelling />
       <div className=" flex flex-col md:flex-row justify-between px-[1rem] md:px-[4rem] pt-6 mb-[5rem]">
         <main className=" md:w-[400px]">
           <h3 className=" text-secondary_color">Benefits</h3>
@@ -23,8 +25,6 @@ export default function Home() {
         </main>
       </div>
       <Choose />
-      <ShopGoal />
-      <BestSelling />
       <LearnMore />
     </div>
   );

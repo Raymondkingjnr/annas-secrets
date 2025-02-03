@@ -36,7 +36,7 @@ const Hero = () => {
         </p>
         <Form
           action={"/search"}
-          className="flex relative items-center mb-[-65px]"
+          className="flex relative items-center md:mb-[-65px] mb-[-70px]"
           onSubmit={handleSubmit}
         >
           <div className="  border border-r-transparent bg-white p-[13.9px] rounded-tl-md rounded-bl-md">
@@ -69,13 +69,13 @@ const Hero = () => {
         </div>
       </section>
 
-      <div className=" h-[550px] w-full">
+      <div className=" md:h-[550px] w-full">
         <Image
           src={hero5}
           alt=""
           width={300}
           height={300}
-          className="rounded w-full h-[550px] object-cover "
+          className="rounded-lg w-full md:h-[550px] object-contain md:object-cover "
         />
       </div>
     </section>

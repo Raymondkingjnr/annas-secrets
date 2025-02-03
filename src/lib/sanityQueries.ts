@@ -50,6 +50,10 @@ export const getProductsQueries = (
   return query;
 };
 
+export const TotalProductQuery = groq`
+  count(*[_type == "product"])
+`;
+
 export const getProductBySlug = `
    *[_type == "product" && slug.current == $slug] | order(name asc)[0] 
   `;

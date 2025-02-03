@@ -21,13 +21,13 @@ const ShopGoal = () => {
   };
 
   return (
-    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] my-[10rem]">
+    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-16">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className="md:max-w-[400px] px-4 mx-auto text-left md:text-center"
+        className="md:max-w-[400px] mx-auto text-left md:text-center"
       >
         <h2 className="text-xl font-thin text-black">Shop By Goal</h2>
         <p className=" text-text_color md:text-sm text-xs py-[1.2rem] leading-6">

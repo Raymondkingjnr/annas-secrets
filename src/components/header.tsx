@@ -7,7 +7,7 @@ import { IoIosMenu } from "react-icons/io";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { MdClose } from "react-icons/md";
+import { SlClose } from "react-icons/sl";
 import useBasketStore from "@/store/store";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
@@ -164,7 +164,7 @@ const Header = () => {
                   className="cursor-pointer text-md text-white"
                   onClick={toggleMenu}
                 >
-                  <MdClose size={35} />
+                  <SlClose size={24} />
                 </p>
               </div>
               <motion.div
