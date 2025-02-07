@@ -14,7 +14,7 @@ const Choose = () => {
           </h4>
           <p className=" text-xs leading-6 text-text_color">
             Variety is the spice of life! Explore our wide range of products
-            tailored to meet your unique needs. Whether you're looking for
+            tailored to meet your unique needs. Whether you&apos;re looking for
             focus, relaxation, or vitality, we’ve got something just for you
           </p>
         </div>
