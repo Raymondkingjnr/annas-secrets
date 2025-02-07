@@ -2,16 +2,12 @@
 import React from "react";
 import ProductCard from "../product-card";
 import { motion } from "framer-motion";
-// import { getAllProduct } from "@/lib/product/getAllProducts";
-import { getProducts } from "@/lib/api";
+import { getTopSales } from "@/lib/api";
 import useSWR from "swr";
 
 const BestSelling = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const pageSize = 5;
-
   const fetchProducts = async () => {
-    const products = await getProducts(currentPage, pageSize);
+    const products = await getTopSales();
 
     return products;
   };
@@ -20,9 +16,7 @@ const BestSelling = () => {
     data: products,
     // isLoading,
     // error,
-  } = useSWR(`get/allPost?page=${currentPage}`, fetchProducts);
-
-  console.log(setCurrentPage);
+  } = useSWR(`get/allPost`, fetchProducts);
 
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -44,12 +38,13 @@ const BestSelling = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className="md:max-w-[400px] px-4 mx-auto text-left md:text-center"
+        className="md:max-w-[500px] px-4 mx-auto text-left md:text-center"
       >
         <h2 className="text-xl font-thin text-black">Best Selling Products</h2>
         <p className=" text-text_color md:text-sm text-xs py-[1rem] leading-8">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam placeat
-          minus dolor veniam culpa labore porro ab excepturi quia fugiat.
+          Discover what everyone’s raving about! Our best-selling products are
+          tried, tested, and loved by our community. From top-rated supplements
+          to must-have wellness essentials
         </p>
       </motion.div>
 

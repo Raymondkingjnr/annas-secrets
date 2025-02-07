@@ -27,13 +27,14 @@ const ShopGoal = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className="md:max-w-[400px] mx-auto text-left md:text-center"
+        className="md:max-w-[500px] mx-auto text-left md:text-center"
       >
         <h2 className="text-xl font-thin text-black">Shop By Goal</h2>
         <p className=" text-text_color md:text-sm text-xs py-[1.2rem] leading-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem, id similique consequatur dolorum officia quis magnam
-          sunt odit eaque hic.
+          Explore a curated selection of premium supplements and wellness
+          products designed to elevate your mind, body, and spirit. At
+          Annassecret, we believe in the power of natural enhancement and
+          holistic living.
         </p>
         {/* <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" /> */}
       </motion.div>

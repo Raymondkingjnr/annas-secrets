@@ -3,6 +3,7 @@ import Hero from "@/components/hero";
 import ShopGoal from "@/components/shop";
 import Choose from "../../components/choose";
 import LearnMore from "../../components/learn-more";
+import BackToTopButton from "@/components/bact-to-top";
 
 export default function Home() {
   return (
@@ -18,13 +19,13 @@ export default function Home() {
           </h3>
         </main>
         <main className="md:w-[500px] text-text_color text-xs leading-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-          perferendis natus autem assumenda tempore temporibus quibusdam facere
-          consectetur necessitatibus iste aliquid, accusantium accusamus dolor
-          nisi praesentium quisquam sit? Natus, mollitia!
+          Experience the difference with our seamless shopping experience. From
+          expert guidance to reliable support, we’re here to make your wellness
+          journey easier, smarter, and more rewarding.
         </main>
       </div>
       <Choose />
+      <BackToTopButton />
       <LearnMore />
     </div>
   );

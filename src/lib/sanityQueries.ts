@@ -50,6 +50,26 @@ export const getProductsQueries = (
   return query;
 };
 
+export const TopSales = groq`*[_type == "product" && topSales == true]{
+  _id,
+    slug,
+    name,
+    image{
+      asset -> {
+        url
+      }
+    },
+    categories[]->{
+      _id,
+      slug,
+      name,
+    },
+    price,
+    stock,
+}
+
+`;
+
 export const TotalProductQuery = groq`
   count(*[_type == "product"])
 `;
