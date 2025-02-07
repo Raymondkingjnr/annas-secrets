@@ -10,6 +10,7 @@ import { Category } from "@/modals/products";
 // import Loader from "@/components/loader";
 import { PiEmptyThin } from "react-icons/pi";
 import useSWR from "swr";
+import BackToTopButton from "@/components/bact-to-top";
 
 const Products = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -67,6 +68,7 @@ const Products = () => {
 
   return (
     <div className=" min-h-screen bg-gray-50 pt-[5rem] ">
+      <BackToTopButton />
       <div
         className="  bg-cover bg-center  product-bg md:h-[300px] "
         style={{

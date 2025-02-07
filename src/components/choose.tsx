@@ -13,10 +13,9 @@ const Choose = () => {
             Many Choices
           </h4>
           <p className=" text-xs leading-6 text-text_color">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-            mollitia error alias obcaecati illum exercitationem, suscipit harum
-            ipsam adipisci iste architecto quae modi. Iure ducimus soluta
-            similique adipisci corrupti sed?
+            Variety is the spice of life! Explore our wide range of products
+            tailored to meet your unique needs. Whether you're looking for
+            focus, relaxation, or vitality, we’ve got something just for you
           </p>
         </div>
         <div className=" flex flex-col bg-white p-[1rem] rounded">
@@ -27,10 +26,9 @@ const Choose = () => {
             Fast and On Time
           </h4>
           <p className=" text-xs leading-6 text-text_color">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            quibusdam officia voluptatum ex aperiam dolores ut itaque. Labore
-            tenetur dolorum pariatur, rerum consectetur laborum provident
-            tempora dolore a nobis vero.
+            Your time matters. Enjoy quick, reliable delivery so you can start
+            your wellness journey without delay. We’re committed to getting your
+            products to you fast and on schedule.
           </p>
         </div>
         <div className=" flex flex-col bg-white p-[1rem] rounded">
@@ -41,10 +39,9 @@ const Choose = () => {
             Affordable Price
           </h4>
           <p className=" text-xs leading-6 text-text_color">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            deleniti quibusdam? Recusandae sunt doloremque earum ullam impedit
-            necessitatibus aliquam unde debitis id, fuga at laudantium eveniet
-            culpa, non autem consectetur.
+            Premium quality doesn’t have to come with a premium price tag. We
+            believe in making wellness accessible to everyone, offering
+            top-notch products at prices that won’t break the bank.
           </p>
         </div>
       </main>

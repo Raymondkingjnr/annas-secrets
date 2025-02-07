@@ -27,6 +27,14 @@ export async function getProducts(
 
   return result;
 }
+export async function getTopSales() {
+  const result = await client.fetch<Product[]>(
+    queries.TopSales,
+    {},
+    { cache: "no-cache" }
+  );
+  return result;
+}
 export async function getCategory() {
   const result = await client.fetch<Category[]>(
     queries.getCategory,

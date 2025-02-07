@@ -15,10 +15,10 @@ const LearnMore = () => {
             Produced from high quality <br /> materials
           </h2>
           <p className=" text-text_color text-xs md:w-[370px] leading-7">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-            blanditiis veritatis nemo officia voluptatem excepturi aut sint esse
-            tenetur iusto? Placeat voluptate eaque eos dicta consequuntur ipsa
-            fugiat repudiandae temporibus.
+            Every product is crafted with care, using only the finest
+            ingredients and materials. We prioritize quality and purity to
+            ensure you receive the best for your mind, body, and wellness
+            journey.
           </p>
           <button className=" bg-base_color text-white h-[45px] rounded-sm w-full md:w-[150px]">
             Learn More
