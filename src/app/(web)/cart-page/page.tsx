@@ -165,9 +165,9 @@ const CartPage = () => {
                           <Image
                             src={imageUrl(item.product.image).url()}
                             alt={item.product.name ?? ""}
-                            width={80}
-                            height={80}
-                            className="rounded-md w-[80px] object-contain"
+                            width={70}
+                            height={70}
+                            className="rounded-md w-[60px] object-contain"
                           />
                         )}
                       </div>

@@ -11,7 +11,7 @@ const AboutUs = () => {
           }}
         >
           <div className=" py-14 md:py-20 text-center relative z-10 px-4 sm:px-6 lg:px-8">
-            <h1 className=" font-medium text-2xl leading-9 text-gray-50">
+            <h1 className=" font-medium text-2xl leading-9 text-gray-50 font-font">
               About Us
             </h1>
             <p className="mt-4 text-base font-medium leading-7 text-gray-50">

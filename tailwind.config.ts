@@ -15,11 +15,19 @@ export default {
         secondary_color: "#FFB23F",
         text_color: "#AFADB5",
       },
+      animation: {
+        scroll: "scrollAnimation 20s linear infinite",
+      },
+      keyframes: {
+        scrollAnimation: {
+          to: { transform: "translateX(calc(-50% - 22.5px))" },
+        },
+      },
       fontFamily: {
         font: "Dancing Script",
         font2: "Abril Fatface",
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [],
 } satisfies Config;

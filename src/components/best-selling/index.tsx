@@ -4,8 +4,11 @@ import ProductCard from "../product-card";
 import { motion } from "framer-motion";
 import { getTopSales } from "@/lib/api";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
+import { GrFormNext } from "react-icons/gr";
 
 const BestSelling = () => {
+  const route = useRouter();
   const fetchProducts = async () => {
     const products = await getTopSales();
 
@@ -32,20 +35,26 @@ const BestSelling = () => {
     },
   };
   return (
-    <div className=" px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[5rem] mb-[5rem] ">
+    <div className=" px-[1rem] md:px-[2rem] lg:px-[4rem] my-[6rem] ">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className="md:max-w-[500px] px-4 mx-auto text-left md:text-center"
+        className=" flex justify-between items-center"
       >
-        <h2 className="text-xl font-thin text-black">Best Selling Products</h2>
-        <p className=" text-text_color md:text-sm text-xs py-[1rem] leading-8">
-          Discover what everyone’s raving about! Our best-selling products are
-          tried, tested, and loved by our community. From top-rated supplements
-          to must-have wellness essentials
-        </p>
+        <h2 className="text-sm md:text-base font-thin text-black">
+          Best Selling Products
+        </h2>
+        <span className=" flex items-center gap-1">
+          <p
+            className=" text-base_color md:text-base text-xs underline cursor-pointer"
+            onClick={() => route.push("/products")}
+          >
+            view more
+          </p>
+          <GrFormNext className=" mt-[1px] text-base_color" />
+        </span>
       </motion.div>
 
       <motion.div

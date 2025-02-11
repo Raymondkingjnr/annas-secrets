@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="bg-[#333333] py-4 mt-5 text-white px-[1rem] md:px-[2rem] lg:px-[4rem] flex flex-col md:flex-row gap-x-[5rem] lg:gap-x-[15rem] gap-y-5 ">
       <main>
-        <h3 className="font-font2">Annas_Secrets</h3>
+        <h3 className="font-font">Annas_Secrets</h3>
         <p className=" w-[150px] text-xs font-thin leading-5 py-3 text-[#757575]">
           Nnewi, <br /> Anambra Nigeria.
         </p>
