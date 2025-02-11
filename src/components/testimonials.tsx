@@ -5,7 +5,7 @@ import { SemiColon } from "@/asset/icons/semi-colon";
 const Testimonials = () => {
   return (
     <div className=" my-[6px]">
-      <h1 className=" text-center pb-10 font-thin text-xl text-[#333333]">
+      <h1 className=" text-center pt-[4rem] pb-7 font-thin text-xl text-[#333333]">
         What people are saying
       </h1>
       <div className=" overflow-hidden max-w-[99%] py-6">
