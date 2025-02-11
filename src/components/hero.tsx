@@ -66,7 +66,10 @@ const Hero = () => {
           </button>
         </Form>
         <div className=" grid place-content-center">
-          <button className=" flex items-center justify-center gap-3 md:hidden  h-[40px] w-[160px] md:w-[180px]  bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white">
+          <button
+            className=" flex items-center justify-center gap-3 md:hidden  h-[40px] w-[160px] md:w-[180px]  bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+            onClick={() => push("/products")}
+          >
             <p>Shop Now</p>
             <GrFormNext size={25} />
           </button>

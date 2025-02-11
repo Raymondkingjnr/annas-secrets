@@ -43,12 +43,12 @@ const BestSelling = () => {
         variants={textVariants}
         className=" flex justify-between items-center"
       >
-        <h2 className="text-sm md:text-base font-thin text-black">
+        <h2 className="text-base font-thin text-black">
           Best Selling Products
         </h2>
         <span className=" flex items-center gap-1">
           <p
-            className=" text-base_color md:text-base text-xs underline cursor-pointer"
+            className=" text-base_color md:text-base text-sm underline cursor-pointer"
             onClick={() => route.push("/products")}
           >
             view more
