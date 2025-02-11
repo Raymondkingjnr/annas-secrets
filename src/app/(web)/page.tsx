@@ -4,6 +4,7 @@ import ShopGoal from "@/components/shop";
 import Choose from "../../components/choose";
 import LearnMore from "../../components/learn-more";
 import BackToTopButton from "@/components/bact-to-top";
+import Testimonials from "@/components/testimonials";
 
 export default function Home() {
   return (
@@ -11,9 +12,11 @@ export default function Home() {
       <Hero />
       <ShopGoal />
       <BestSelling />
-      <div className=" flex flex-col md:flex-row justify-between px-[1rem] md:px-[4rem] pt-6 mb-[5rem]">
+      <div className=" flex flex-col md:flex-row justify-between px-[1rem] md:px-[4rem] mb-[5rem]">
         <main className=" md:w-[400px]">
-          <h3 className=" text-secondary_color">Benefits</h3>
+          <h3 className=" text-secondary_color font-semibold font-font text-xl">
+            Benefits
+          </h3>
           <h3 className="  py-4 font-thin text-xl text-[#333333] ">
             Benefits when using <br /> our services
           </h3>
@@ -26,6 +29,7 @@ export default function Home() {
       </div>
       <Choose />
       <BackToTopButton />
+      <Testimonials />
       <LearnMore />
     </div>
   );

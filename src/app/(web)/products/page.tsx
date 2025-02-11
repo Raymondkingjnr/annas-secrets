@@ -69,24 +69,13 @@ const Products = () => {
   return (
     <div className=" min-h-screen bg-gray-50 pt-[5rem] ">
       <BackToTopButton />
-      <div
-        className="  bg-cover bg-center  product-bg md:h-[300px] "
-        style={{
-          background: `linear-gradient(to right, #a84545, #6b1a1a)`,
-        }}
-      >
-        <div className="  py-14 md:py-20  text-center z-10  px-4 sm:px-6 lg:px-8">
-          <h1 className=" font-medium text-2xl leading-9 text-gray-50">
-            Our Products
-          </h1>
-          <p className="mt-4 text-base font-medium leading-7 text-gray-50">
-            Explore our range of high-quality supplements and skincare products.
-          </p>
-        </div>
+
+      <div className=" text-left py-[3rem] px-[1rem] md:px-[2rem] lg:px-[4rem] font-thin text-lg md:text-2xl bg-gray-100">
+        <h1>Expolore All Products</h1>
       </div>
 
       <main className=" px-[1rem] md:px-[2rem] lg:px-[4rem] pt-9">
-        <h2 className=" font-thin text-lg md:text-2xl">Sort</h2>
+        <h2 className=" font-thin ">Sort</h2>
         <form className="mt-5 flex flex-col md:flex-row gap-4 border-gray-300 ">
           <input
             type="text"
@@ -143,11 +132,11 @@ const Products = () => {
           ))}
         </main>
       )}
-      <div className="flex gap-5 justify-center items-center px-[1rem] md:px-[4rem]">
+      <div className="flex gap-5 justify-center items-center px-[1rem] md:px-[4rem] py-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="rounded-lg w-[120px] border-none text-gray-100 btn btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="rounded-lg w-[120px] border-none text-gray-100  h-[40px] btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background: `linear-gradient(to right, #309185, #1a6b5f)`,
           }}
@@ -168,7 +157,7 @@ const Products = () => {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
-          className="rounded-lg w-[120px] border-none btn btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed text-gray-100"
+          className="rounded-lg w-[120px] border-none h-[40px] btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed text-gray-100"
           style={{
             background: `linear-gradient(to right, #309185, #1a6b5f)`,
           }}

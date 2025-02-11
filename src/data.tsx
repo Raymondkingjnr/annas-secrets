@@ -1,14 +1,9 @@
 import {
   boosters,
   hair,
-  collogen,
   skin,
   vigina,
   weight,
-  product2,
-  product3,
-  product4,
-  product5,
   hero1,
   hero2,
   hero4,
@@ -67,35 +62,40 @@ export const hero_section = [
   },
 ];
 
-export const demo_product = [
+export const testimonails = [
   {
-    image: product2,
-    name: "hair beyond",
-    price: 10000,
-    stock: 10,
+    id: 1,
+    name: "Oge Uche",
+    text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
   },
   {
-    image: product3,
-    name: "weight Math",
-    price: 12000,
-    stock: 12,
+    id: 2,
+    name: "Mr Rose",
+    text: "That yoni oil i got from your store is really working wounders",
   },
-  {
-    image: product4,
-    name: "Turmeric & Ginger",
-    price: 11000,
-    stock: 4,
-  },
-  {
-    image: product5,
-    name: "Turmeric & Ginger",
-    price: 11000,
-    stock: 4,
-  },
-  {
-    image: collogen,
-    name: "collagen powder",
-    price: 10000,
-    stock: 10,
-  },
+  // {
+  //   id: 1,
+  //   name: "Oge Uche",
+  //   text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Oge Uche",
+  //   text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
+  // },
+  // {
+  //   id: 4,
+  //   name: "Oge Uche",
+  //   text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
+  // },
+  // {
+  //   id: 5,
+  //   name: "Oge Uche",
+  //   text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
+  // },
+  // {
+  //   id: 6,
+  //   name: "Oge Uche",
+  //   text: "your product is speaking when i go out people ask me what i use on my body and face i usually tell them it's your skin care",
+  // },
 ];

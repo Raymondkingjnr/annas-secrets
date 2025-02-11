@@ -24,17 +24,17 @@ const navLinks = [
 const socials = [
   {
     title: "Facebook",
-    icon: <FaFacebookSquare size={25} />,
+    icon: <FaFacebookSquare size={21} />,
     href: "https://www.facebook.com/share/19wjUDouzU/?mibextid=wwXIfr",
   },
   {
     title: "Instagram",
-    icon: <FaInstagramSquare size={25} />,
+    icon: <FaInstagramSquare size={21} />,
     href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
   },
   {
     title: "Whatsapp",
-    icon: <FaWhatsappSquare size={25} />,
+    icon: <FaWhatsappSquare size={21} />,
     href: "https://wa.me/2348060665069",
   },
 ];
@@ -87,34 +87,37 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-3 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
-      <div className=" flex gap-3 items-center">
-        <Link href={"/"} className="text-xl text-black/75  font-font2">
-          Annas_Secrets
-        </Link>
-      </div>
+    <header className=" py-2 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
         <Link
           href={"/products"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+          className=" cursor-pointer text-black/75 text-sm font-semibold "
         >
           Products
         </Link>
 
         <Link
           href={"/service"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+          className=" cursor-pointer text-black/75 text-sm font-semibold "
         >
           Service
         </Link>
-        {/* <Link href={"/"} className=" cursor-pointer text-black/65 text-sm font-semibold font-font2">
+        {/* <Link href={"/"} className=" cursor-pointer text-black/65 text-sm font-semibold ">
           Article
         </Link> */}
         <Link
           href={"/about-us"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold font-font2"
+          className=" cursor-pointer text-black/75 text-sm font-semibold "
         >
           About Us
+        </Link>
+      </div>
+      <div className=" flex gap-3 items-center">
+        <Link
+          href={"/"}
+          className="text-xl md:text-3xl font-semibold text-black/75 font-font"
+        >
+          Annas_Secrets
         </Link>
       </div>
       <main className=" flex items-center gap-7">
@@ -131,19 +134,21 @@ const Header = () => {
             </a>
           ))}
         </div>
-        <Link href={"/cart-page"} className=" relative p-4">
-          <BsCartCheckFill size={25} className=" text-black/75" />
-          <div className="flex justify-center items-center">
-            <p className=" absolute text-sm right-0 bg-base_color text-white rounded-3xl text-center pt-[2px] h-6 w-6 top-0 font-semibold">
-              {itemCount}
-            </p>
-          </div>
-        </Link>
-        <IoIosMenu
-          size={35}
-          className=" lg:hidden text-black/65"
-          onClick={toggleMenu}
-        />
+        <div className=" flex items-center gap-3">
+          <Link href={"/cart-page"} className=" relative p-4">
+            <BsCartCheckFill size={22} className=" text-black/75" />
+            <div className="flex justify-center items-center">
+              <p className=" absolute text-sm right-1 md:right-0 bg-base_color text-white rounded-3xl text-center md:pt-[2px] h-5 w-5 md:h-6 md:w-6 top-2 font-semibold">
+                {itemCount}
+              </p>
+            </div>
+          </Link>
+          <IoIosMenu
+            size={25}
+            className=" lg:hidden text-black/65"
+            onClick={toggleMenu}
+          />
+        </div>
       </main>
 
       <AnimatePresence>
@@ -155,13 +160,11 @@ const Header = () => {
             exit="exit"
             className="fixed left-0 top-0 w-full h-screen origin-top bg-base_color text-white py-10 px-[1rem]"
           >
-            <div className="flex h-full flex-col">
+            <div className="flex h-full relative flex-col">
               <div className="flex justify-between">
-                <h1 className=" font-thin text-xl  font-font2">
-                  Annas_Secrets
-                </h1>
+                {/* <h1 className=" font-thin text-lg  font-font">Annas_Secrets</h1> */}
                 <p
-                  className="cursor-pointer text-md text-white"
+                  className="cursor-pointer text-md text-white absolute right-6"
                   onClick={toggleMenu}
                 >
                   <SlClose size={24} />

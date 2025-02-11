@@ -21,7 +21,7 @@ const ShopGoal = () => {
   };
 
   return (
-    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-16">
+    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[20px">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -29,7 +29,7 @@ const ShopGoal = () => {
         variants={textVariants}
         className="md:max-w-[500px] mx-auto text-left md:text-center"
       >
-        <h2 className="text-xl font-thin text-black">Shop By Goal</h2>
+        <h2 className=" text-base font-thin text-black">Shop By Goal</h2>
         <p className=" text-text_color md:text-sm text-xs py-[1.2rem] leading-6">
           Explore a curated selection of premium supplements and wellness
           products designed to elevate your mind, body, and spirit. At
