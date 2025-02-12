@@ -2,12 +2,12 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className=" bg-gray-50 pt-[5rem] ">
+    <div className=" bg-gray-50">
       <div>
         <div
           className="text-center relative md:h-[300px] bg-cover bg-center"
           style={{
-            background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+            background: `linear-gradient(to right, #f1ecec, #636161)`,
           }}
         >
           <div className=" py-14 md:py-20 text-center relative z-10 px-4 sm:px-6 lg:px-8">
@@ -23,7 +23,7 @@ const AboutUs = () => {
         <div className="pt-20 px-4 sm:px-6 md:px-[4rem]">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div>
-              <h2 className="  py-2 font-thin text-xl text-[#333333]">
+              <h2 className="  py-2 font-semibold text-2xl font-font text-secondary_color">
                 Our Mission
               </h2>
               <p className="mt-4 text-xs font-medium leading-7 text-text_color">
@@ -34,7 +34,7 @@ const AboutUs = () => {
               </p>
             </div>
             <div>
-              <h2 className="  py-2 font-thin text-xl text-[#333333]">
+              <h2 className="  py-2 font-semibold text-2xl font-font text-secondary_color">
                 Our Story
               </h2>
               <p className="mt-4 text-xs font-medium leading-7 text-text_color">
@@ -48,7 +48,7 @@ const AboutUs = () => {
           </div>
 
           <div className="pt-[7rem]">
-            <h2 className=" font-medium text-2xl leading-9 text-black/70">
+            <h2 className="font-semibold text-2xl font-font text-secondary_color">
               Our Values
             </h2>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { getTopSales } from "@/lib/api";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
-import { GrFormNext } from "react-icons/gr";
 
 const BestSelling = () => {
   const route = useRouter();
@@ -43,18 +42,15 @@ const BestSelling = () => {
         variants={textVariants}
         className=" flex justify-between items-center"
       >
-        <h2 className="text-base font-thin text-black">
+        <h2 className="text-xl font-font font-thin text-secondary_color">
           Best Selling Products
         </h2>
-        <span className=" flex items-center gap-1">
-          <p
-            className=" text-base_color md:text-base text-sm underline cursor-pointer"
-            onClick={() => route.push("/products")}
-          >
-            view more
-          </p>
-          <GrFormNext className=" mt-[1px] text-base_color" />
-        </span>
+        <button
+          className="btn w-[120px]"
+          onClick={() => route.push("/products")}
+        >
+          view more
+        </button>
       </motion.div>
 
       <motion.div

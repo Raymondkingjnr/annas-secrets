@@ -87,7 +87,7 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-2 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
+    <header className=" py-2 z-30 flex shadow-md bg-transparent w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
         <Link
           href={"/products"}
@@ -158,13 +158,13 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 w-full h-screen origin-top bg-base_color text-white py-10 px-[1rem]"
+            className="fixed left-0 top-0 z-30 w-full h-screen origin-top bg-white text-gray-900 py-10 px-[1rem]"
           >
             <div className="flex h-full relative flex-col">
               <div className="flex justify-between">
                 {/* <h1 className=" font-thin text-lg  font-font">Annas_Secrets</h1> */}
                 <p
-                  className="cursor-pointer text-md text-white absolute right-6"
+                  className="cursor-pointer text-md text-gray-900 absolute right-6"
                   onClick={toggleMenu}
                 >
                   <SlClose size={24} />
@@ -195,7 +195,7 @@ const Header = () => {
                       href={social.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-white rounded-lg"
+                      className="text-gray-900 rounded-lg"
                     >
                       {social.icon}
                     </a>
@@ -239,7 +239,7 @@ const MobileNavLink = ({ title, href, onClose }: list) => {
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-xl capitalize text-white"
+      className="text-xl capitalize text-gray-900"
       onClick={onClose}
     >
       <Link href={href}>{title}</Link>

@@ -1,4 +1,4 @@
-import { paystack } from "@/asset";
+import { mastercard, paystack, visacard } from "@/asset";
 import Image from "next/image";
 import React from "react";
 
@@ -30,14 +30,29 @@ const Footer = () => {
             placeholder="Enter email address"
             className="  border h-[40px] px-2 w-full lg:w-[400px] text-xs text-black bg-white active:outline-none outline-none rounded-md"
           />
-
-          <Image
-            src={paystack}
-            alt=""
-            width={50}
-            height={50}
-            className=" object-contain bg-white w-fit rounded-md mt-4"
-          />
+          <main className=" flex items-center gap-3">
+            <Image
+              src={paystack}
+              alt=""
+              width={40}
+              height={40}
+              className=" object-contain bg-white w-fit rounded-md mt-4"
+            />
+            <Image
+              src={mastercard}
+              alt=""
+              width={40}
+              height={40}
+              className=" object-contain bg-white w-fit rounded-md mt-4"
+            />
+            <Image
+              src={visacard}
+              alt=""
+              width={40}
+              height={40}
+              className=" object-contain bg-white w-fit rounded-md mt-4"
+            />
+          </main>
         </div>
       </main>
     </div>
