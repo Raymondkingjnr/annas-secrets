@@ -67,10 +67,15 @@ const Products = () => {
   const totalPages = Math.ceil(numOfPost / pageSize);
 
   return (
-    <div className=" min-h-screen bg-gray-50 pt-[5rem] ">
+    <div className=" min-h-screen bg-gray-50 ">
       <BackToTopButton />
 
-      <div className=" text-left py-[3rem] px-[1rem] md:px-[2rem] lg:px-[4rem] font-thin text-lg md:text-2xl bg-gray-100">
+      <div
+        className=" text-center md:text-left py-[3rem] text-white px-[1rem] md:px-[2rem]  lg:px-[4rem] font-normal text-lg md:text-3xl"
+        style={{
+          background: `linear-gradient(to right, #f1ecec, #636161)`,
+        }}
+      >
         <h1>Expolore All Products</h1>
       </div>
 

@@ -2,12 +2,12 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className=" bg-gray-50 pt-[5rem] ">
+    <div className=" bg-gray-50">
       <div>
         <div
           className="text-center relative md:h-[300px] bg-cover bg-center"
           style={{
-            background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+            background: `linear-gradient(to right, #f1ecec, #636161)`,
           }}
         >
           <div className=" py-14 md:py-20 text-center relative z-10 px-4 sm:px-6 lg:px-8">

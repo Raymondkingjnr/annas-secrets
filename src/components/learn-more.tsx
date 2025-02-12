@@ -20,9 +20,7 @@ const LearnMore = () => {
             ensure you receive the best for your mind, body, and wellness
             journey.
           </p>
-          <button className=" bg-base_color text-white h-[45px] rounded-sm w-full md:w-[150px]">
-            Learn More
-          </button>
+          <button className=" btn w-[150px]">Learn More</button>
           <main className=" flex md:hidden justify-center gap-3 text-center">
             <div>
               <h2 className=" font-medium text-xl text-black">5+</h2>

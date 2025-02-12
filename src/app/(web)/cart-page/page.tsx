@@ -131,7 +131,7 @@ const CartPage = () => {
     );
   }
   return (
-    <div className=" container mx-auto pt-[7rem] px-4 md:px-0">
+    <div className=" container mx-auto pt-6 px-4 md:px-0">
       <h1 className=" text-xl font-normal mb-4 text-center pb-4 text-black">
         Your Cart
       </h1>
@@ -223,7 +223,7 @@ const CartPage = () => {
           </div>
           <button
             onClick={() => setIsModalOpen(true)} // Open modal on button click
-            className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+            className=" mt-[1rem] btn w-full "
           >
             Proceed To Checkout
           </button>
@@ -303,7 +303,7 @@ const CartPage = () => {
         <button
           disabled={isLoading || !email || !customerName || !phone || !address}
           onClick={handleCheckout}
-          className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md text-white"
+          className=" mt-[1rem] btn w-full "
         >
           {isLoading ? "Processing..." : "Continue to Payment"}
         </button>

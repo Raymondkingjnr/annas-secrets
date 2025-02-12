@@ -28,13 +28,13 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[5rem]">
+    <div className="min-h-screen bg-gray-50">
       <div className="">
         {/* Hero Section */}
         <div
           className="text-center bg-cover bg-center relative md:h-[300px]"
           style={{
-            background: `linear-gradient(to right, #a84545, #6b1a1a)`,
+            background: `linear-gradient(to right, #f1ecec, #636161)`,
           }}
         >
           <div className=" text-center relative z-10  py-14 md:py-20 px-4 sm:px-6 lg:px-8">
