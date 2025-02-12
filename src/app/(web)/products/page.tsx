@@ -21,7 +21,7 @@ const Products = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [page, setPage] = React.useState<number>(1);
-  const pageSize = 12;
+  const pageSize = 8;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -149,12 +149,12 @@ const Products = () => {
           Previous
         </button>
         <div className=" flex gap-2 items-center">
-          <p className=" h-[20px] w-[20px]  rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
+          <p className=" h-[30px] w-[30px]  rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
             {" "}
             <span>{page}</span>{" "}
           </p>{" "}
           <p className=" font-semibold text-sm">Of</p>
-          <p className=" h-[20px] w-[20px] rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
+          <p className=" h-[30px] w-[30px] rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
             {" "}
             <span>{totalPages}</span>{" "}
           </p>{" "}

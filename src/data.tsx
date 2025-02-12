@@ -32,6 +32,14 @@ export const shop_goals = [
     image: vigina,
     name: "Vagina",
   },
+  {
+    image: hero2,
+    name: "vitamins",
+  },
+  {
+    image: hero1,
+    name: "Hips",
+  },
 ];
 
 export const hero_section = [

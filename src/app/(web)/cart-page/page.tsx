@@ -97,13 +97,14 @@ const CartPage = () => {
         try {
           await saveOrderToSanity(orderDetails);
           setIsLoading(false);
-          push("/"); // Redirect to a success page
+          push("/success"); // Redirect to a success page
+          toast.success("Payment Successfull");
           clearBaseket();
         } catch (error) {
           setIsLoading(false);
           console.error("Error saving order to Sanity:", error);
           alert(
-            "Failed to save order. Please contact support, with your payment receipt"
+            "Failed to save order. Please contact support, with your payment receipt if you have been debited"
           );
         }
       },

@@ -3,8 +3,10 @@
 import React from "react";
 import { shop_goals } from "../data";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
+
+const duplicatedShopGoals = [...shop_goals, ...shop_goals];
 
 const ShopGoal = () => {
   const { push } = useRouter();
@@ -13,14 +15,23 @@ const ShopGoal = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, staggerChildren: 0.2 },
-    },
-  };
+  const controls = useAnimation();
+  const tickerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const tickerWidth = tickerRef.current?.scrollWidth || 0;
+    const duration = tickerWidth / 100; // Adjust speed by changing the divisor
+
+    const sequence = async () => {
+      await controls.set({ x: 0 }); // Reset position
+      await controls.start({
+        x: -tickerWidth / 2, // Scroll to the halfway point (since items are duplicated)
+        transition: { duration, ease: "linear", repeat: Infinity },
+      });
+    };
+
+    sequence();
+  }, [controls]);
 
   return (
     <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[5rem]">
@@ -44,32 +55,35 @@ const ShopGoal = () => {
         {/* <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" /> */}
       </motion.div>
 
-      <motion.div
-        className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:grid-cols-5 place-items-center mt-5"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={itemVariants}
-      >
-        {shop_goals.map((items, index) => (
-          <motion.main key={index} className="relative" variants={itemVariants}>
-            <div className="w-full h-fit">
-              <Image
-                src={items.image}
-                alt={items.name}
-                width={300}
-                height={300}
-                className="object-cover rounded-md w-full"
-              />
-            </div>
-            <div className="group bg-black/40 absolute bottom-0 h-[45px] text-center w-full">
-              <p className="pt-3 font-semibold text-sm capitalize group-hover:scale-110 transition-transform duration-200 ease-in-out text-gray-50">
-                {items.name}
-              </p>
-            </div>
-          </motion.main>
-        ))}
-      </motion.div>
+      <div className="overflow-hidden mt-10">
+        <motion.div
+          ref={tickerRef}
+          className="flex gap-5 w-max"
+          animate={controls}
+        >
+          {duplicatedShopGoals.map((items, index) => (
+            <motion.div
+              key={index}
+              className="relative w-[200px] flex-shrink-0" // Adjust width as needed
+            >
+              <div className="w-full h-fit">
+                <Image
+                  src={items.image}
+                  alt={items.name}
+                  width={300}
+                  height={300}
+                  className="object-cover rounded-md w-full"
+                />
+              </div>
+              <div className="group bg-black/40 absolute bottom-0 h-[45px] text-center w-full">
+                <p className="pt-3 font-semibold text-sm capitalize group-hover:scale-110 transition-transform duration-200 ease-in-out text-gray-50">
+                  {items.name}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };
