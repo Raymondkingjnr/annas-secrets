@@ -6,7 +6,6 @@ import weight from "./weight.jpg";
 import collogen from "./collegen.jpg";
 import product2 from "./solution.jpg";
 import product3 from "./yoni oil.jpg";
-import product4 from "./maca.jpg";
 import product5 from "./magic.jpg";
 import paystack from "./paystack.png";
 import hero1 from "./hero.jpg";
@@ -24,7 +23,6 @@ export {
   collogen,
   product2,
   product3,
-  product4,
   product5,
   paystack,
   hero1,

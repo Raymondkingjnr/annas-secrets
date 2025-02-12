@@ -57,9 +57,9 @@ const CartPage = () => {
 
   const handleCheckout = async () => {
     setIsLoading(true);
+
     if (!customerName || !email || !phone || !address) {
-      setIsLoading(false);
-      return toast.error("Please fill all fields");
+      alert("Please fill all fields");
     }
     const PaystackPop = (await import("@paystack/inline-js")).default;
     const paystack = new PaystackPop();
@@ -230,9 +230,7 @@ const CartPage = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h1 className=" text-lg font-normal pb-4 pt-8 text-center">
-          Order Summary
-        </h1>
+        <h1 className=" text-lg font-normal pb-4 pt-8 text-center">Shipping</h1>
         <div className=" mt-4 space-y-2">
           <p className=" flex justify-between">
             <span className=" text-base font-medium">Items:</span>
@@ -248,63 +246,66 @@ const CartPage = () => {
             </span>
           </p>
         </div>
-        <main className=" my-6 grid gap-4">
+        <main className=" my-6 grid gap-5 pt-5">
           <div>
-            <label htmlFor="customerName" className=" pb-3 text-xs font-normal">
+            <label
+              htmlFor="customerName"
+              className=" pl-2 pb-2 text-xs font-normal"
+            >
               Full Name:
             </label>
             <input
               type="text"
-              placeholder="Enter your name"
+              // placeholder="Enter your name"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
             />
           </div>
           <div>
-            <label htmlFor="phone" className=" pb-3 text-xs font-normal">
+            <label htmlFor="phone" className=" pl-2 pb-2 text-xs font-normal">
               Phone Number:
             </label>
             <input
               type="tel"
-              placeholder="Enter your phone number"
+              // placeholder="Enter your phone number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
             />
           </div>
           <div>
-            <label htmlFor="email" className=" pb-3 text-xs font-normal">
+            <label htmlFor="email" className=" pl-2 pb-2 text-xs font-normal">
               Email Address:
             </label>
 
             <input
               type="email"
-              placeholder="Enter your email"
+              // placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
             />
           </div>
           <div>
-            <label htmlFor="address" className=" pb-3 text-xs font-normal">
-              Waybill Address:
+            <label htmlFor="address" className=" pl-2 pb-2 text-xs font-normal">
+              Address:
             </label>
             <input
               type="address"
-              placeholder="Enter your address"
+              // placeholder="Enter your address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className=" p-2 border active:outline-none bg-white outline-none text-sm rounded w-full"
+              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
             />
           </div>
         </main>
         <button
           disabled={isLoading || !email || !customerName || !phone || !address}
           onClick={handleCheckout}
-          className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md hover:bg-[#333333] duration-200 transition-all text-white"
+          className=" mt-[1rem] h-[40px] w-full bg-base_color rounded-md text-white"
         >
-          {isLoading ? "Processing..." : "Checkout"}
+          {isLoading ? "Processing..." : "Continue to Payment"}
         </button>
       </Modal>
     </div>

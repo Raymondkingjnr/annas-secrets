@@ -87,7 +87,7 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-2 fixed z-30 flex shadow-md bg-white w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
+    <header className=" py-2 z-30 flex shadow-md bg-transparent w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
       <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
         <Link
           href={"/products"}

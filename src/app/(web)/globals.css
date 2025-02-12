@@ -42,3 +42,8 @@ body {
 .button:hover {
   background-color: #19514a;
 }
+
+.custom-bg {
+  @apply bg-cover bg-center;
+  background-image: url("../../asset//images/herobg2.jpg");
+}
