@@ -13,8 +13,12 @@ import hero2 from "./herobg2.jpg";
 import hero3 from "./herobg3.jpg";
 import hero4 from "./herobg4.jpg";
 import hero5 from "./herobg5.jpg";
+import mastercard from "./mastercard.png";
+import visacard from "./visa.jpg";
 
 export {
+  mastercard,
+  visacard,
   skin,
   weight,
   boosters,
