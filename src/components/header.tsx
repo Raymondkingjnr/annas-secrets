@@ -24,17 +24,17 @@ const navLinks = [
 const socials = [
   {
     title: "Facebook",
-    icon: <FaFacebookSquare size={21} />,
+    icon: <FaFacebookSquare size={26} color="3b82f6" />,
     href: "https://www.facebook.com/share/19wjUDouzU/?mibextid=wwXIfr",
   },
   {
     title: "Instagram",
-    icon: <FaInstagramSquare size={21} />,
+    icon: <FaInstagramSquare size={26} color="#c2410c" />,
     href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
   },
   {
     title: "Whatsapp",
-    icon: <FaWhatsappSquare size={21} />,
+    icon: <FaWhatsappSquare size={26} color="#4ade80" />,
     href: "https://wa.me/2348060665069",
   },
 ];
@@ -120,7 +120,7 @@ const Header = () => {
           Annas_Secrets
         </Link>
       </div>
-      <main className=" flex items-center gap-7">
+      <main className=" flex items-center gap-7 ">
         <div className="hidden md:flex gap-3 items-center">
           {socials.map((social, index) => (
             <a
@@ -134,7 +134,7 @@ const Header = () => {
             </a>
           ))}
         </div>
-        <div className=" flex items-center gap-3">
+        <div className=" flex items-center gap-3 ">
           <Link href={"/cart-page"} className=" relative p-4">
             <BsCartCheckFill size={22} className=" text-black/75" />
             <div className="flex justify-center items-center">
