@@ -18,7 +18,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const naira_sign = "\u20A6";
 
   return (
-    <div className=" container mx-auto px-4 pb-8 ">
+    <div className=" container mx-auto pt-6 px-4 pb-8 ">
       <div className=" grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
           className={`relative aspect-square overflow-hidden rounded-md shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}

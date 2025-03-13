@@ -173,7 +173,7 @@ const CartPage = () => {
                         )}
                       </div>
                       <div>
-                        <h2 className="font-semibold pt-1 truncate text-xs">
+                        <h2 className="font-semibold w-[100px] md:w-fit pt-1 truncate text-xs">
                           {item.product.name}
                         </h2>
                         <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate text-black">
