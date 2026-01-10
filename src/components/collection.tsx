@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { getCategory } from "@/lib/api";
 import useSWR from "swr";
 import { Category } from "../../sanity.types";
-import Image from "next/image";
 import { imageUrl } from "@/lib/image-url";
 
 const Collection = () => {
@@ -18,7 +17,7 @@ const Collection = () => {
     return categories;
   };
 
-  const { data: categories, error } = useSWR("get/categories", fetchCategories);
+  const { data: categories } = useSWR("get/categories", fetchCategories);
 
   return (
     <div className=" max-w-[1500px] mx-auto pt-[2rem]">
@@ -37,7 +36,7 @@ const Collection = () => {
       <div className=" gridFit pt-6">
         {categories && categories.length > 0 ?
           categories.map((category: Category) => (
-            <div className=" border rounded-md p-2">
+            <div className=" border rounded-md p-2" key={category._id}>
               <div className="w-[300] h-[400px]  bg-gray-100 rounded-sm ">
                 {category?.image && (
                   <img

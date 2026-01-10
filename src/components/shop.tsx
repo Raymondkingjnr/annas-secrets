@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { getTopSales } from "@/lib/api";
 import useSWR from "swr";
 import { imageUrl } from "@/lib/image-url";

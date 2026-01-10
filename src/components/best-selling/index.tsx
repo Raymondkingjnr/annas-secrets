@@ -4,10 +4,8 @@ import ProductCard from "../product-card";
 import { motion } from "framer-motion";
 import { getTopSales } from "@/lib/api";
 import useSWR from "swr";
-import { useRouter } from "next/navigation";
 
 const BestSelling = () => {
-  const route = useRouter();
   const fetchProducts = async () => {
     const products = await getTopSales();
 

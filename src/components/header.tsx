@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { BsCartCheckFill } from "react-icons/bs";
-
 import { IoIosMenu } from "react-icons/io";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,20 +12,16 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignUpButton,
+  // SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
 
 const navLinks = [
-  { title: "products", href: "/products" },
-  { title: "Service", href: "/service" },
-  { title: "About Us", href: "/about-us" },
-];
-
-const socials = [
-  {
-    icon: <UserRound size={20} color="#000" strokeWidth={2} />,
-  },
+  { title: "shop", href: "/products" },
+  { title: "collections", href: "/service" },
+  { title: "about", href: "/about-us" },
+  { title: "contact", href: "/about-us" },
+  { title: "blog", href: "/about-us" },
 ];
 
 const Header = () => {
@@ -86,38 +80,15 @@ const Header = () => {
           </Link>
         </div>
         <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
-          <Link
-            href={"/products"}
-            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
-          >
-            Shop
-          </Link>
-
-          <Link
-            href={"/service"}
-            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
-          >
-            Collections
-          </Link>
-
-          <Link
-            href={"/about-us"}
-            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
-          >
-            About
-          </Link>
-          <Link
-            href={"/about-us"}
-            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
-          >
-            Blog
-          </Link>
-          <Link
-            href={"/about-us"}
-            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
-          >
-            Contact
-          </Link>
+          {navLinks.map((link, index) => (
+            <Link
+              href={link.href}
+              key={index}
+              className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+            >
+              {link.title}
+            </Link>
+          ))}
         </div>
 
         <main className=" flex items-center gap-1 ">
