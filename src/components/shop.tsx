@@ -1,19 +1,25 @@
 "use client";
 
-import React from "react";
-import { shop_goals } from "../data";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
-
-const duplicatedShopGoals = [...shop_goals, ...shop_goals];
+import { getTopSales } from "@/lib/api";
+import useSWR from "swr";
+import { imageUrl } from "@/lib/image-url";
+import { naira_sign } from "./product-card";
+import { currencyFormatter } from "@/utilis/formatter";
+import Marquee from "react-fast-marquee";
+import StarRating from "./star-ratings";
+import { bannerImg } from "@/asset";
 
 const ShopGoal = () => {
-  const { push } = useRouter();
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
+
+  const [rating, setRating] = useState(3);
 
   const controls = useAnimation();
   const tickerRef = React.useRef<HTMLDivElement>(null);
@@ -25,7 +31,7 @@ const ShopGoal = () => {
     const sequence = async () => {
       await controls.set({ x: 0 }); // Reset position
       await controls.start({
-        x: -tickerWidth / 2, // Scroll to the halfway point (since items are duplicated)
+        x: -tickerWidth / 2,
         transition: { duration, ease: "linear", repeat: Infinity },
       });
     };
@@ -33,58 +39,96 @@ const ShopGoal = () => {
     sequence();
   }, [controls]);
 
-  return (
-    <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[5rem]">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={textVariants}
-        className="md:max-w-[500px] mx-auto text-left md:text-center"
-      >
-        <h2 className=" text-xl font-font  font-thin text-secondary_color">
-          Shop By Goal
-        </h2>
-        <p className=" text-text_color md:text-sm text-xs py-[1.2rem] leading-6">
-          Explore a curated selection of premium supplements and wellness
-          products designed to elevate your mind, body, and spirit.
-        </p>
-        <button className="btn w-[150px]" onClick={() => push("/products")}>
-          Shop Now
-        </button>
-        {/* <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" /> */}
-      </motion.div>
+  const fetchProducts = async () => {
+    const products = await getTopSales();
 
-      <div className="overflow-hidden mt-10">
+    return products;
+  };
+  const { data: products } = useSWR(`get/allPost`, fetchProducts);
+
+  return (
+    <>
+      <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[5rem] max-w-[1600px] mx-auto">
         <motion.div
-          ref={tickerRef}
-          className="flex gap-5 w-max"
-          animate={controls}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={textVariants}
+          className=""
         >
-          {duplicatedShopGoals.map((items, index) => (
-            <motion.div
-              key={index}
-              className="relative w-[200px] flex-shrink-0" // Adjust width as needed
-            >
-              <div className="w-full h-fit">
-                <Image
-                  src={items.image}
-                  alt={items.name}
-                  width={300}
-                  height={300}
-                  className="object-cover rounded-md w-full"
-                />
-              </div>
-              <div className="group bg-black/40 absolute bottom-0 h-[45px] text-center w-full">
-                <p className="pt-3 font-semibold text-sm capitalize group-hover:scale-110 transition-transform duration-200 ease-in-out text-gray-50">
-                  {items.name}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          <h2 className=" text-xl  font-bold text-[#251d14]">
+            Our Bestsellers{" "}
+          </h2>
+          <p className=" text-[#aaa9a9] md:text-sm leading-7 text-sm font-medium py-[1rem] md:w-[400px]">
+            Explore a curated selection of premium supplements and wellness
+            products designed to elevate your mind, body, and spirit.
+          </p>
+
+          {/* <div className="h-[2px] w-[170px] md:w-[200px] mt-3 bg-[#DDDDDD]" /> */}
         </motion.div>
+
+        <div className="overflow-hidden ">
+          <Marquee
+            pauseOnHover={true}
+            autoFill={true}
+            ref={tickerRef}
+            speed={50}
+            style={{
+              height: "500px",
+            }}
+            className="flex  items-center justify-between"
+          >
+            {products?.map((items, index) => (
+              <div
+                key={index}
+                className="relative w-[300] rounded-md p-2 border border-gray-50 mx-5 gap-4"
+              >
+                <div className=" h-[400px]  bg-gray-100   ">
+                  {items?.image && (
+                    <img
+                      src={imageUrl(items.image).url()}
+                      alt={items.slug?.current || "Product Image"}
+                      className="object-cover rounded-md w-[300] h-[400px] "
+                    />
+                  )}
+                </div>
+                <div className=" items-center flex flex-col mt-2">
+                  <p className="text-sm font-bold">
+                    {naira_sign} {currencyFormatter(Number(items?.price))}
+                  </p>
+                  <p className=" font-normal text-sm">{items?.name}</p>
+                  <StarRating rating={rating} onChange={setRating} />
+                </div>
+              </div>
+            ))}
+          </Marquee>
+        </div>
       </div>
-    </div>
+      <div
+        className=" w-full  h-[500px] my-[6rem] border rounded bg-cover bg-no-repeat bg-center px-5"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerImg.src})`,
+        }}
+      >
+        <section className=" max-w-[1550px] md:ml-14 h-full flex items-end pb-20">
+          <div className="flex flex-col justify-center items-center md:items-start">
+            <h3 className=" text-[#f6f5f2] text-2xl md:text-5xl md:leading-[4rem] font-extrabold tracking-wide">
+              Love Your Skin, Every Day
+            </h3>
+            <p className="w-full md:w-[500px] text-center md:text-left text-[#f6f5f2] leading-7 my-5 font-normal">
+              Elevete Your Glow with clean, science-backed skincare
+              cruelty-free, sustainable, and packed with anitioxidants for skin
+              that looks healthy and Every Age
+            </p>
+            <div className=" flex items-center gap-8 mt-6">
+              <button className=" bg-[#E3D1C6] h-[40px] w-[120px] rounded-md text-sm font-bold text-[#57524b]">
+                Expore More
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 

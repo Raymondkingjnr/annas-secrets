@@ -1,8 +1,8 @@
 import { groq } from "next-sanity";
 
 export const getProductsQueries = (
-  start: number,
-  end: number,
+  start?: number,
+  end?: number,
   categorySlug?: string,
   searchQuery?: string,
   sortByPrice?: "asc" | "desc"
@@ -83,7 +83,12 @@ export const getCategory = groq`*[_type == "category" ]{
     name,
       slug{
         current
+      },
+          image{
+      asset -> {
+        url
       }
+    },
   }`;
 
 export const searchProductByName = (searchParams: string) =>

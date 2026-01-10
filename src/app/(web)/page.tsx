@@ -5,11 +5,13 @@ import Choose from "../../components/choose";
 import LearnMore from "../../components/learn-more";
 import BackToTopButton from "@/components/bact-to-top";
 import Testimonials from "@/components/testimonials";
+import Collection from "@/components/collection";
 
 export default function Home() {
   return (
     <div>
       <Hero />
+      <Collection />
       <ShopGoal />
       <BestSelling />
       <div className=" flex flex-col md:flex-row justify-between px-[1rem] md:px-[4rem] mb-[5rem]">

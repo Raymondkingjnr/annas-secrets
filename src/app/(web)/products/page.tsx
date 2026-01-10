@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-// import { motion } from "framer-motion";
-// import useSWR from "swr";
+
 import { getProducts, getCategory, getTotalProducts } from "@/lib/api";
 import ProductCard from "@/components/product-card";
-import { Product } from "../../../../sanity.types";
-import { Category } from "@/modals/products";
-// import Loader from "@/components/loader";
+import { Category, Product } from "../../../../sanity.types";
 import { PiEmptyThin } from "react-icons/pi";
 import useSWR from "swr";
 import BackToTopButton from "@/components/bact-to-top";
@@ -64,7 +61,7 @@ const Products = () => {
     setPage(1); // Reset to the first page when sort changes
   };
 
-  const totalPages = Math.ceil(numOfPost / pageSize);
+  const totalPages = Math.ceil((numOfPost || 0) / pageSize);
 
   return (
     <div className=" min-h-screen bg-gray-50 ">
@@ -98,7 +95,7 @@ const Products = () => {
           >
             <option value="">All Categories</option>
             {categories.map((category) => (
-              <option key={category._id} value={category.slug.current}>
+              <option key={category._id} value={category.slug?.current || ""}>
                 {category.name}
               </option>
             ))}
@@ -126,17 +123,16 @@ const Products = () => {
           <p className="text-gray-500">Try searching for something else.</p>
         </div>
       )}
-      {loading ? (
+      {loading ?
         <div className=" flex justify-center items-center my-[4rem] ">
           <div className=" animate-spin rounded-full h-32 w-32 border-b-2 border-base_color" />
         </div>
-      ) : (
-        <main className="grid grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7 px-[1rem] md:px-[2rem] lg:px-[4rem] my-8">
+      : <main className="grid grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7 px-[1rem] md:px-[2rem] lg:px-[4rem] my-8">
           {products?.map((item) => (
             <ProductCard key={item._id} product={item} />
           ))}
         </main>
-      )}
+      }
       <div className="flex gap-5 justify-center items-center px-[1rem] md:px-[4rem] py-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Mulish } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "../../components/header";
 import Toast from "@/components/toast";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const poppins = Poppins({
-  weight: "400", // or any other weight
+const mulish = Mulish({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-mulish",
 });
 
 export const metadata: Metadata = {
@@ -22,15 +24,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
-        <Toast />
-        <main>
-          <Header />
-          <div className=" min-h-screen ">{children}</div>
-          <Footer />
-        </main>
-      </body>
-    </html>
+    <ClerkProvider dynamic>
+      <html lang="en">
+        <body className={mulish.variable}>
+          <Toast />
+          <main>
+            <Header />
+            <div className=" min-h-screen ">{children}</div>
+            <Footer />
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { hero1, hero3, skin } from "@/asset";
+import { skin } from "@/asset";
 
 const Services = () => {
   const services = [
@@ -9,7 +9,7 @@ const Services = () => {
       title: "Premium Supplements",
       description:
         "Discover our range of scientifically formulated supplements designed to boost your health, energy, and overall well-being. Made with natural ingredients and backed by research.",
-      image: hero1,
+      image: skin,
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const Services = () => {
       title: "Personalized Consultations",
       description:
         "Get personalized advice from our experts to find the right products for your unique needs. We’re here to guide you on your journey to better health and beauty.",
-      image: hero3,
+      image: skin,
     },
   ];
 

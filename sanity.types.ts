@@ -87,6 +87,10 @@ export type Order = {
   totalPrice?: number;
   status?: "pending" | "Paid" | "Shipped" | "delivered" | "cancelled";
   OrderDate?: string;
+  email?: string;
+  customerName?: string;
+  phone?: string;
+  address?: string;
 };
 
 export type Product = {
@@ -119,6 +123,27 @@ export type Product = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "category";
   }>;
+};
+
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type SanityImageCrop = {
@@ -178,25 +203,57 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-};
-
 export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Order | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Category | Slug;
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | Order
+  | Product
+  | Category
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | Slug;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/lib/sanityQueries.ts
+
+// Source: src/lib/sanityQueries.ts
+// Variable: TopSales
+// Query: *[_type == "product" && topSales == true]{  _id,    slug,    name,    image{      asset -> {        url      }    },    categories[]->{      _id,      slug,      name,    },    price,    stock,}
+export type TopSalesResult = Array<{
+  _id: string;
+  slug: Slug | null;
+  name: string | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  categories: Array<{
+    _id: string;
+    slug: Slug | null;
+    name: string | null;
+  }> | null;
+  price: number | null;
+  stock: number | null;
+}>;
+
+// Source: src/lib/sanityQueries.ts
+// Variable: TotalProductQuery
+// Query: count(*[_type == "product"])
+export type TotalProductQueryResult = number;
+
+// Source: src/lib/sanityQueries.ts
 // Variable: getCategory
 // Query: *[_type == "category" ]{  _id,    name,      slug{        current      }  }
 export type GetCategoryResult = Array<{
@@ -207,60 +264,12 @@ export type GetCategoryResult = Array<{
   } | null;
 }>;
 
-// Source: ./src/lib/product/getAllCategories.ts
-// Variable: ALL_CATEGORIES_QUERY
-// Query: *[_type == "category"] | order(name asc)
-export type ALL_CATEGORIES_QUERYResult = Array<{
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-}>;
-
-// Source: ./src/lib/product/getAllProducts.ts
-// Variable: ALL_PRODUCTS_QUERY
-// Query: *[        _type == "product"        ] | order(name asc)
-export type ALL_PRODUCTS_QUERYResult = Array<{
-  _id: string;
-  _type: "product";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  topSales?: boolean;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  description?: string;
-  price?: number;
-  stock?: number;
-  categories?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
-}>;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"category\" ]{\n  _id,\n    name,\n      slug{\n        current\n      }\n  }": GetCategoryResult;
-    "\n         *[_type == \"category\"] | order(name asc)\n        ": ALL_CATEGORIES_QUERYResult;
-    "\n        *[\n        _type == \"product\"\n        ] | order(name asc)\n        ": ALL_PRODUCTS_QUERYResult;
+    '*[_type == "product" && topSales == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n\n': TopSalesResult;
+    '\n  count(*[_type == "product"])\n': TotalProductQueryResult;
+    '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      }\n  }': GetCategoryResult;
   }
 }

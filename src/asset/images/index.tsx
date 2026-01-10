@@ -7,18 +7,17 @@ import collogen from "./collegen.jpg";
 import product2 from "./solution.jpg";
 import product3 from "./yoni oil.jpg";
 import product5 from "./magic.jpg";
-import paystack from "./paystack.png";
-import hero1 from "./hero.jpg";
-import hero2 from "./herobg2.jpg";
-import hero3 from "./herobg3.jpg";
-import hero4 from "./herobg4.jpg";
-import hero5 from "./herobg5.jpg";
 import mastercard from "./mastercard.png";
 import visacard from "./visa.jpg";
+import heroImage from "./herobg.jpg";
+import paystack from "./paystack.png";
+import bannerImg from "./bannerImg.jpg";
 
 export {
   mastercard,
+  bannerImg,
   visacard,
+  paystack,
   skin,
   weight,
   boosters,
@@ -28,10 +27,5 @@ export {
   product2,
   product3,
   product5,
-  paystack,
-  hero1,
-  hero2,
-  hero3,
-  hero4,
-  hero5,
+  heroImage,
 };

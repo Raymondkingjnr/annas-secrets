@@ -14,19 +14,15 @@ const BestSelling = () => {
     return products;
   };
 
-  const {
-    data: products,
-    // isLoading,
-    // error,
-  } = useSWR(`get/allPost`, fetchProducts);
+  const { data: products } = useSWR(`get/allPost`, fetchProducts);
 
   const textVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
@@ -34,27 +30,21 @@ const BestSelling = () => {
     },
   };
   return (
-    <div className=" px-[1rem] md:px-[2rem] lg:px-[4rem] my-[6rem] ">
+    <div className=" px-[1rem] md:px-[2rem] lg:px-[4rem] mb-[8rem] max-w-[1800px] mx-auto ">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className=" flex justify-between items-center"
+        className=""
       >
-        <h2 className="text-xl font-font font-thin text-secondary_color">
-          Best Selling Products
+        <h2 className="text-xl md:text-3xl font-bold text-center text-[#251d14]">
+          Featured Products
         </h2>
-        <button
-          className="btn w-[120px]"
-          onClick={() => route.push("/products")}
-        >
-          view more
-        </button>
       </motion.div>
 
       <motion.div
-        className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-8  pt-10"
+        className=" gridFit  pt-10"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}

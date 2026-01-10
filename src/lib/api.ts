@@ -1,7 +1,7 @@
-import { Product } from "../../sanity.types";
+import { Product, Category } from "../../sanity.types";
 import { client } from "./sanity";
 import * as queries from "./sanityQueries";
-import { Category } from "@/modals/products";
+// import { Category } from "@/modals/products";
 
 export async function getProducts(
   page: number = 1,

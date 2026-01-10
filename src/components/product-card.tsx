@@ -8,17 +8,17 @@ import { imageUrl } from "@/lib/image-url";
 import Link from "next/link";
 import { shortenDescription } from "@/utilis/descriptionShorten";
 
-const naira_sign = "\u20A6";
+export const naira_sign = "\u20A6";
 const ProductCard = ({ product }: { product: Product }) => {
   const isOutOfStock = product?.stock != null && product?.stock <= 0;
   return (
     <Link
       href={`/product/${product?.slug?.current}`}
-      className={`group grid shadow-md rounded-md p-4 w-full md:w-full ${isOutOfStock ? " opacity-50" : ""}`}
+      className={`group grid shadow-md rounded-md p-4 w-full md:w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
     >
       <div className=" relative aspect-square overflow-hidden">
         {product.image && (
-          <div className=" grid place-content-center">
+          <div className=" ">
             <Image
               src={imageUrl(product?.image).url()}
               alt={product.name ?? ""}
@@ -38,7 +38,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
 
       <div className=" pl-1">
-        <p className="  text-sm md:text-lg mt-8  font-bold capitalize">
+        <p className="  text-xs md:text-sm mt-8  font-bold capitalize">
           {product.name ?? ""}
         </p>
         <p className=" pt-[2px] text-xs font-medium text-text_color">

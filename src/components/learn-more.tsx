@@ -1,4 +1,3 @@
-import { hero1, hero4 } from "@/asset";
 import React from "react";
 import Image from "next/image";
 import CountUpNumber from "./Counter";
@@ -38,13 +37,13 @@ const LearnMore = () => {
             </div>
           </main>
           <div className=" h-[170px] ">
-            <Image
+            {/* <Image
               src={hero1}
               alt=""
               width={300}
               height={300}
               className="rounded w-full md:w-[370px] lg:w-[500px]  h-[190px] object-cover "
-            />
+            /> */}
           </div>
         </section>
         <section className="grid gap-4">
@@ -67,13 +66,13 @@ const LearnMore = () => {
               <h1 className=" text-text_color text-sm pt-3">Products</h1>
             </div>
           </main>
-          <Image
+          {/* <Image
             src={hero4}
             alt=""
             width={300}
             height={300}
             className="rounded w-full lg:w-[500px] mt-[4rem] lg:mt-0  h-fit object-contain "
-          />
+          /> */}
         </section>
       </main>
     </div>

@@ -11,6 +11,11 @@ export type Category = {
   name: string;
   slug: { current: string };
   _id: string;
+  image: {
+    asset: {
+      url: string;
+    };
+  };
 };
 
 export type product = {

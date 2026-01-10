@@ -9,33 +9,24 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { SlClose } from "react-icons/sl";
 import useBasketStore from "@/store/store";
-import { FaFacebookSquare } from "react-icons/fa";
-import { FaInstagramSquare } from "react-icons/fa";
-import { FaWhatsappSquare } from "react-icons/fa";
+import { HandbagIcon, UserRound } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const navLinks = [
-  // { title: "What we do", href: "/" },
   { title: "products", href: "/products" },
   { title: "Service", href: "/service" },
   { title: "About Us", href: "/about-us" },
-  // { title: "Article", href: "/" },
 ];
 
 const socials = [
   {
-    title: "Facebook",
-    icon: <FaFacebookSquare size={26} color="3b82f6" />,
-    href: "https://www.facebook.com/share/19wjUDouzU/?mibextid=wwXIfr",
-  },
-  {
-    title: "Instagram",
-    icon: <FaInstagramSquare size={26} color="#c2410c" />,
-    href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
-  },
-  {
-    title: "Whatsapp",
-    icon: <FaWhatsappSquare size={26} color="#4ade80" />,
-    href: "https://wa.me/2348060665069",
+    icon: <UserRound size={20} color="#000" strokeWidth={2} />,
   },
 ];
 
@@ -87,126 +78,125 @@ const Header = () => {
   };
 
   return (
-    <header className=" py-2 z-30 flex shadow-md bg-transparent w-full justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem] m-auto">
-      <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
-        <Link
-          href={"/products"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold "
-        >
-          Products
-        </Link>
-
-        <Link
-          href={"/service"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold "
-        >
-          Service
-        </Link>
-        {/* <Link href={"/"} className=" cursor-pointer text-black/65 text-sm font-semibold ">
-          Article
-        </Link> */}
-        <Link
-          href={"/about-us"}
-          className=" cursor-pointer text-black/75 text-sm font-semibold "
-        >
-          About Us
-        </Link>
-      </div>
-      <div className=" flex gap-3 items-center">
-        <Link
-          href={"/"}
-          className="text-xl md:text-3xl font-semibold text-black/75 font-font"
-        >
-          Annas_Secrets
-        </Link>
-      </div>
-      <main className=" flex items-center gap-7 ">
-        <div className="hidden md:flex gap-3 items-center">
-          {socials.map((social, index) => (
-            <a
-              key={index}
-              href={social.href}
-              target="_blank"
-              rel="noreferrer"
-              className="text-black/75 rounded-lg"
-            >
-              {social.icon}
-            </a>
-          ))}
-        </div>
-        <div className=" flex items-center gap-3 ">
-          <Link href={"/cart-page"} className=" relative p-4">
-            <BsCartCheckFill size={22} className=" text-black/75" />
-            <div className="flex justify-center items-center">
-              <p className=" absolute text-sm right-1 md:right-0 bg-base_color text-white rounded-3xl text-center md:pt-[2px] h-5 w-5 md:h-6 md:w-6 top-2 font-semibold">
-                {itemCount}
-              </p>
-            </div>
+    <div className="  fixed top-3 max-w-[1550px] mx-auto left-0 right-0 px-2 z-50">
+      <header className=" py-[2px] flex rounded-md  justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem]  bg-white">
+        <div className=" flex gap-3 items-center">
+          <Link href={"/"} className="text-base font-semibold text-black/75">
+            Annas
           </Link>
-          <IoIosMenu
-            size={25}
-            className=" lg:hidden text-black/65"
-            onClick={toggleMenu}
-          />
         </div>
-      </main>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            variants={menuVars}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="fixed left-0 top-0 z-30 w-full h-screen origin-top bg-white text-gray-900 py-10 px-[1rem]"
+        <div className=" hidden lg:flex items-center list-none gap-8  mr-[20px]">
+          <Link
+            href={"/products"}
+            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
           >
-            <div className="flex h-full relative flex-col">
-              <div className="flex justify-between">
-                {/* <h1 className=" font-thin text-lg  font-font">Annas_Secrets</h1> */}
-                <p
-                  className="cursor-pointer text-md text-gray-900 absolute right-6"
-                  onClick={toggleMenu}
-                >
-                  <SlClose size={24} />
+            Shop
+          </Link>
+
+          <Link
+            href={"/service"}
+            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+          >
+            Collections
+          </Link>
+
+          <Link
+            href={"/about-us"}
+            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+          >
+            About
+          </Link>
+          <Link
+            href={"/about-us"}
+            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+          >
+            Blog
+          </Link>
+          <Link
+            href={"/about-us"}
+            className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+          >
+            Contact
+          </Link>
+        </div>
+
+        <main className=" flex items-center gap-1 ">
+          <div className=" flex gap-3 items-center">
+            <SignedOut>
+              <SignInButton>
+                <UserRound
+                  size={20}
+                  color="#000"
+                  strokeWidth={2}
+                  className=" cursor-pointer"
+                />
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
+          <div className=" flex items-center gap-2 ">
+            <Link href={"/cart-page"} className=" relative p-4">
+              <HandbagIcon size={20} strokeWidth={2} color="#000" />
+              <div className="flex justify-center items-center">
+                <p className=" absolute text-[12px] right-4 md:right-2 bg-green-950 text-white rounded-3xl  text-center pt-[0.1px] md:pt-[1px] h-4 w-4 md:h-[19px] md:w-[19px] top-3 font-bold">
+                  {itemCount}
                 </p>
               </div>
-              <motion.div
-                variants={containerVars}
-                initial="initial"
-                animate="open"
-                exit="initial"
-                className="flex flex-col h-full justify-center font-lora items-center gap-4 "
-              >
-                {navLinks.map((link, index) => {
-                  return (
-                    <div className="overflow-hidden" key={index}>
-                      <MobileNavLink
-                        title={link.title}
-                        href={link.href}
-                        onClose={toggleMenu}
-                      />
-                    </div>
-                  );
-                })}
-                <div className="flex gap-3 mt-4 items-center">
-                  {socials.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-gray-900 rounded-lg"
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
+            </Link>
+            <IoIosMenu
+              size={25}
+              className=" lg:hidden text-black/65"
+              onClick={toggleMenu}
+            />
+          </div>
+        </main>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              variants={menuVars}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="fixed left-0 top-0 z-30 w-full h-screen origin-top bg-white text-gray-900 py-10 px-[1rem]"
+            >
+              <div className="flex h-full relative flex-col">
+                <div className="flex justify-between">
+                  {/* <h1 className=" font-thin text-lg  font-font">Annas_Secrets</h1> */}
+                  <p
+                    className="cursor-pointer text-md text-gray-900 absolute right-6"
+                    onClick={toggleMenu}
+                  >
+                    <SlClose size={24} />
+                  </p>
                 </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+                <motion.div
+                  variants={containerVars}
+                  initial="initial"
+                  animate="open"
+                  exit="initial"
+                  className="flex flex-col h-full justify-center font-lora items-center gap-4 "
+                >
+                  {navLinks.map((link, index) => {
+                    return (
+                      <div className="overflow-hidden" key={index}>
+                        <MobileNavLink
+                          title={link.title}
+                          href={link.href}
+                          onClose={toggleMenu}
+                        />
+                      </div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </div>
   );
 };
 

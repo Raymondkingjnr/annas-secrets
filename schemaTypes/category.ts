@@ -20,5 +20,14 @@ export default defineType({
         source: "name",
       },
     }),
+    defineField({
+      title: "Image",
+      name: "image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required().error("Required"),
+    }),
   ],
 });
