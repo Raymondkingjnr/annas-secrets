@@ -117,5 +117,12 @@ export const getCategoryBySlug = groq`
    *[_type == "category" && slug.current == $slug] | order(name asc)[0] 
   `;
 
+export const getProductsByCategorySlug = groq`
+  *[
+    _type == "product" &&
+    $slug in categories[]->slug.current
+  ] | order(_createdAt desc)
+`;
+
 export const searchProductByName = (searchParams: string) =>
   groq`*[_type == "product" && name match "${searchParams}*"] | order(name asc)`;

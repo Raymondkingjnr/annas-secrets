@@ -81,6 +81,15 @@ export async function getSingleCategory(slug: string) {
   );
   return result;
 }
+
+export async function getProductsByCategory(slug: string) {
+  return client.fetch(
+    queries.getProductsByCategorySlug,
+    { slug },
+    { cache: "no-cache" }
+  );
+}
+
 export async function getSearchedProduct(searchParams: string) {
   if (!searchParams) return [];
   const result = await client.fetch<Product[]>(

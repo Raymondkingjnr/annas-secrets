@@ -22,6 +22,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const categoryRefs = product.categories?.map(
     (cat: { _ref: string }) => cat._ref
   );
+
   if (!product) {
     return notFound();
   }
