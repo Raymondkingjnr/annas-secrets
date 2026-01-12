@@ -5,7 +5,6 @@ import Image from "next/image";
 import React from "react";
 import { Product } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
-import Link from "next/link";
 import AddCartButton from "./add-cart-button";
 import { useRouter } from "next/navigation";
 

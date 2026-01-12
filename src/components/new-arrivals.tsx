@@ -2,9 +2,8 @@
 import React from "react";
 import useSWR from "swr";
 import { imageUrl } from "@/lib/image-url";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { NewArrivals, Product } from "../../sanity.types";
+import { NewArrivals } from "../../sanity.types";
 import { getAllNewArrivals } from "@/lib/api";
 import Image from "next/image";
 import { naira_sign } from "./product-card";
