@@ -1,13 +1,31 @@
 "use client";
-
 import React, { useEffect } from "react";
-
 import { getProducts, getCategory, getTotalProducts } from "@/lib/api";
 import ProductCard from "@/components/product-card";
 import { Category, Product } from "../../../../sanity.types";
 import { PiEmptyThin } from "react-icons/pi";
 import useSWR from "swr";
 import BackToTopButton from "@/components/bact-to-top";
+import { ProductCardSkeleton } from "@/components/skeleton-comp";
+import { bannerImg } from "@/asset";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
+  return (
+    <div className=" gridFit gap-3 my-[4rem]">
+      {Array.from({ length: count }).map((_, i) => (
+        <ProductCardSkeleton key={i} />
+      ))}
+    </div>
+  );
+};
 
 const Products = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -64,107 +82,115 @@ const Products = () => {
   const totalPages = Math.ceil((numOfPost || 0) / pageSize);
 
   return (
-    <div className=" min-h-screen bg-gray-50 ">
+    <div className="  min-h-screen bg-gray-50 mt-[6rem] ">
       <BackToTopButton />
 
       <div
-        className=" text-center md:text-left py-[3rem] text-white px-[1rem] md:px-[2rem]  lg:px-[4rem] font-normal text-lg md:text-3xl"
+        className="w-full h-[330px] mb-4 border rounded bg-cover bg-no-repeat bg-center px-5 flex items-center justify-center"
         style={{
-          background: `linear-gradient(to right, #f1ecec, #636161)`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerImg.src})`,
         }}
       >
-        <h1>Expolore All Products</h1>
+        <h3 className="text-[#f6f5f2] text-center text-2xl md:text-5xl md:leading-[4rem] font-extrabold tracking-wide">
+          Love Your Skin, Every Day
+        </h3>
       </div>
 
-      <main className=" px-[1rem] md:px-[2rem] lg:px-[4rem] pt-9">
-        <h2 className=" font-thin ">Sort</h2>
-        <form className="mt-5 flex flex-col md:flex-row gap-4 border-gray-300 ">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="  border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
-          />
-          {/*  */}
+      {/* Filters */}
+      <main className="pb-8 pt-3 container mx-auto px-4">
+        <form className="mt-5 flex flex-col md:flex-row gap-4">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="border h-[45px] px-2 w-full md:w-[300px] lg:w-[400px] text-sm text-[#757575] rounded-md active:outline-[#d09e80] outline-[#d09e80]"
+            />
 
-          <select
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            className="border h-[40px] px-2 w-full md:w-[300px] lg:w-[400px] text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
-          >
-            <option value="">All Categories</option>
-            {categories.map((category) => (
-              <option key={category._id} value={category.slug?.current || ""}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+            <select
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              className="border h-[45px] px-2 w-full md:w-[300px] lg:w-[400px] text-sm text-[#757575] rounded-md"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category.slug?.current || ""}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <select
             value={sortByPrice}
             onChange={handleSortChange}
-            className="border h-[40px] px-2 w-full md:w-[140px]  text-xs text-[#757575] bg-white  border-black active:outline-none outline-none rounded-md"
+            className="border h-[45px] px-2 w-full md:w-[140px] text-sm text-[#757575] rounded-md"
           >
             <option value="">Sort by Price</option>
-            <option value="asc">Price: Low to High</option>
-            <option value="desc">Price: High to Low</option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
           </select>
-
-          {/* <button className=" h-[40px] rounded-md w-[150px] border border-[#4CAF50] text-[#4CAF50] px-4 py-2 hover:bg-[#4CAF50] hover:text-white duration-500 transition-all">
-            search
-          </button> */}
         </form>
       </main>
-      {products.length === 0 && !loading && (
-        <div className="flex flex-col items-center gap-6 justify-center h-[50vh] text-gray-600">
-          <PiEmptyThin size={40} />
-          <h2 className="text-xl font-semibold">No products found</h2>
-          <p className="text-gray-500">Try searching for something else.</p>
-        </div>
-      )}
-      {loading ?
-        <div className=" flex justify-center items-center my-[4rem] ">
-          <div className=" animate-spin rounded-full h-32 w-32 border-b-2 border-base_color" />
-        </div>
-      : <main className="grid grid-cols-2 place-items-center md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7 px-[1rem] md:px-[2rem] lg:px-[4rem] my-8">
-          {products?.map((item) => (
-            <ProductCard key={item._id} product={item} />
-          ))}
-        </main>
-      }
-      <div className="flex gap-5 justify-center items-center px-[1rem] md:px-[4rem] py-6">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
-          className="rounded-lg w-[120px] border-none text-gray-100  h-[40px] btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{
-            background: `linear-gradient(to right, #309185, #1a6b5f)`,
-          }}
-        >
-          Previous
-        </button>
-        <div className=" flex gap-2 items-center">
-          <p className=" h-[30px] w-[30px]  rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
-            {" "}
-            <span>{page}</span>{" "}
-          </p>{" "}
-          <p className=" font-semibold text-sm">Of</p>
-          <p className=" h-[30px] w-[30px] rounded-full grid place-content-center p-3 font-semibold text-gray-100 bg-base_color">
-            {" "}
-            <span>{totalPages}</span>{" "}
-          </p>{" "}
-        </div>
-        <button
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={page === totalPages}
-          className="rounded-lg w-[120px] border-none h-[40px] btn-outline font-normal text-sm disabled:opacity-50 disabled:cursor-not-allowed text-gray-100"
-          style={{
-            background: `linear-gradient(to right, #309185, #1a6b5f)`,
-          }}
-        >
-          Next
-        </button>
+      <div className="container mx-auto px-4">
+        {/* 1️⃣ Loading */}
+        {loading && <ProductSkeletonGrid count={1} />}
+
+        {/* 2️⃣ Empty state */}
+        {!loading && products.length === 0 && (
+          <div className="flex flex-col items-center gap-6 justify-center h-[50vh] text-gray-600">
+            <PiEmptyThin size={40} />
+            <h2 className="text-xl font-semibold">No products found</h2>
+            <p className="text-gray-500">Try searching for something else.</p>
+          </div>
+        )}
+
+        {/* 3️⃣ Products exist */}
+        {!loading && products.length > 0 && (
+          <>
+            {/* Products */}
+            <main className="gridFit pt-1">
+              {products.map((item) => (
+                <ProductCard key={item._id} product={item} />
+              ))}
+            </main>
+
+            {/* Pagination */}
+            <Pagination className="flex justify-end mt-8">
+              <PaginationContent>
+                {/* Previous */}
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                    className={
+                      page === 1 ? "pointer-events-none opacity-50" : ""
+                    }
+                  />
+                </PaginationItem>
+
+                {/* Current page */}
+                <PaginationItem>
+                  <PaginationLink isActive>{page}</PaginationLink>
+                </PaginationItem>
+
+                {/* Next */}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() =>
+                      setPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                    className={
+                      page === totalPages ?
+                        "pointer-events-none opacity-50"
+                      : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </>
+        )}
       </div>
     </div>
   );

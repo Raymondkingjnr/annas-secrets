@@ -67,8 +67,26 @@ export const TopSales = groq`*[_type == "product" && topSales == true]{
     price,
     stock,
 }
-
 `;
+
+export const NewArrivalsQuery = groq`*[_type == "newArrivals"]{
+_id, 
+slug,
+ name,
+ image{
+      asset -> {
+        url
+      }
+    }, 
+        categories[]->{
+      _id,
+      slug,
+      name,
+    },
+     price,
+     decription,
+     stock,
+    }`;
 
 export const TotalProductQuery = groq`
   count(*[_type == "product"])
@@ -76,6 +94,10 @@ export const TotalProductQuery = groq`
 
 export const getProductBySlug = `
    *[_type == "product" && slug.current == $slug] | order(name asc)[0] 
+  `;
+
+export const getNewArrivalsBySlug = `
+  *[_type == "newArrivals" && slug.current == $slug] | order(name asc)[0] 
   `;
 
 export const getCategory = groq`*[_type == "category" ]{
@@ -90,6 +112,10 @@ export const getCategory = groq`*[_type == "category" ]{
       }
     },
   }`;
+
+export const getCategoryBySlug = groq`
+   *[_type == "category" && slug.current == $slug] | order(name asc)[0] 
+  `;
 
 export const searchProductByName = (searchParams: string) =>
   groq`*[_type == "product" && name match "${searchParams}*"] | order(name asc)`;

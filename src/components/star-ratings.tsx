@@ -1,3 +1,4 @@
+"use client";
 type StarRatingProps = {
   rating: number; // current rating (0–5)
   onChange?: (value: number) => void;

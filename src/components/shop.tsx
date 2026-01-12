@@ -79,14 +79,14 @@ const ShopGoal = () => {
             {products?.map((items, index) => (
               <div
                 key={index}
-                className="relative w-[300] rounded-md p-2 border border-gray-50 mx-5 gap-4"
+                className="relative border border-gray-200 rounded-md p-2 mx-3 gap-4"
               >
-                <div className=" h-[400px]  bg-gray-100   ">
+                <div className=" h-[400px] w-[300px]  bg-gray-100   ">
                   {items?.image && (
                     <img
                       src={imageUrl(items.image).url()}
                       alt={items.slug?.current || "Product Image"}
-                      className="object-cover rounded-md w-[300] h-[400px] "
+                      className="object-cover rounded-md w-[300px] h-[400px] "
                     />
                   )}
                 </div>

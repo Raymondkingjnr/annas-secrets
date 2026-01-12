@@ -28,7 +28,7 @@ const BestSelling = () => {
     },
   };
   return (
-    <div className=" px-[1rem] md:px-[2rem] lg:px-[4rem] mb-[8rem] max-w-[1800px] mx-auto ">
+    <div className=" px-5 md:px-[2rem]   lg:px-[4rem] mb-[8rem] max-w-[1800px] mx-auto ">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -36,7 +36,7 @@ const BestSelling = () => {
         variants={textVariants}
         className=""
       >
-        <h2 className="text-xl md:text-3xl font-bold text-center text-[#251d14]">
+        <h2 className="text-xl md:text-3xl pb-6 font-bold text-center text-[#251d14]">
           Featured Products
         </h2>
       </motion.div>

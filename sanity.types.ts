@@ -13,59 +13,36 @@
  */
 
 // Source: schema.json
-export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
-
-export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
-
-export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
-};
-
-export type SanityFileAsset = {
+export type NewArrivals = {
   _id: string;
-  _type: "sanity.fileAsset";
+  _type: "newArrivals";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
-
-export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
+  price?: number;
+  stock?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
 };
 
 export type Order = {
@@ -109,6 +86,7 @@ export type Product = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
     };
+    media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
@@ -140,10 +118,45 @@ export type Category = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
     };
+    media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
+};
+
+export type SanityImagePaletteSwatch = {
+  _type: "sanity.imagePaletteSwatch";
+  background?: string;
+  foreground?: string;
+  population?: number;
+  title?: string;
+};
+
+export type SanityImagePalette = {
+  _type: "sanity.imagePalette";
+  darkMuted?: SanityImagePaletteSwatch;
+  lightVibrant?: SanityImagePaletteSwatch;
+  darkVibrant?: SanityImagePaletteSwatch;
+  vibrant?: SanityImagePaletteSwatch;
+  dominant?: SanityImagePaletteSwatch;
+  lightMuted?: SanityImagePaletteSwatch;
+  muted?: SanityImagePaletteSwatch;
+};
+
+export type SanityImageDimensions = {
+  _type: "sanity.imageDimensions";
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type SanityImageCrop = {
@@ -154,12 +167,26 @@ export type SanityImageCrop = {
   right?: number;
 };
 
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+export type SanityFileAsset = {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
 };
 
 export type SanityImageAsset = {
@@ -185,13 +212,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
 export type SanityImageMetadata = {
   _type: "sanity.imageMetadata";
   location?: Geopoint;
@@ -203,27 +223,42 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type Geopoint = {
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
 export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
 };
 
+export type SanityAssetSourceData = {
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
 export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityFileAsset
-  | Geopoint
+  | NewArrivals
   | Order
   | Product
   | Category
-  | SanityImageCrop
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
   | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
   | SanityImageAsset
-  | SanityAssetSourceData
   | SanityImageMetadata
-  | Slug;
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
@@ -249,18 +284,44 @@ export type TopSalesResult = Array<{
 }>;
 
 // Source: src/lib/sanityQueries.ts
+// Variable: NewArrivalsQuery
+// Query: *[_type == "newArrivals"]{_id, slug, name,   image{      asset -> {        url      }    },         categories[]->{      _id,      slug,      name,    },     price,     decription,    }
+export type NewArrivalsQueryResult = Array<{
+  _id: string;
+  slug: Slug | null;
+  name: string | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  categories: Array<{
+    _id: string;
+    slug: Slug | null;
+    name: string | null;
+  }> | null;
+  price: number | null;
+  decription: null;
+}>;
+
+// Source: src/lib/sanityQueries.ts
 // Variable: TotalProductQuery
 // Query: count(*[_type == "product"])
 export type TotalProductQueryResult = number;
 
 // Source: src/lib/sanityQueries.ts
 // Variable: getCategory
-// Query: *[_type == "category" ]{  _id,    name,      slug{        current      }  }
+// Query: *[_type == "category" ]{  _id,    name,      slug{        current      },          image{      asset -> {        url      }    },  }
 export type GetCategoryResult = Array<{
   _id: string;
   name: string | null;
   slug: {
     current: string | null;
+  } | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
   } | null;
 }>;
 
@@ -268,8 +329,9 @@ export type GetCategoryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "product" && topSales == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n\n': TopSalesResult;
+    '*[_type == "product" && topSales == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n': TopSalesResult;
+    '*[_type == "newArrivals"]{\n_id, slug, name,   image{\n      asset -> {\n        url\n      }\n    }, \n        categories[]->{\n      _id,\n      slug,\n      name,\n    },\n     price,\n     decription,\n    }': NewArrivalsQueryResult;
     '\n  count(*[_type == "product"])\n': TotalProductQueryResult;
-    '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      }\n  }': GetCategoryResult;
+    '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      },\n          image{\n      asset -> {\n        url\n      }\n    },\n  }': GetCategoryResult;
   }
 }

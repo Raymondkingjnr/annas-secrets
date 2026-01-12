@@ -18,7 +18,7 @@ body {
 }
 
 .button {
-  background-color: #309185;
+  background-color: #d09e80;
   color: white;
   border: none;
   border-radius: 50%;
@@ -30,7 +30,7 @@ body {
   transition: background-color 0.3s ease;
 }
 .btn {
-  background-color: #309185;
+  background-color: #d09e80;
   color: white;
   border: none;
   border-radius: 7px;
@@ -47,11 +47,23 @@ body {
   place-items: center;
   gap: 1.8rem;
 }
+@media (max-width: 640px) {
+  .gridFit {
+    display: flex;
+    overflow-x: auto;
+    place-content: start;
+    place-items: start;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 0 0.75rem; /* optional: give some side padding */
+    scroll-snap-type: x mandatory;
+  }
+}
 .button:hover {
-  background-color: #19514a;
+  background-color: #af7957;
 }
 .btn:hover {
-  background-color: #19514a;
+  background-color: #af7957;
 }
 
 @layer base {

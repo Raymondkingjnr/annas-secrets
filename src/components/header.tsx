@@ -75,7 +75,10 @@ const Header = () => {
     <div className="  fixed top-3 max-w-[1550px] mx-auto left-0 right-0 px-2 z-50">
       <header className=" py-[2px] flex rounded-md  justify-between items-center px-[1rem] md:px-[2rem] lg:px-[4rem]  bg-white">
         <div className=" flex gap-3 items-center">
-          <Link href={"/"} className="text-base font-semibold text-black/75">
+          <Link
+            href={"/"}
+            className=" text-lg md:text-xl font-bold text-black/75"
+          >
             Annas
           </Link>
         </div>
@@ -84,7 +87,7 @@ const Header = () => {
             <Link
               href={link.href}
               key={index}
-              className=" cursor-pointer text-[#57524b] text-sm font-semibold "
+              className=" cursor-pointer text-[#57524b] text-sm md:text-base font-bold capitalize "
             >
               {link.title}
             </Link>
@@ -96,7 +99,7 @@ const Header = () => {
             <SignedOut>
               <SignInButton>
                 <UserRound
-                  size={20}
+                  size={25}
                   color="#000"
                   strokeWidth={2}
                   className=" cursor-pointer"
@@ -109,9 +112,9 @@ const Header = () => {
           </div>
           <div className=" flex items-center gap-2 ">
             <Link href={"/cart-page"} className=" relative p-4">
-              <HandbagIcon size={20} strokeWidth={2} color="#000" />
+              <HandbagIcon size={25} strokeWidth={2} color="#000" />
               <div className="flex justify-center items-center">
-                <p className=" absolute text-[12px] right-4 md:right-2 bg-green-950 text-white rounded-3xl  text-center pt-[0.1px] md:pt-[1px] h-4 w-4 md:h-[19px] md:w-[19px] top-3 font-bold">
+                <p className=" absolute text-[12px] right-3 bg-green-950 text-white rounded-3xl  text-center pt-[0.1px] md:pt-[1px] h-[20px] w-[20px] md:h-[22px] md:w-[22px] top-3 font-bold">
                   {itemCount}
                 </p>
               </div>
@@ -203,7 +206,9 @@ const MobileNavLink = ({ title, href, onClose }: list) => {
       className="text-xl capitalize text-gray-900"
       onClick={onClose}
     >
-      <Link href={href}>{title}</Link>
+      <Link href={href} className=" font-semibold text-lg">
+        {title}
+      </Link>
     </motion.div>
   );
 };

@@ -5,6 +5,7 @@ import { getCategory } from "@/lib/api";
 import useSWR from "swr";
 import { Category } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
+import Link from "next/link";
 
 const Collection = () => {
   const textVariants = {
@@ -20,7 +21,7 @@ const Collection = () => {
   const { data: categories } = useSWR("get/categories", fetchCategories);
 
   return (
-    <div className=" max-w-[1500px] mx-auto pt-[2rem]">
+    <div className=" max-w-[1500px] px-5 md:px-0 mx-auto pt-[2rem]">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -28,7 +29,7 @@ const Collection = () => {
         variants={textVariants}
         className=""
       >
-        <h2 className="text-xl md:text-3xl font-bold text-center text-[#251d14]">
+        <h2 className="text-xl md:text-3xl font-bold text-center pb-6 text-[#251d14]">
           Our Collection
         </h2>
       </motion.div>
@@ -37,19 +38,22 @@ const Collection = () => {
         {categories && categories.length > 0 ?
           categories.map((category: Category) => (
             <div className=" border rounded-md p-2" key={category._id}>
-              <div className="w-[300] h-[400px]  bg-gray-100 rounded-sm ">
+              <div className="w-[280px] h-[400px]  bg-gray-100 rounded-sm ">
                 {category?.image && (
                   <img
                     src={imageUrl(category.image).url()}
                     alt={category.slug?.current || "Product Image"}
-                    className="object-cover rounded-md w-[300] h-[400px] "
+                    className="object-cover rounded-md w-[280px] h-[400px] "
                   />
                 )}
               </div>
               <div className=" border rounded-md my-2 cursor-pointer ">
-                <p className=" text-center py-2  font-bold text-sm capitalize">
+                <Link
+                  href={`/products/${category.slug?.current}`}
+                  className=" text-center py-2 flex justify-center items-center font-bold text-sm capitalize"
+                >
                   {category.name}
-                </p>
+                </Link>
               </div>
             </div>
           ))

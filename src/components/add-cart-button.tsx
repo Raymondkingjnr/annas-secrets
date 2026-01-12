@@ -1,11 +1,11 @@
 "use client";
-// import { product } from "@/modals/products";
 import useBasketStore from "@/store/store";
 import React, { useEffect } from "react";
-import { Product } from "../../sanity.types";
+import { Product, NewArrivals } from "../../sanity.types";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
 interface AddToCartButtonProps {
-  product: Product;
+  product: Product | NewArrivals;
   disable?: boolean;
 }
 const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
@@ -14,7 +14,7 @@ const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
   const stock = product.stock ?? 0;
   const handleAddToCart = () => {
     if (cartCount < stock) {
-      addItem(product);
+      addItem(product as Product);
     }
   };
 
@@ -32,28 +32,28 @@ const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
       <button
         onClick={() => removeItem(product._id)}
         className={`w-8 h-8 rounded-3xl flex items-center justify-center transition-colors duration-200 ${
-          cartCount === 0
-            ? "bg-[#F5F5F5] cursor-not-allowed text-[#333333]"
-            : "bg-base_color text-white hover:bg-base_color "
+          cartCount === 0 ?
+            "bg-[#F5F5F5] cursor-not-allowed text-[#333333]"
+          : "bg-base_color text-white hover:bg-base_color "
         }`}
       >
         <span
-          className={`text-lg font-bold ${cartCount === 0 ? "text-gray-400" : "text-gray-200"}`}
+          className={`text-lg font-bold ${cartCount === 0 ? "text-gray-800" : "text-gray-50"}`}
         >
-          -
+          <MinusIcon strokeWidth={3} size={18} />
         </span>
       </button>
       <span className=" text-[#333333] font-semibold"> {cartCount}</span>
       <button
         onClick={handleAddToCart}
         className={`w-8 h-8 rounded-3xl flex items-center justify-center transition-colors duration-200 ${
-          disable || cartCount >= stock
-            ? "bg-[#F5F5F5] cursor-not-allowed text-[#333333]"
-            : "bg-base_color text-white hover:bg-base_color"
+          disable || cartCount >= stock ?
+            "bg-[#F5F5F5] cursor-not-allowed text-[#333333]"
+          : "bg-base_color text-white hover:bg-base_color"
         }`}
         disabled={disable || cartCount >= stock}
       >
-        <span className=" text-lg font-bold">+</span>
+        <PlusIcon strokeWidth={3} size={18} />
       </button>
     </div>
   );

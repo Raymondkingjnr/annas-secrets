@@ -6,15 +6,17 @@ import React from "react";
 import { Product } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
 import Link from "next/link";
-import { shortenDescription } from "@/utilis/descriptionShorten";
+import AddCartButton from "./add-cart-button";
+import { useRouter } from "next/navigation";
 
 export const naira_sign = "\u20A6";
 const ProductCard = ({ product }: { product: Product }) => {
   const isOutOfStock = product?.stock != null && product?.stock <= 0;
+
+  const router = useRouter();
   return (
-    <Link
-      href={`/product/${product?.slug?.current}`}
-      className={`group grid shadow-md rounded-md p-4 w-full md:w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
+    <div
+      className={`group grid shadow-md rounded-lg border border-gray-300 p-4 w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
     >
       <div className=" relative aspect-square overflow-hidden">
         {product.image && (
@@ -37,21 +39,31 @@ const ProductCard = ({ product }: { product: Product }) => {
         )}
       </div>
 
-      <div className=" pl-1">
-        <p className="  text-xs md:text-sm mt-8  font-bold capitalize">
-          {product.name ?? ""}
-        </p>
-        <p className=" pt-[2px] text-xs font-medium text-text_color">
-          In Stock: {product.stock}
-        </p>
-        <p className=" text-xs font-semibold text-text_color py-3 leading-6 ">
-          {shortenDescription(product?.description ?? "", 50)}
-        </p>
-        <h2 className=" font-semibold text-sm  text-[#333333]">
-          {naira_sign} {currencyFormatter(Number(product?.price))}
-        </h2>
+      <div className=" pl-1 ">
+        <div className=" py-5 flex justify-between items-center">
+          <div>
+            <p className="  text-xs md:text-sm font-bold capitalize">
+              {product.name ?? ""}
+            </p>
+            <p className=" pt-[2px] text-sm font-bold text-gray-500">
+              In Stock: {product.stock}
+            </p>
+          </div>
+          <h2 className=" font-bold text-base  text-[#333333]">
+            {naira_sign} {currencyFormatter(Number(product?.price))}
+          </h2>
+        </div>
+        <div className=" flex justify-between items-center gap-4">
+          <button
+            className=" border border-[#e7ba9e] h-[40px] w-[120px] rounded-md text-sm font-bold text-[#57524b]"
+            onClick={() => router.push(`/product/${product?.slug?.current}`)}
+          >
+            Details
+          </button>
+          <AddCartButton product={product} disable={isOutOfStock} />
+        </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

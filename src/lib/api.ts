@@ -1,4 +1,4 @@
-import { Product, Category } from "../../sanity.types";
+import { Product, Category, NewArrivals } from "../../sanity.types";
 import { client } from "./sanity";
 import * as queries from "./sanityQueries";
 // import { Category } from "@/modals/products";
@@ -27,9 +27,38 @@ export async function getProducts(
 
   return result;
 }
+
+export async function getSimilarProducts(
+  categoryRefs: string[],
+  currentProductId: string
+) {
+  return client.fetch(
+    `
+    *[_type == "product" 
+      && _id != $currentProductId
+      && count(categories[@._ref in $categoryRefs]) > 0
+    ][0..3]
+    `,
+    {
+      categoryRefs,
+      currentProductId,
+    },
+    { cache: "no-cache" }
+  );
+}
+
 export async function getTopSales() {
   const result = await client.fetch<Product[]>(
     queries.TopSales,
+    {},
+    { cache: "no-cache" }
+  );
+  return result;
+}
+
+export async function getAllNewArrivals() {
+  const result = await client.fetch<NewArrivals[]>(
+    queries.NewArrivalsQuery,
     {},
     { cache: "no-cache" }
   );
@@ -44,6 +73,14 @@ export async function getCategory() {
   return result;
 }
 
+export async function getSingleCategory(slug: string) {
+  const result = await client.fetch<Category>(
+    queries.getCategoryBySlug,
+    { slug },
+    { cache: "no-cache" }
+  );
+  return result;
+}
 export async function getSearchedProduct(searchParams: string) {
   if (!searchParams) return [];
   const result = await client.fetch<Product[]>(
@@ -61,6 +98,16 @@ export async function getSingleProduct(slug: string) {
     { slug },
     { cache: "no-cache" }
   );
+  return result;
+}
+
+export async function getSingleNewArrival(slug: string) {
+  const result = await client.fetch<NewArrivals>(
+    queries.getNewArrivalsBySlug,
+    { slug },
+    { cache: "no-cache" }
+  );
+
   return result;
 }
 
