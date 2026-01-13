@@ -26,9 +26,11 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   if (!product) {
     return notFound();
   }
-  const isOutOfStock = product.stock != null && product.stock <= 0;
+  const isOutOfStock = product.stock === null && product.stock <= 0;
 
   const naira_sign = "\u20A6";
+
+  console.log(product);
 
   return (
     <div className=" container mx-auto pt-6 px-4 pb-8 mt-[7rem]">

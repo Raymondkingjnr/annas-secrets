@@ -1,7 +1,6 @@
 "use client";
 import useBasketStore from "@/store/store";
 import React from "react";
-import { PiEmptyThin } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import AddCartButton from "@/components/add-cart-button";
 import Image from "next/image";
@@ -9,9 +8,21 @@ import { imageUrl } from "@/lib/image-url";
 import { currencyFormatter } from "@/utilis/formatter";
 import { v4 as uuidv4 } from "uuid";
 import Loader from "@/components/loader";
-// import { M } from "@/components/modal"; // Import the Modal component
 import Modal from "@/components/modal";
 import toast from "react-hot-toast";
+import { ClerkLoaded, SignInButton, useUser } from "@clerk/nextjs";
+import { Order } from "../../../../sanity.types";
+import { Spinner } from "@/components/ui/spinner";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { emptyCartImg } from "@/asset";
 
 const CartPage = () => {
   const groupItems = useBasketStore((state) => state.getGroupedItems());
@@ -19,11 +30,11 @@ const CartPage = () => {
   const { push } = useRouter();
   const [isClient, setIsClient] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [email, setEmail] = React.useState("");
-  const [customerName, setCustomerName] = React.useState("");
   const [phone, setPhone] = React.useState<string>("");
   const [address, setAddress] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const { user } = useUser();
 
   React.useEffect(() => {
     setIsClient(true);
@@ -34,7 +45,7 @@ const CartPage = () => {
     return <Loader />;
   }
 
-  const saveOrderToSanity = async (orderDetails) => {
+  const saveOrderToSanity = async (orderDetails: Order) => {
     try {
       const response = await fetch("/api/save-order", {
         method: "POST",
@@ -58,7 +69,7 @@ const CartPage = () => {
   const handleCheckout = async () => {
     setIsLoading(true);
 
-    if (!customerName || !email || !phone || !address) {
+    if (!phone || !address) {
       alert("Please fill all fields");
     }
     const PaystackPop = (await import("@paystack/inline-js")).default;
@@ -67,11 +78,11 @@ const CartPage = () => {
 
     paystack.newTransaction({
       key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "",
-      email,
+      email: user?.emailAddresses?.[0]?.emailAddress ?? "",
       amount: totalAmount * 100,
       currency: "NGN",
-      lastName: customerName,
-      firstName: address,
+      lastName: user?.firstName ?? "",
+      firstName: user?.lastName ?? "",
       phone,
 
       onSuccess: async (transaction) => {
@@ -85,17 +96,19 @@ const CartPage = () => {
             quantity: item.quantity,
           })),
           totalPrice: totalAmount,
+          orderNumber: crypto.randomUUID(),
+          clerkUserId: user?.id,
           status: "Paid",
           OrderDate: new Date().toISOString(),
-          email: email,
-          customerName: customerName,
+          email: user?.emailAddresses?.[0]?.emailAddress ?? "",
+          customerName: user?.fullName ?? "",
           phone: phone,
           address: address,
-        };
+        } as Partial<Order>;
         console.log(transaction);
 
         try {
-          await saveOrderToSanity(orderDetails);
+          await saveOrderToSanity(orderDetails as Order);
           setIsLoading(false);
           push("/success"); // Redirect to a success page
           toast.success("Payment Successfull");
@@ -118,94 +131,115 @@ const CartPage = () => {
   const naira_sign = "\u20A6";
   if (groupItems.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] container mx-auto p-4 flex-col">
-        <h1 className=" text-2xl font-bold mb-6 text-gray-800">Your Cart</h1>
-        <PiEmptyThin size={40} />
-        <p className=" text-gray-600 text-lg">You Cart is Empty</p>
-        <button
-          className=" bg-base_color text-white px-4 py-2 mt-4 rounded-md hover:bg-[#333333] duration-200 transition-all"
-          onClick={() => push("/products")}
-        >
-          Continue Shopping
-        </button>
+      <div className="min-h-screen px-4 flex items-center justify-center">
+        <div className="max-w-2xl w-full py-10 rounded-md flex flex-col items-center bg-transparent px-4">
+          <div>
+            <Image
+              src={emptyCartImg}
+              height={250}
+              width={250}
+              alt="./placeholder-image"
+              className=" rounded-lg"
+            />
+          </div>
+          <p className=" text-gray-600 text-lg py-5 font-semibold">
+            You Cart is Empty
+          </p>
+          <button
+            className=" bg-base_color text-white px-4 py-2 mt-4 rounded-md hover:bg-[#333333] duration-200 transition-all"
+            onClick={() => push("/products")}
+          >
+            Continue Shopping
+          </button>
+        </div>
       </div>
     );
   }
   return (
-    <div className=" container mx-auto pt-6 px-4 md:px-0">
-      <h1 className=" text-xl font-normal mb-4 text-center pb-4 text-black">
+    <div className=" h-screen container mx-auto pt-6 mt-[6rem] px-4 md:px-0">
+      <h1 className=" text-2xl md:text-3xl font-bold mb-4 text-center pb-4 text-black">
         Your Cart
       </h1>
-      <div className=" flex flex-col lg:flex-row justify-between gap-8">
-        <div className=" w-full lg:pr-4">
-          <table className="min-w-full bg-white">
-            <thead className=" hidden md:table-header-group pb-5">
-              <tr>
-                <th className="py-2">Product</th>
-                <th className="py-2">Price</th>
-                <th className="py-2">Quantity</th>
-                <th className="py-2">Total</th>
-                <th className="py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+      <div className=" grid lg:grid-cols-12 gap-8">
+        <div className=" w-full lg:pr-4 lg:col-span-9 ">
+          <Table className="bg-white">
+            <TableHeader className="hidden md:table-header-group mb-3">
+              <TableRow>
+                <TableHead className=" font-bold">Product</TableHead>
+                <TableHead className="text-center font-bold">Price</TableHead>
+                <TableHead className="text-center font-bold">
+                  Quantity
+                </TableHead>
+                <TableHead className="text-center font-bold">Total</TableHead>
+                <TableHead className="text-center font-bold">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody className=" mt-4">
               {groupItems.map((item) => (
-                <tr
+                <TableRow
                   key={item.product._id}
-                  className="shadow-lg rounded-lg mb-8 pt-6"
+                  className="shadow-lg rounded-lg mb-8"
                 >
-                  <td className="py-2 flex md:items-center">
+                  <TableCell className="py-4">
                     <div
-                      className="w-full h-full flex items-center cursor-pointer"
+                      className="flex items-center cursor-pointer"
                       onClick={() =>
-                        push(`/product/${item?.product.slug?.current}`)
+                        push(`/product/${item.product.slug?.current}`)
                       }
                     >
-                      <div className="w-20 h-20 sm:w-24 flex-shrink-0 mr-4 pl-3">
+                      <div className="w-16 h-16 flex-shrink-0 mr-4">
                         {item.product.image && (
                           <Image
                             src={imageUrl(item.product.image).url()}
                             alt={item.product.name ?? ""}
                             width={70}
                             height={70}
-                            className="rounded-md w-[60px] object-contain"
+                            className="rounded-md object-contain"
                           />
                         )}
                       </div>
+
                       <div>
-                        <h2 className="font-semibold w-[100px] md:w-fit pt-1 truncate text-xs">
+                        <h2 className="font-bold text-sm capitalize truncate w-[100px] md:w-fit">
                           {item.product.name}
                         </h2>
-                        <h2 className="text-xs pt-2 md:hidden flex font-semibold truncate text-black">
+
+                        {/* Mobile total */}
+                        <p className="md:hidden text-sm font-semibold pt-2">
                           {naira_sign}{" "}
                           {currencyFormatter(
                             (item.product.price ?? 0) * item.quantity
                           )}
-                        </h2>
+                        </p>
                       </div>
                     </div>
-                  </td>
-                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold text-black">
+                  </TableCell>
+
+                  <TableCell className="hidden md:table-cell text-center text-sm font-bold">
                     {naira_sign} {currencyFormatter(item.product.price ?? 0)}
-                  </td>
-                  <td className="py-2 text-center text-xs font-semibold hidden md:table-cell text-black">
+                  </TableCell>
+
+                  <TableCell className="hidden md:table-cell text-center text-sm font-bold">
                     {item.quantity}
-                  </td>
-                  <td className="hidden md:table-cell py-2 text-center text-xs font-semibold text-black">
+                  </TableCell>
+
+                  <TableCell className="hidden md:table-cell text-center text-sm font-bold">
                     {naira_sign}{" "}
                     {currencyFormatter(
                       (item.product.price ?? 0) * item.quantity
                     )}
-                  </td>
-                  <td className="py-2 text-center text-sm">
+                  </TableCell>
+
+                  <TableCell className="text-center">
                     <AddCartButton product={item.product} />
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
-        <div className="  bg-white p-4 rounded-lg shadow-lg  w-full lg:w-1/3 h-fit md:mt-10">
+        <div className="  bg-white p-4 rounded-lg shadow-lg lg:col-span-3  w-full h-fit">
           <h1 className=" text-lg font-normal">Order Summary</h1>
           <div className=" mt-4 space-y-2">
             <p className=" flex justify-between">
@@ -223,10 +257,16 @@ const CartPage = () => {
             </p>
           </div>
           <button
-            onClick={() => setIsModalOpen(true)} // Open modal on button click
-            className=" mt-[1rem] btn w-full "
+            onClick={() => user && setIsModalOpen(true)}
+            className={`mt-[1rem]  w-full font-semibold rounded-md shadow h-[45px] 
+              ${!user ? "bg-gray-500 text-white hover:bg-gray-600 " : "bg-[#d09e80] text-white hover:bg-[#bc8969]"} 
+              transition-all duration-300`}
           >
-            Proceed To Checkout
+            {!user ?
+              <ClerkLoaded>
+                <SignInButton>Sign In To Checkout</SignInButton>
+              </ClerkLoaded>
+            : "Proceed To Checkout"}
           </button>
         </div>
       </div>
@@ -249,21 +289,6 @@ const CartPage = () => {
         </div>
         <main className=" my-6 grid gap-5 pt-5">
           <div>
-            <label
-              htmlFor="customerName"
-              className=" pl-2 pb-2 text-xs font-normal"
-            >
-              Full Name:
-            </label>
-            <input
-              type="text"
-              // placeholder="Enter your name"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
-            />
-          </div>
-          <div>
             <label htmlFor="phone" className=" pl-2 pb-2 text-xs font-normal">
               Phone Number:
             </label>
@@ -275,19 +300,7 @@ const CartPage = () => {
               className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
             />
           </div>
-          <div>
-            <label htmlFor="email" className=" pl-2 pb-2 text-xs font-normal">
-              Email Address:
-            </label>
 
-            <input
-              type="email"
-              // placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"
-            />
-          </div>
           <div>
             <label htmlFor="address" className=" pl-2 pb-2 text-xs font-normal">
               Address:
@@ -302,11 +315,13 @@ const CartPage = () => {
           </div>
         </main>
         <button
-          disabled={isLoading || !email || !customerName || !phone || !address}
+          disabled={isLoading || !phone || !address}
           onClick={handleCheckout}
-          className=" mt-[1rem] btn w-full "
+          className=" mt-[1rem] btn w-full flex justify-center items-center "
         >
-          {isLoading ? "Processing..." : "Continue to Payment"}
+          {isLoading ?
+            <Spinner />
+          : "Continue to Payment"}
         </button>
       </Modal>
     </div>

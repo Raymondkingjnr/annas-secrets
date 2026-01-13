@@ -38,12 +38,12 @@ const Collection = () => {
         {categories && categories.length > 0 ?
           categories.map((category: Category) => (
             <div className=" border rounded-md p-2" key={category._id}>
-              <div className="w-[280px] h-[400px]  bg-gray-100 rounded-sm ">
+              <div className="w-[280px] h-[300px]  bg-gray-100 rounded-sm ">
                 {category?.image && (
                   <img
                     src={imageUrl(category.image).url()}
                     alt={category.slug?.current || "Product Image"}
-                    className="object-cover rounded-md w-[280px] h-[400px] "
+                    className="object-cover rounded-md w-[280px] h-[300px] "
                   />
                 )}
               </div>

@@ -280,6 +280,13 @@
         },
         "optional": true
       },
+      "orderNumber": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "totalPrice": {
         "type": "objectAttribute",
         "value": {
@@ -317,6 +324,13 @@
         "optional": true
       },
       "OrderDate": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "clerkUserId": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

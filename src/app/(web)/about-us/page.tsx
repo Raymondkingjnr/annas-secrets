@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className=" bg-gray-50">
+    <div className=" bg-gray-50 mt-[6rem]">
       <div>
         <div
           className="text-center relative md:h-[300px] bg-cover bg-center"

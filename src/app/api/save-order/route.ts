@@ -2,13 +2,14 @@ import { client } from "@/lib/sanity";
 import { product } from "@/modals/products";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { Product } from "../../../../sanity.types";
 
 export async function POST(req: Request) {
   const orderDetails = await req.json();
 
   try {
     // Fetch current stock for each product in the order
-    const productIds = orderDetails.products.map((item) => item.product._ref);
+    const productIds = orderDetails.products.map((item: Product) => item._id);
     const products = await client.fetch(
       `*[_type == "product" && _id in $productIds]`,
       {

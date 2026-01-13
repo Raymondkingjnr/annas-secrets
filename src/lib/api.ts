@@ -128,3 +128,13 @@ export async function getTotalProducts() {
   );
   return total;
 }
+
+export async function getClientOrder(userId: string) {
+  const orders = await client.fetch<IOrderHistory[]>(
+    queries.getClientOrdersQuery,
+    { userId },
+    { cache: "no-cache" }
+  );
+
+  return orders;
+}

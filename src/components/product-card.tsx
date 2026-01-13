@@ -1,7 +1,6 @@
 "use client";
 
 import { currencyFormatter } from "@/utilis/formatter";
-import Image from "next/image";
 import React from "react";
 import { Product } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
@@ -10,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export const naira_sign = "\u20A6";
 const ProductCard = ({ product }: { product: Product }) => {
-  const isOutOfStock = product?.stock != null && product?.stock <= 0;
+  const isOutOfStock = product?.stock === null && product?.stock <= 0;
 
   const router = useRouter();
   return (
@@ -18,17 +17,17 @@ const ProductCard = ({ product }: { product: Product }) => {
       className={`group grid shadow-md rounded-lg border border-gray-300 p-4 w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
     >
       <div className=" relative aspect-square overflow-hidden">
-        {product.image && (
-          <div className=" ">
-            <Image
-              src={imageUrl(product?.image).url()}
-              alt={product.name ?? ""}
-              width={200}
-              height={200}
-              className="  rounded-lg w-[340px] object-contain transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-        )}
+        <div className=" h-[300px] w-[300px]  bg-gray-100   ">
+          {product.image && (
+            <div className=" ">
+              <img
+                src={imageUrl(product.image).url()}
+                alt={product.slug?.current || "Product Image"}
+                className="object-contain rounded-md w-[300px] h-[300px] "
+              />
+            </div>
+          )}
+        </div>
         {isOutOfStock && (
           <div className=" absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <span className=" text-white font-bold text-lg z-10">
@@ -45,7 +44,7 @@ const ProductCard = ({ product }: { product: Product }) => {
               {product.name ?? ""}
             </p>
             <p className=" pt-[2px] text-sm font-bold text-gray-500">
-              In Stock: {product.stock}
+              In Stock: {product.stock ?? 0}
             </p>
           </div>
           <h2 className=" font-bold text-base  text-[#333333]">

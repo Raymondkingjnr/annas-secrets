@@ -81,12 +81,12 @@ const ShopGoal = () => {
                 key={index}
                 className="relative border border-gray-200 rounded-md p-2 mx-3 gap-4"
               >
-                <div className=" h-[400px] w-[300px]  bg-gray-100   ">
+                <div className=" h-[300px] w-[300px]  bg-gray-100   ">
                   {items?.image && (
                     <img
                       src={imageUrl(items.image).url()}
                       alt={items.slug?.current || "Product Image"}
-                      className="object-cover rounded-md w-[300px] h-[400px] "
+                      className="object-contain rounded-md w-[300px] h-[300px] "
                     />
                   )}
                 </div>
@@ -103,7 +103,7 @@ const ShopGoal = () => {
         </div>
       </div>
       <div
-        className=" w-full  h-[500px] my-[6rem] border rounded bg-cover bg-no-repeat bg-center px-5"
+        className=" w-full  h-[500px] my-[5rem] border rounded bg-cover bg-no-repeat bg-center px-5"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerImg.src})`,
         }}

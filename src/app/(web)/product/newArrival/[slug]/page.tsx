@@ -31,7 +31,7 @@ async function SingleNewArrival({
   if (!product) {
     return notFound();
   }
-  const isOutOfStock = product.stock != null && product.stock <= 0;
+  const isOutOfStock = product.stock === null && product.stock <= 0;
 
   const naira_sign = "\u20A6";
 

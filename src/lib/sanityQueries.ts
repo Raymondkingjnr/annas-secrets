@@ -117,6 +117,15 @@ export const getCategoryBySlug = groq`
    *[_type == "category" && slug.current == $slug] | order(name asc)[0] 
   `;
 
+export const getClientOrdersQuery = groq`
+   *[_type == "order" && clerkUserId == $userId] | order(OrderDate desc) {
+    ...,
+    products[]{
+     ...,
+     product->
+    }
+   }
+  `;
 export const getProductsByCategorySlug = groq`
   *[
     _type == "product" &&

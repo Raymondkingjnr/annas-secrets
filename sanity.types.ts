@@ -61,9 +61,11 @@ export type Order = {
     quantity?: number;
     _key: string;
   }>;
+  orderNumber?: string;
   totalPrice?: number;
   status?: "pending" | "Paid" | "Shipped" | "delivered" | "cancelled";
   OrderDate?: string;
+  clerkUserId?: string;
   email?: string;
   customerName?: string;
   phone?: string;
@@ -285,7 +287,7 @@ export type TopSalesResult = Array<{
 
 // Source: src/lib/sanityQueries.ts
 // Variable: NewArrivalsQuery
-// Query: *[_type == "newArrivals"]{_id, slug, name,   image{      asset -> {        url      }    },         categories[]->{      _id,      slug,      name,    },     price,     decription,    }
+// Query: *[_type == "newArrivals"]{_id, slug, name, image{      asset -> {        url      }    },         categories[]->{      _id,      slug,      name,    },     price,     decription,     stock,    }
 export type NewArrivalsQueryResult = Array<{
   _id: string;
   slug: Slug | null;
@@ -302,6 +304,7 @@ export type NewArrivalsQueryResult = Array<{
   }> | null;
   price: number | null;
   decription: null;
+  stock: number | null;
 }>;
 
 // Source: src/lib/sanityQueries.ts
@@ -325,13 +328,76 @@ export type GetCategoryResult = Array<{
   } | null;
 }>;
 
+// Source: src/lib/sanityQueries.ts
+// Variable: getCategoryBySlug
+// Query: *[_type == "category" && slug.current == $slug] | order(name asc)[0]
+export type GetCategoryBySlugResult = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+} | null;
+
+// Source: src/lib/sanityQueries.ts
+// Variable: getProductsByCategorySlug
+// Query: *[    _type == "product" &&    $slug in categories[]->slug.current  ] | order(_createdAt desc)
+export type GetProductsByCategorySlugResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  topSales?: boolean;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  price?: number;
+  stock?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "product" && topSales == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n': TopSalesResult;
-    '*[_type == "newArrivals"]{\n_id, slug, name,   image{\n      asset -> {\n        url\n      }\n    }, \n        categories[]->{\n      _id,\n      slug,\n      name,\n    },\n     price,\n     decription,\n    }': NewArrivalsQueryResult;
+    '*[_type == "newArrivals"]{\n_id, \nslug,\n name,\n image{\n      asset -> {\n        url\n      }\n    }, \n        categories[]->{\n      _id,\n      slug,\n      name,\n    },\n     price,\n     decription,\n     stock,\n    }': NewArrivalsQueryResult;
     '\n  count(*[_type == "product"])\n': TotalProductQueryResult;
     '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      },\n          image{\n      asset -> {\n        url\n      }\n    },\n  }': GetCategoryResult;
+    '\n   *[_type == "category" && slug.current == $slug] | order(name asc)[0] \n  ': GetCategoryBySlugResult;
+    '\n  *[\n    _type == "product" &&\n    $slug in categories[]->slug.current\n  ] | order(_createdAt desc)\n': GetProductsByCategorySlugResult;
   }
 }

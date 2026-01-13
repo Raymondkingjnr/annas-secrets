@@ -12,6 +12,8 @@ import visacard from "./visa.jpg";
 import heroImage from "./herobg.jpg";
 import paystack from "./paystack.png";
 import bannerImg from "./bannerImg.jpg";
+import emptyCartImg from "./emptycart.png";
+import emptyStateImg from "./emptydata.png";
 
 export {
   mastercard,
@@ -28,4 +30,6 @@ export {
   product3,
   product5,
   heroImage,
+  emptyCartImg,
+  emptyStateImg,
 };
