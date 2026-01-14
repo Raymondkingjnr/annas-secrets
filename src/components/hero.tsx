@@ -1,7 +1,6 @@
-"use client";
 import { heroImage } from "@/asset";
 import React from "react";
-
+import Link from "next/link";
 const Hero = () => {
   return (
     <div
@@ -21,12 +20,18 @@ const Hero = () => {
             healthy and Every Age
           </p>
           <div className=" flex items-center gap-8 mt-6">
-            <button className=" bg-[#E3D1C6] h-[40px] w-[120px] rounded-md text-sm font-bold text-[#57524b]">
+            <Link
+              href={"./products"}
+              className=" bg-[#E3D1C6] py-2 w-[120px] rounded-md text-sm text-center font-bold text-[#57524b]"
+            >
               Order Now
-            </button>
-            <button className=" border border-[#E3D1C6] h-[40px] w-[120px] text-sm  rounded-md font-bold text-[#f6f5f2]">
+            </Link>
+            <Link
+              href={"./about-us"}
+              className=" border border-[#E3D1C6] py-2 w-[120px] text-center text-sm  rounded-md font-bold text-[#f6f5f2]"
+            >
               Read More
-            </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -271,7 +271,9 @@ const CartPage = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h1 className=" text-lg font-normal pb-4 pt-8 text-center">Shipping</h1>
+        <h1 className=" text-lg font-normal pb-4 pt-8 text-center">
+          Delivery Details
+        </h1>
         <div className=" mt-4 space-y-2">
           <p className=" flex justify-between">
             <span className=" text-base font-medium">Items:</span>
@@ -307,7 +309,7 @@ const CartPage = () => {
             </label>
             <input
               type="address"
-              // placeholder="Enter your address"
+              placeholder="Eg: 6 ebe street, abia state "
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className=" p-2 border border-t-transparent border-gray-400 border-r-transparent border-l-transparent active:outline-none bg-white outline-none text-sm rounded w-full"

@@ -7,6 +7,8 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { imageUrl } from "@/lib/image-url";
+import { MapPinIcon } from "lucide-react";
+import Image from "next/image";
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -53,7 +55,7 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
           >
             {/* HEADER */}
             <AccordionTrigger className="px-4 py-4 hover:no-underline">
-              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex w-full flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-bold pb-2">
                     Order ID:{" "}
@@ -61,18 +63,25 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
                       {(order.orderNumber ?? "").slice(0, 8)}…
                     </span>
                   </p>
-                  <p className="text-xs font-bold text-muted-foreground">
+                  <p className="text-sm font-bold text-muted-foreground">
                     {formatDate(order.OrderDate ?? "")}
                   </p>
                 </div>
-
-                <span
-                  className={`inline-flex rounded w-fit mr-2 px-3 py-1 text-sm font-semibold ${getStatusStyles(
-                    order.status ?? ""
-                  )}`}
-                >
-                  {order.status}
-                </span>
+                <div>
+                  <span
+                    className={`inline-flex mb-2 rounded w-fit mr-2 px-3 py-1 text-sm font-semibold ${getStatusStyles(
+                      order.status ?? ""
+                    )}`}
+                  >
+                    {order.status}
+                  </span>
+                  <span className=" flex items-center gap-2">
+                    <MapPinIcon className=" text-muted-foreground" size={20} />
+                    <p className="text-base font-bold text-muted-foreground">
+                      {order.address ?? ""}
+                    </p>
+                  </span>
+                </div>
               </div>
             </AccordionTrigger>
 
@@ -83,7 +92,9 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
                 {order.products?.map((item: ProductItem) => (
                   <div key={item._key} className="flex items-center gap-4">
                     <div className="relative h-16 w-16 overflow-hidden rounded-md bg-gray-100">
-                      <img
+                      <Image
+                        width={16}
+                        height={16}
                         src={imageUrl(item.product.image).url()}
                         alt={item._key || "Product Image"}
                         className="object-contain rounded-md  h-16 w-16"

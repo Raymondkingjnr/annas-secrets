@@ -47,15 +47,15 @@ const NewArrival = () => {
               className={`group grid shadow-md rounded-md p-4 w-full md:w-[300px] `}
               key={product._id}
             >
-              <div className=" relative aspect-square overflow-hidden">
+              <div className=" relative w-[280] h-[280] aspect-square overflow-hidden">
                 {product.image && (
                   <div className=" ">
                     <Image
                       src={imageUrl(product?.image).url()}
                       alt={product.name ?? ""}
-                      width={200}
-                      height={200}
-                      className="  rounded-lg w-[340px] object-contain transition-transform duration-300 hover:scale-105"
+                      width={280}
+                      height={280}
+                      className="  rounded-lg w-[280] h-[280] object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </div>
                 )}

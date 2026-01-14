@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { Category } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
 import Link from "next/link";
+import Image from "next/image";
 
 const Collection = () => {
   const textVariants = {
@@ -38,12 +39,14 @@ const Collection = () => {
         {categories && categories.length > 0 ?
           categories.map((category: Category) => (
             <div className=" border rounded-md p-2" key={category._id}>
-              <div className="w-[280px] h-[300px]  bg-gray-100 rounded-sm ">
+              <div className="w-[280px] h-[280px]  bg-gray-100 rounded-sm ">
                 {category?.image && (
-                  <img
+                  <Image
+                    width={280}
+                    height={280}
                     src={imageUrl(category.image).url()}
                     alt={category.slug?.current || "Product Image"}
-                    className="object-cover rounded-md w-[280px] h-[300px] "
+                    className="object-contain rounded-md w-[280px] h-[280px] "
                   />
                 )}
               </div>

@@ -10,6 +10,7 @@ import { currencyFormatter } from "@/utilis/formatter";
 import Marquee from "react-fast-marquee";
 import StarRating from "./star-ratings";
 import { bannerImg } from "@/asset";
+import Image from "next/image";
 
 const ShopGoal = () => {
   const textVariants = {
@@ -83,7 +84,9 @@ const ShopGoal = () => {
               >
                 <div className=" h-[300px] w-[300px]  bg-gray-100   ">
                   {items?.image && (
-                    <img
+                    <Image
+                      width={300}
+                      height={300}
                       src={imageUrl(items.image).url()}
                       alt={items.slug?.current || "Product Image"}
                       className="object-contain rounded-md w-[300px] h-[300px] "

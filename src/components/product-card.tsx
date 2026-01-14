@@ -6,6 +6,7 @@ import { Product } from "../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
 import AddCartButton from "./add-cart-button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const naira_sign = "\u20A6";
 const ProductCard = ({ product }: { product: Product }) => {
@@ -17,13 +18,15 @@ const ProductCard = ({ product }: { product: Product }) => {
       className={`group grid shadow-md rounded-lg border border-gray-300 p-4 w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
     >
       <div className=" relative aspect-square overflow-hidden">
-        <div className=" h-[300px] w-[300px]  bg-gray-100   ">
+        <div className=" h-[280px] w-[280px]  bg-gray-100   ">
           {product.image && (
             <div className=" ">
-              <img
+              <Image
+                width={280}
+                height={280}
                 src={imageUrl(product.image).url()}
                 alt={product.slug?.current || "Product Image"}
-                className="object-contain rounded-md w-[300px] h-[300px] "
+                className="object-contain rounded-md w-[280px] h-[280px] "
               />
             </div>
           )}
