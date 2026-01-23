@@ -30,6 +30,18 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
+      name: "featuredProduct",
+      title: "featured Product",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "newArrival",
+      title: "new Arrival",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       title: "Image",
       name: "image",
       type: "image",

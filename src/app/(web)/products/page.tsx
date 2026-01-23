@@ -46,7 +46,7 @@ const Products = () => {
         pageSize,
         selectedCategory,
         searchQuery,
-        sortByPrice || "asc" || "desc" || ""
+        sortByPrice || "asc" || "desc" || "",
       );
       const categoriesData = await getCategory();
       setProducts(productsData);
@@ -63,7 +63,7 @@ const Products = () => {
   const { data: numOfPost } = useSWR("get/totalProduct", totalProduct);
 
   const handleCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setSelectedCategory(event.target.value);
     setPage(1); // Reset to the first page when category changes
@@ -82,7 +82,7 @@ const Products = () => {
   const totalPages = Math.ceil((numOfPost || 0) / pageSize);
 
   return (
-    <div className="  min-h-screen bg-gray-50 mt-[6rem] ">
+    <div className="  min-h-screen mt-[6rem] ">
       <BackToTopButton />
 
       <div

@@ -20,7 +20,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const product = await getSingleProduct(slug);
 
   const categoryRefs = product.categories?.map(
-    (cat: { _ref: string }) => cat._ref
+    (cat: { _ref: string }) => cat._ref,
   );
 
   if (!product) {
@@ -56,7 +56,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
       </Breadcrumb>
       <div className=" grid grid-cols-1 md:grid-cols-2 place-content-center place-items-center gap-8">
         <div
-          className={`relative aspect-square p-2 border-2 border-gray-300 w-full md:w-[700px] h-[400px] overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
+          className={`relative aspect-square p-2 border-2 bg-white border-gray-300 w-full md:w-[700px] h-[400px] overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
         >
           {product.image && (
             <div className=" p-3 md:w-[680px] h-[350px] ">

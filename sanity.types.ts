@@ -81,6 +81,8 @@ export type Product = {
   name?: string;
   slug?: Slug;
   topSales?: boolean;
+  featuredProduct?: boolean;
+  newArrival?: boolean;
   image?: {
     asset?: {
       _ref: string;
@@ -264,6 +266,12 @@ export type AllSanitySchemaTypes =
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
+type ArrayOf<T> = Array<
+  T & {
+    _key: string;
+  }
+>;
+
 // Source: src/lib/sanityQueries.ts
 // Variable: TopSales
 // Query: *[_type == "product" && topSales == true]{  _id,    slug,    name,    image{      asset -> {        url      }    },    categories[]->{      _id,      slug,      name,    },    price,    stock,}
@@ -354,6 +362,64 @@ export type GetCategoryBySlugResult = {
 } | null;
 
 // Source: src/lib/sanityQueries.ts
+// Variable: getClientOrdersQuery
+// Query: *[_type == "order" && clerkUserId == $userId] | order(OrderDate desc) {    ...,    products[]{     ...,     product->    }   }
+export type GetClientOrdersQueryResult = Array<{
+  _id: string;
+  _type: "order";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  products: Array<{
+    product: {
+      _id: string;
+      _type: "product";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      topSales?: boolean;
+      featuredProduct?: boolean;
+      newArrival?: boolean;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      description?: string;
+      price?: number;
+      stock?: number;
+      categories?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "category";
+      }>;
+    } | null;
+    quantity?: number;
+    _key: string;
+  }> | null;
+  orderNumber?: string;
+  totalPrice?: number;
+  status?: "cancelled" | "delivered" | "Paid" | "pending" | "Shipped";
+  OrderDate?: string;
+  clerkUserId?: string;
+  email?: string;
+  customerName?: string;
+  phone?: string;
+  address?: string;
+}>;
+
+// Source: src/lib/sanityQueries.ts
 // Variable: getProductsByCategorySlug
 // Query: *[    _type == "product" &&    $slug in categories[]->slug.current  ] | order(_createdAt desc)
 export type GetProductsByCategorySlugResult = Array<{
@@ -365,6 +431,8 @@ export type GetProductsByCategorySlugResult = Array<{
   name?: string;
   slug?: Slug;
   topSales?: boolean;
+  featuredProduct?: boolean;
+  newArrival?: boolean;
   image?: {
     asset?: {
       _ref: string;
@@ -398,6 +466,7 @@ declare module "@sanity/client" {
     '\n  count(*[_type == "product"])\n': TotalProductQueryResult;
     '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      },\n          image{\n      asset -> {\n        url\n      }\n    },\n  }': GetCategoryResult;
     '\n   *[_type == "category" && slug.current == $slug] | order(name asc)[0] \n  ': GetCategoryBySlugResult;
+    '\n   *[_type == "order" && clerkUserId == $userId] | order(OrderDate desc) {\n    ...,\n    products[]{\n     ...,\n     product->\n    }\n   }\n  ': GetClientOrdersQueryResult;
     '\n  *[\n    _type == "product" &&\n    $slug in categories[]->slug.current\n  ] | order(_createdAt desc)\n': GetProductsByCategorySlugResult;
   }
 }

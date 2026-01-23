@@ -19,12 +19,12 @@ async function Category({ params }: { params: { slug: string } }) {
   return (
     <div className="mt-[6rem]">
       <div
-        className="w-full h-[330px] mb-10 border rounded bg-cover bg-no-repeat bg-center px-5 flex items-center justify-center"
+        className="w-full h-[430px] mb-10 border bg-white rounded bg-contain bg-no-repeat bg-center px-5 flex items-center justify-center"
         style={{
           backgroundImage:
             category.image ?
               `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${imageUrl(
-                category.image
+                category.image,
               ).url()})`
             : undefined,
         }}
