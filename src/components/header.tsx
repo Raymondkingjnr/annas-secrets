@@ -28,7 +28,7 @@ import { PiInstagramLogo, PiWhatsappLogo } from "react-icons/pi";
 const navLinks = [
   { title: "shop", href: "/products" },
   { title: "collections", href: "/service" },
-  { title: "about", href: "/about-us" },
+  // { title: "about", href: "/about-us" },
   { title: "contact", type: "dropdown" },
   { title: "my orders", href: "/order", auth: true },
 ];
@@ -102,7 +102,7 @@ const Header = () => {
   const toggleMenu = () => setOpen((prev) => !prev);
 
   const itemCount = useBasketStore((state) =>
-    state.items.reduce((acc, item) => acc + item.quantity, 0)
+    state.items.reduce((acc, item) => acc + item.quantity, 0),
   );
 
   return (
