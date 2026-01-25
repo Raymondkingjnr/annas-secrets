@@ -1,14 +1,24 @@
-import { Product, Category, NewArrivals } from "../../sanity.types";
+import { Product, Category, Review } from "../../sanity.types";
 import { client } from "./sanity";
 import * as queries from "./sanityQueries";
 // import { Category } from "@/modals/products";
+
+export type ProductWithReviews = Product & {
+  reviews: {
+    _id: string;
+    rating: number;
+    comment: string;
+    userName: string;
+    createdAt: string;
+  }[];
+};
 
 export async function getProducts(
   page: number = 1,
   pageSize: number = 3,
   categorySlug?: string,
   searchQuery?: string,
-  sortByPrice?: "asc" | "desc"
+  sortByPrice?: "asc" | "desc",
 ) {
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
@@ -19,10 +29,10 @@ export async function getProducts(
       end,
       categorySlug,
       searchQuery,
-      sortByPrice
+      sortByPrice,
     ),
     {},
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
 
   return result;
@@ -30,7 +40,7 @@ export async function getProducts(
 
 export async function getSimilarProducts(
   categoryRefs: string[],
-  currentProductId: string
+  currentProductId: string,
 ) {
   return client.fetch(
     `
@@ -43,7 +53,7 @@ export async function getSimilarProducts(
       categoryRefs,
       currentProductId,
     },
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
 }
 
@@ -51,24 +61,32 @@ export async function getTopSales() {
   const result = await client.fetch<Product[]>(
     queries.TopSales,
     {},
-    { cache: "no-cache" }
+    { cache: "no-cache" },
+  );
+  return result;
+}
+export async function getNewArrivalProduct() {
+  const result = await client.fetch<Product[]>(
+    queries.getNewArrivalquery,
+    {},
+    { cache: "no-cache" },
+  );
+  return result;
+}
+export async function getFeaturedProduct() {
+  const result = await client.fetch<Product[]>(
+    queries.getFeaturedProductQuery,
+    {},
+    { cache: "no-cache" },
   );
   return result;
 }
 
-export async function getAllNewArrivals() {
-  const result = await client.fetch<NewArrivals[]>(
-    queries.NewArrivalsQuery,
-    {},
-    { cache: "no-cache" }
-  );
-  return result;
-}
 export async function getCategory() {
   const result = await client.fetch<Category[]>(
     queries.getCategory,
     {},
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
   return result;
 }
@@ -77,7 +95,7 @@ export async function getSingleCategory(slug: string) {
   const result = await client.fetch<Category>(
     queries.getCategoryBySlug,
     { slug },
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
   return result;
 }
@@ -86,7 +104,7 @@ export async function getProductsByCategory(slug: string) {
   return client.fetch(
     queries.getProductsByCategorySlug,
     { slug },
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
 }
 
@@ -95,7 +113,7 @@ export async function getSearchedProduct(searchParams: string) {
   const result = await client.fetch<Product[]>(
     queries.searchProductByName(searchParams),
     {},
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
 
   return result;
@@ -105,18 +123,8 @@ export async function getSingleProduct(slug: string) {
   const result = await client.fetch<Product>(
     queries.getProductBySlug,
     { slug },
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
-  return result;
-}
-
-export async function getSingleNewArrival(slug: string) {
-  const result = await client.fetch<NewArrivals>(
-    queries.getNewArrivalsBySlug,
-    { slug },
-    { cache: "no-cache" }
-  );
-
   return result;
 }
 
@@ -124,7 +132,7 @@ export async function getTotalProducts() {
   const total = await client.fetch<number>(
     queries.TotalProductQuery,
     {},
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
   return total;
 }
@@ -133,8 +141,26 @@ export async function getClientOrder(userId: string) {
   const orders = await client.fetch<IOrderHistory[]>(
     queries.getClientOrdersQuery,
     { userId },
-    { cache: "no-cache" }
+    { cache: "no-cache" },
   );
 
   return orders;
+}
+
+export async function getSingleProductWithReviews(slug: string) {
+  const result = await client.fetch<ProductWithReviews>(
+    queries.getProductWithReviewsQuery,
+    { slug },
+    { cache: "no-cache" },
+  );
+
+  return result;
+}
+
+export async function getReviewsWithProduct() {
+  return client.fetch<Review[]>(
+    queries.getReviewsWithProductQuery,
+    {},
+    { cache: "no-cache" },
+  );
 }

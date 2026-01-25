@@ -14,10 +14,16 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import GetSimilarProducts from "@/components/get-similar-products";
+import ReviewButton from "@/components/review-button";
+import { Button } from "@/components/ui/button";
+import ProductReviews from "@/components/product-reviews";
+import Image from "next/image";
 
 async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = await getSingleProduct(slug);
+
+  const productId = product._id ?? "";
 
   const categoryRefs = product.categories?.map(
     (cat: { _ref: string }) => cat._ref,
@@ -30,37 +36,39 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
 
   const naira_sign = "\u20A6";
 
-  console.log(product);
-
   return (
     <div className=" container mx-auto pt-6 px-4 pb-8 mt-[7rem]">
-      <Breadcrumb className=" mb-6 pl-5">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/" className=" font-bold text-sm">
-                Home
-              </Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/products" className=" font-bold text-sm">
-                Shop
-              </Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          {/* <BreadcrumbSeparator /> */}
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="  mb-5">
+        <Breadcrumb className="  md:pl-5">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/" className=" font-bold text-sm">
+                  Home
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/products" className=" font-bold text-sm">
+                  Shop
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {/* <BreadcrumbSeparator /> */}
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 place-content-center place-items-center gap-8">
         <div
           className={`relative aspect-square p-2 border-2 bg-white border-gray-300 w-full md:w-[700px] h-[400px] overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
         >
           {product.image && (
             <div className=" p-3 md:w-[680px] h-[350px] ">
-              <img
+              <Image
+                width={600}
+                height={600}
                 src={imageUrl(product.image).url()}
                 alt={product.name ?? ""}
                 className=" object-cover md:object-contain rounded-md aspect-square w-full h-[350px] "
@@ -87,13 +95,19 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
               </p>
               <StarRating rating={4} size={20} />
             </div>
-            <button className=" border border-[#E3D1C6] h-[40px] w-[120px] mt-4 md:mt-6 mb-2 text-sm cursor-default  rounded-md font-bold text-[#db9c75]">
-              Description
-            </button>
-            <div className=" hidden md:flex prose max-w-none mb-6 leading-8 text-sm text-text_color">
+            <div className="flex gap-4 items-center mt-5 mb-3">
+              <Button className=" border border-[#d09e80] bg-transparent text-[#db9c75] font-bold hover:bg-transparent">
+                Description
+              </Button>
+              <ReviewButton
+                productId={productId}
+                productName={product.name ?? ""}
+              />
+            </div>
+            <div className=" hidden md:flex prose max-w-none mb-6 leading-8 text-sm text-gray-700">
               {product?.description}
             </div>
-            <div className=" flex md:hidden prose max-w-none mb-6 leading-7 text-sm text-text_color">
+            <div className=" flex md:hidden prose max-w-none mb-6 leading-7 text-sm text-gray-700">
               {shortenDescription(product?.description ?? "", 200)}
             </div>
           </div>
@@ -104,6 +118,13 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
       </div>
 
       <section className=" mt-[2.5rem] md:mt-[12rem]">
+        <h1 className="text-xl capitalize mb-4 md:text-3xl font-bold text-center text-[#251d14]">
+          Product Reviews
+        </h1>
+
+        <ProductReviews slug={slug} />
+      </section>
+      <section className=" mt-[2.5rem] md:mt-[10rem]">
         <h1 className="text-xl capitalize mb-4 md:text-3xl font-bold text-center text-[#251d14]">
           You should also Like
         </h1>

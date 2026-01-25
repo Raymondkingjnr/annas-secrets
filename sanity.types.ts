@@ -13,36 +13,23 @@
  */
 
 // Source: schema.json
-export type NewArrivals = {
+export type Review = {
   _id: string;
-  _type: "newArrivals";
+  _type: "review";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  slug?: Slug;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  description?: string;
-  price?: number;
-  stock?: number;
-  categories?: Array<{
+  product?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+    [internalGroqTypeReferenceTo]?: "product";
+  };
+  userId?: string;
+  userName?: string;
+  rating?: number;
+  comment?: string;
+  createdAt?: string;
 };
 
 export type Order = {
@@ -63,7 +50,7 @@ export type Order = {
   }>;
   orderNumber?: string;
   totalPrice?: number;
-  status?: "pending" | "Paid" | "Shipped" | "delivered" | "cancelled";
+  status?: "pending" | "Paid" | "delivered" | "cancelled";
   OrderDate?: string;
   clerkUserId?: string;
   email?: string;
@@ -248,7 +235,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | NewArrivals
+  | Review
   | Order
   | Product
   | Category
@@ -294,9 +281,9 @@ export type TopSalesResult = Array<{
 }>;
 
 // Source: src/lib/sanityQueries.ts
-// Variable: NewArrivalsQuery
-// Query: *[_type == "newArrivals"]{_id, slug, name, image{      asset -> {        url      }    },         categories[]->{      _id,      slug,      name,    },     price,     decription,     stock,    }
-export type NewArrivalsQueryResult = Array<{
+// Variable: getNewArrivalquery
+// Query: *[_type == "product" && newArrival == true]{  _id,    slug,    name,    image{      asset -> {        url      }    },    categories[]->{      _id,      slug,      name,    },    price,    stock,}
+export type GetNewArrivalqueryResult = Array<{
   _id: string;
   slug: Slug | null;
   name: string | null;
@@ -311,7 +298,27 @@ export type NewArrivalsQueryResult = Array<{
     name: string | null;
   }> | null;
   price: number | null;
-  decription: null;
+  stock: number | null;
+}>;
+
+// Source: src/lib/sanityQueries.ts
+// Variable: getFeaturedProductQuery
+// Query: *[_type == "product" && featuredProduct == true]{  _id,    slug,    name,    image{      asset -> {        url      }    },    categories[]->{      _id,      slug,      name,    },    price,    stock,}
+export type GetFeaturedProductQueryResult = Array<{
+  _id: string;
+  slug: Slug | null;
+  name: string | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  categories: Array<{
+    _id: string;
+    slug: Slug | null;
+    name: string | null;
+  }> | null;
+  price: number | null;
   stock: number | null;
 }>;
 
@@ -410,7 +417,7 @@ export type GetClientOrdersQueryResult = Array<{
   }> | null;
   orderNumber?: string;
   totalPrice?: number;
-  status?: "cancelled" | "delivered" | "Paid" | "pending" | "Shipped";
+  status?: "cancelled" | "delivered" | "Paid" | "pending";
   OrderDate?: string;
   clerkUserId?: string;
   email?: string;
@@ -457,16 +464,74 @@ export type GetProductsByCategorySlugResult = Array<{
   }>;
 }>;
 
+// Source: src/lib/sanityQueries.ts
+// Variable: getProductWithReviewsQuery
+// Query: *[_type == "product" && slug.current == $slug][0]{    name,    image,    "reviews": *[      _type == "review" &&      product._ref == ^._id    ] | order(createdAt desc) {      _id,      rating,      comment,      userName,      createdAt    }  }
+export type GetProductWithReviewsQueryResult = {
+  name: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  reviews: Array<{
+    _id: string;
+    rating: number | null;
+    comment: string | null;
+    userName: string | null;
+    createdAt: string | null;
+  }>;
+} | null;
+
+// Source: src/lib/sanityQueries.ts
+// Variable: getReviewsWithProductQuery
+// Query: *[_type == "review"]  | order(createdAt desc) {    _id,    rating,    comment,    userName,    createdAt,    product->{      _id,      name,      slug,      price,      image    }  }
+export type GetReviewsWithProductQueryResult = Array<{
+  _id: string;
+  rating: number | null;
+  comment: string | null;
+  userName: string | null;
+  createdAt: string | null;
+  product: {
+    _id: string;
+    name: string | null;
+    slug: Slug | null;
+    price: number | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  } | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "product" && topSales == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n': TopSalesResult;
-    '*[_type == "newArrivals"]{\n_id, \nslug,\n name,\n image{\n      asset -> {\n        url\n      }\n    }, \n        categories[]->{\n      _id,\n      slug,\n      name,\n    },\n     price,\n     decription,\n     stock,\n    }': NewArrivalsQueryResult;
+    '*[_type == "product" && newArrival == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n': GetNewArrivalqueryResult;
+    '*[_type == "product" && featuredProduct == true]{\n  _id,\n    slug,\n    name,\n    image{\n      asset -> {\n        url\n      }\n    },\n    categories[]->{\n      _id,\n      slug,\n      name,\n    },\n    price,\n    stock,\n}\n': GetFeaturedProductQueryResult;
     '\n  count(*[_type == "product"])\n': TotalProductQueryResult;
     '*[_type == "category" ]{\n  _id,\n    name,\n      slug{\n        current\n      },\n          image{\n      asset -> {\n        url\n      }\n    },\n  }': GetCategoryResult;
     '\n   *[_type == "category" && slug.current == $slug] | order(name asc)[0] \n  ': GetCategoryBySlugResult;
     '\n   *[_type == "order" && clerkUserId == $userId] | order(OrderDate desc) {\n    ...,\n    products[]{\n     ...,\n     product->\n    }\n   }\n  ': GetClientOrdersQueryResult;
     '\n  *[\n    _type == "product" &&\n    $slug in categories[]->slug.current\n  ] | order(_createdAt desc)\n': GetProductsByCategorySlugResult;
+    '\n  *[_type == "product" && slug.current == $slug][0]{\n    name,\n    image,\n\n    "reviews": *[\n      _type == "review" &&\n      product._ref == ^._id\n    ] | order(createdAt desc) {\n      _id,\n      rating,\n      comment,\n      userName,\n      createdAt\n    }\n  }\n': GetProductWithReviewsQueryResult;
+    '\n  *[_type == "review"]\n  | order(createdAt desc) {\n    _id,\n    rating,\n    comment,\n    userName,\n    createdAt,\n\n    product->{\n      _id,\n      name,\n      slug,\n      price,\n      image\n    }\n  }\n': GetReviewsWithProductQueryResult;
   }
 }

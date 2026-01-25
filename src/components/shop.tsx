@@ -9,7 +9,7 @@ import { naira_sign } from "./product-card";
 import { currencyFormatter } from "@/utilis/formatter";
 import Marquee from "react-fast-marquee";
 import StarRating from "./star-ratings";
-import { bannerImg } from "@/asset";
+import { bannerImg2 } from "@/asset";
 import Image from "next/image";
 
 const ShopGoal = () => {
@@ -47,7 +47,7 @@ const ShopGoal = () => {
 
   return (
     <>
-      <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] mt-[5rem] max-w-[1600px] mx-auto">
+      <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] md:py-28 py-16 max-w-[1600px] mx-auto">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -55,10 +55,10 @@ const ShopGoal = () => {
           variants={textVariants}
           className=""
         >
-          <h2 className=" text-xl  font-bold text-[#251d14]">
+          <h2 className=" text-xl md:text-3xl font-bold text-[#251d14]">
             Our Bestsellers{" "}
           </h2>
-          <p className=" text-[#aaa9a9] md:text-sm leading-7 text-sm font-medium py-[1rem] md:w-[400px]">
+          <p className=" text-[#5f5f5f] md:text-sm leading-7 text-sm font-medium pb-6 pt-1 md:w-[400px]">
             Explore a curated selection of premium supplements and wellness
             products designed to elevate your mind, body, and spirit.
           </p>
@@ -72,24 +72,21 @@ const ShopGoal = () => {
             autoFill={true}
             ref={tickerRef}
             speed={50}
-            style={{
-              height: "500px",
-            }}
             className="flex  items-center justify-between"
           >
             {products?.map((items, index) => (
               <div
                 key={index}
-                className="relative border border-gray-200 rounded-md p-2 mx-3 gap-4"
+                className="relative border border-gray-200 w-[200px] md:w-fit rounded-md mx-3 gap-4"
               >
-                <div className=" h-[300px] w-[300px]  bg-gray-100   ">
+                <div className=" md:h-[300px] md:w-[300px]  bg-gray-100   ">
                   {items?.image && (
                     <Image
-                      width={300}
-                      height={300}
+                      width={200}
+                      height={200}
                       src={imageUrl(items.image).url()}
                       alt={items.slug?.current || "Product Image"}
-                      className="object-contain rounded-md w-[300px] h-[300px] "
+                      className="object-contain rounded-md md:w-[300px] md:h-[300px] "
                     />
                   )}
                 </div>
@@ -97,7 +94,9 @@ const ShopGoal = () => {
                   <p className="text-sm font-bold">
                     {naira_sign} {currencyFormatter(Number(items?.price))}
                   </p>
-                  <p className=" font-normal text-sm">{items?.name}</p>
+                  <p className=" font-normal text-sm w-[90px] truncate">
+                    {items?.name}
+                  </p>
                   <StarRating rating={rating} onChange={setRating} />
                 </div>
               </div>
@@ -106,20 +105,19 @@ const ShopGoal = () => {
         </div>
       </div>
       <div
-        className=" w-full  h-[500px] my-[5rem] border rounded bg-cover bg-no-repeat bg-center px-5"
+        className=" w-full  md:h-[600px] mb-10 py-20 md:mb-24 border rounded bg-cover bg-no-repeat bg-center px-5"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerImg.src})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${bannerImg2.src})`,
         }}
       >
-        <section className=" max-w-[1550px] md:ml-14 h-full flex items-end pb-20">
+        <section className=" max-w-[1550px] md:ml-14 h-full flex items-end">
           <div className="flex flex-col justify-center items-center md:items-start">
             <h3 className=" text-[#f6f5f2] text-2xl md:text-5xl md:leading-[4rem] font-extrabold tracking-wide">
-              Love Your Skin, Every Day
+              Annas Skin Care
             </h3>
             <p className="w-full md:w-[500px] text-center md:text-left text-[#f6f5f2] leading-7 my-5 font-normal">
-              Elevete Your Glow with clean, science-backed skincare
-              cruelty-free, sustainable, and packed with anitioxidants for skin
-              that looks healthy and Every Age
+              Daily soothing sunscreen, Dewy Finish with no Whitecast, Natural
+              Tone-Up, SweatProof Matte-Finish Etc.
             </p>
             <div className=" flex items-center gap-8 mt-6">
               <button className=" bg-[#E3D1C6] h-[40px] w-[120px] rounded-md text-sm font-bold text-[#57524b]">

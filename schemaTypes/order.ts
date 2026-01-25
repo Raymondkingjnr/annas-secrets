@@ -67,7 +67,6 @@ export const orderType = defineType({
         list: [
           { title: "Pending", value: "pending" },
           { title: "Paid", value: "Paid" },
-          { title: "Shipped", value: "Shipped" },
           { title: "Delivered", value: "delivered" },
           { title: "Cancelled", value: "cancelled" },
         ],

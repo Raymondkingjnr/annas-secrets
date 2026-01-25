@@ -38,22 +38,22 @@ const Services = () => {
       <div className=" gridFit pt-6">
         {categories && categories.length > 0 ?
           categories.map((category: Category) => (
-            <div className=" border rounded-md p-2" key={category._id}>
-              <div className="w-[280px] h-[280px]  bg-gray-100 rounded-sm ">
+            <div className=" border md:w-fit rounded-md p-2" key={category._id}>
+              <div className="md:w-[280px] md:h-[280px]  bg-gray-100 rounded-sm ">
                 {category?.image && (
                   <Image
                     width={280}
                     height={280}
                     src={imageUrl(category.image).url()}
                     alt={category.slug?.current || "Product Image"}
-                    className="object-contain rounded-md w-[280px] h-[280px] "
+                    className="object-contain rounded-md md:w-[280px] md:h-[280px] "
                   />
                 )}
               </div>
               <div className=" border rounded-md my-2 cursor-pointer ">
                 <Link
                   href={`/products/${category.slug?.current}`}
-                  className=" text-center py-2 flex justify-center items-center font-bold text-sm capitalize"
+                  className=" text-center py-2 flex justify-center items-center font-bold text-xs md:text-sm capitalize"
                 >
                   {category.name}
                 </Link>

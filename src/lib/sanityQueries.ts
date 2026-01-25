@@ -5,7 +5,7 @@ export const getProductsQueries = (
   end?: number,
   categorySlug?: string,
   searchQuery?: string,
-  sortByPrice?: "asc" | "desc"
+  sortByPrice?: "asc" | "desc",
 ) => {
   let query = `*[_type == "product"`;
 
@@ -68,25 +68,42 @@ export const TopSales = groq`*[_type == "product" && topSales == true]{
     stock,
 }
 `;
-
-export const NewArrivalsQuery = groq`*[_type == "newArrivals"]{
-_id, 
-slug,
- name,
- image{
+export const getNewArrivalquery = groq`*[_type == "product" && newArrival == true]{
+  _id,
+    slug,
+    name,
+    image{
       asset -> {
         url
       }
-    }, 
-        categories[]->{
+    },
+    categories[]->{
       _id,
       slug,
       name,
     },
-     price,
-     decription,
-     stock,
-    }`;
+    price,
+    stock,
+}
+`;
+export const getFeaturedProductQuery = groq`*[_type == "product" && featuredProduct == true]{
+  _id,
+    slug,
+    name,
+    image{
+      asset -> {
+        url
+      }
+    },
+    categories[]->{
+      _id,
+      slug,
+      name,
+    },
+    price,
+    stock,
+}
+`;
 
 export const TotalProductQuery = groq`
   count(*[_type == "product"])
@@ -135,3 +152,40 @@ export const getProductsByCategorySlug = groq`
 
 export const searchProductByName = (searchParams: string) =>
   groq`*[_type == "product" && name match "${searchParams}*"] | order(name asc)`;
+
+export const getProductWithReviewsQuery = groq`
+  *[_type == "product" && slug.current == $slug][0]{
+    name,
+    image,
+
+    "reviews": *[
+      _type == "review" &&
+      product._ref == ^._id
+    ] | order(createdAt desc) {
+      _id,
+      rating,
+      comment,
+      userName,
+      createdAt
+    }
+  }
+`;
+
+export const getReviewsWithProductQuery = groq`
+  *[_type == "review"]
+  | order(createdAt desc) {
+    _id,
+    rating,
+    comment,
+    userName,
+    createdAt,
+
+    product->{
+      _id,
+      name,
+      slug,
+      price,
+      image
+    }
+  }
+`;

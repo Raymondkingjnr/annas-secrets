@@ -16,7 +16,7 @@ const GetSimilarProducts = async ({
   if (!products.length) return null;
 
   return (
-    <main className="gridFit pt-6">
+    <main className="gridFit pt-1">
       {products.slice(0, 4).map((item: Product) => (
         <ProductCard key={item._id} product={item} />
       ))}

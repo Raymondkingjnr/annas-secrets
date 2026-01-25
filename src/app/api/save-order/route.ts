@@ -1,5 +1,4 @@
 import { client } from "@/lib/sanity";
-import { product } from "@/modals/products";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { Product } from "../../../../sanity.types";
@@ -9,17 +8,20 @@ export async function POST(req: Request) {
 
   try {
     // Fetch current stock for each product in the order
-    const productIds = orderDetails.products.map((item: Product) => item._id);
+    const productIds = orderDetails.products.map(
+      (item: any) => item.product._ref,
+    );
+
     const products = await client.fetch(
       `*[_type == "product" && _id in $productIds]`,
       {
         productIds,
-      }
+      },
     );
 
     // Create a map of product IDs to their current stock
     const productStockMap = new Map();
-    products.forEach((product: product) => {
+    products.forEach((product: Product) => {
       productStockMap.set(product._id, product.stock);
     });
 
@@ -27,6 +29,12 @@ export async function POST(req: Request) {
     for (const item of orderDetails.products) {
       const productId = item.product._ref;
       const currentStock = productStockMap.get(productId);
+
+      // FIX: Add validation to catch undefined stock
+      if (currentStock === undefined) {
+        throw new Error(`Product ${productId} not found`);
+      }
+
       const newStock = currentStock - item.quantity;
 
       if (newStock < 0) {
@@ -38,7 +46,7 @@ export async function POST(req: Request) {
     }
 
     // Generate unique keys for each product item and ensure product is a reference type
-    orderDetails.products = orderDetails.products.map((item) => ({
+    orderDetails.products = orderDetails.products.map((item: any) => ({
       ...item,
       _key: uuidv4(),
       product: {

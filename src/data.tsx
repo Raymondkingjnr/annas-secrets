@@ -1,36 +1,3 @@
-import { boosters, hair, heroImage, skin, vigina, weight } from "./asset";
-
-export const shop_goals = [
-  {
-    image: hair,
-    name: "hair",
-  },
-  {
-    image: skin,
-    name: "skin",
-  },
-  {
-    image: weight,
-    name: "weight",
-  },
-  {
-    image: boosters,
-    name: "boosters",
-  },
-  {
-    image: vigina,
-    name: "Vagina",
-  },
-  {
-    image: heroImage,
-    name: "vitamins",
-  },
-  {
-    image: heroImage,
-    name: "Hips",
-  },
-];
-
 export const testimonails = [
   {
     id: 1,

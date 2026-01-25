@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { imageUrl } from "@/lib/image-url";
 import { MapPinIcon } from "lucide-react";
 import Image from "next/image";
+import ReviewButton from "./review-button";
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -28,8 +29,6 @@ function getStatusStyles(status: string) {
       return "bg-yellow-100 text-yellow-800";
     case "paid":
       return "bg-green-100 text-green-800";
-    case "shipped":
-      return "bg-blue-100 text-blue-800";
     case "delivered":
       return "bg-emerald-100 text-emerald-800";
     case "cancelled":
@@ -57,29 +56,36 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
             <AccordionTrigger className="px-4 py-4 hover:no-underline">
               <div className="flex w-full flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-bold pb-2">
-                    Order ID:{" "}
-                    <span className="text-muted-foreground">
-                      {(order.orderNumber ?? "").slice(0, 8)}…
+                  <div className=" flex flex-col md:flex-row gap-x-5 gap-y-1">
+                    <p className="text-sm font-bold">
+                      Order ID:{" "}
+                      <span className="text-muted-foreground">
+                        {(order.orderNumber ?? "").slice(0, 8)}…
+                      </span>
+                    </p>
+
+                    <span className=" flex items-center gap-2">
+                      <MapPinIcon
+                        className=" text-gray-800"
+                        size={17}
+                        strokeWidth={1}
+                      />
+                      <p className="text-sm font-normal text-gray-800">
+                        {order.address ?? ""}
+                      </p>
                     </span>
-                  </p>
-                  <p className="text-sm font-bold text-muted-foreground">
+                  </div>
+                  <p className="text-sm pt-4 font-bold text-muted-foreground">
                     {formatDate(order.OrderDate ?? "")}
                   </p>
                 </div>
                 <div>
                   <span
                     className={`inline-flex mb-2 rounded w-fit mr-2 px-3 py-1 text-sm font-semibold ${getStatusStyles(
-                      order.status ?? ""
+                      order.status ?? "",
                     )}`}
                   >
                     {order.status}
-                  </span>
-                  <span className=" flex items-center gap-2">
-                    <MapPinIcon className=" text-muted-foreground" size={20} />
-                    <p className="text-base font-bold text-muted-foreground">
-                      {order.address ?? ""}
-                    </p>
                   </span>
                 </div>
               </div>
@@ -102,11 +108,13 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
                     </div>
 
                     <div className="flex-1">
-                      <p className="text-sm font-bold">{item.product.name}</p>
+                      <p className="text-xs md:text-sm font-bold truncate w-[100px] md:w-[300]">
+                        {item.product.name}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         Qty: {item.quantity}
                       </p>
-                      <p className="flex md:hidden text-sm font-bold">
+                      <p className=" flex md:hidden text-xs font-bold">
                         {formatCurrency(item.product.price)}
                       </p>
                     </div>
@@ -115,13 +123,10 @@ export default function OrderHistory({ orders }: { orders: IOrderHistory[] }) {
                       {formatCurrency(item.product.price)}
                     </p>
 
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className=" font-semibold"
-                    >
-                      Product Review
-                    </Button>
+                    <ReviewButton
+                      productId={item.product._id}
+                      productName={item.product.name ?? ""}
+                    />
                   </div>
                 ))}
 

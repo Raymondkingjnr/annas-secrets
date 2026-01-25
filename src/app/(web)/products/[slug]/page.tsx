@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Product } from "../../../../../sanity.types";
 
 async function Category({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   if (!slug) notFound();
 

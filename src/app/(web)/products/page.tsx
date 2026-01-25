@@ -17,6 +17,20 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+function useDebounce<T>(value: T, delay = 500) {
+  const [debouncedValue, setDebouncedValue] = React.useState(value);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
   return (
     <div className=" gridFit gap-3 my-[4rem]">
@@ -35,6 +49,8 @@ const Products = () => {
   const [sortByPrice, setSortByPrice] = React.useState<"asc" | "desc" | "">("");
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 5000);
+
   const [page, setPage] = React.useState<number>(1);
   const pageSize = 8;
 
@@ -45,7 +61,7 @@ const Products = () => {
         page,
         pageSize,
         selectedCategory,
-        searchQuery,
+        debouncedSearchQuery,
         sortByPrice || "asc" || "desc" || "",
       );
       const categoriesData = await getCategory();
@@ -55,7 +71,7 @@ const Products = () => {
     };
 
     fetchData();
-  }, [page, selectedCategory, searchQuery, sortByPrice]);
+  }, [page, selectedCategory, debouncedSearchQuery, sortByPrice]);
 
   const totalProduct = async () => {
     return getTotalProducts();
@@ -66,17 +82,17 @@ const Products = () => {
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setSelectedCategory(event.target.value);
-    setPage(1); // Reset to the first page when category changes
+    setPage(1);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-    setPage(1); // Reset to the first page when search query changes
+    setPage(1);
   };
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortByPrice(event.target.value as "asc" | "desc");
-    setPage(1); // Reset to the first page when sort changes
+    setPage(1);
   };
 
   const totalPages = Math.ceil((numOfPost || 0) / pageSize);
@@ -92,13 +108,13 @@ const Products = () => {
         }}
       >
         <h3 className="text-[#f6f5f2] text-center text-2xl md:text-5xl md:leading-[4rem] font-extrabold tracking-wide">
-          Love Your Skin, Every Day
+          A Glowing Skin is a result of Proper Skincare.
         </h3>
       </div>
 
       {/* Filters */}
       <main className="pb-8 pt-3 container mx-auto px-4">
-        <form className="mt-5 flex flex-col md:flex-row gap-4">
+        <div className="mt-5 flex flex-col md:flex-row gap-4">
           <div className="flex gap-3">
             <input
               type="text"
@@ -111,7 +127,7 @@ const Products = () => {
             <select
               value={selectedCategory}
               onChange={handleCategoryChange}
-              className="border h-[45px] px-2 w-full md:w-[300px] lg:w-[400px] text-sm text-[#757575] rounded-md"
+              className="border h-[45px] px-2 w-full md:w-[300px] lg:w-[400px] text-sm text-[#757575] rounded-md active:outline-[#d09e80] outline-[#d09e80]"
             >
               <option value="">All Categories</option>
               {categories.map((category) => (
@@ -125,13 +141,13 @@ const Products = () => {
           <select
             value={sortByPrice}
             onChange={handleSortChange}
-            className="border h-[45px] px-2 w-full md:w-[140px] text-sm text-[#757575] rounded-md"
+            className="border h-[45px] px-2 w-full md:w-[140px] text-sm text-[#757575] rounded-md active:outline-[#d09e80] outline-[#d09e80]"
           >
             <option value="">Sort by Price</option>
             <option value="asc">Low to High</option>
             <option value="desc">High to Low</option>
           </select>
-        </form>
+        </div>
       </main>
       <div className="container mx-auto px-4">
         {/* 1️⃣ Loading */}

@@ -6,12 +6,12 @@ import AddCartButton from "@/components/add-cart-button";
 import Image from "next/image";
 import { imageUrl } from "@/lib/image-url";
 import { currencyFormatter } from "@/utilis/formatter";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import Loader from "@/components/loader";
 import Modal from "@/components/modal";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { ClerkLoaded, SignInButton, useUser } from "@clerk/nextjs";
-import { Order } from "../../../../sanity.types";
+// import { Order } from "../../../../sanity.types";
 import { Spinner } from "@/components/ui/spinner";
 
 import {
@@ -23,10 +23,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { emptyCartImg } from "@/asset";
+import { Button } from "@/components/ui/button";
 
 const CartPage = () => {
   const groupItems = useBasketStore((state) => state.getGroupedItems());
-  const clearBaseket = useBasketStore((state) => state.clearBasket);
+  // const clearBaseket = useBasketStore((state) => state.clearBasket);
   const { push } = useRouter();
   const [isClient, setIsClient] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -45,87 +46,93 @@ const CartPage = () => {
     return <Loader />;
   }
 
-  const saveOrderToSanity = async (orderDetails: Order) => {
-    try {
-      const response = await fetch("/api/save-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderDetails),
-      });
+  // const saveOrderToSanity = async (orderDetails: Order) => {
+  //   try {
+  //     const response = await fetch("/api/save-order", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(orderDetails),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Failed to save order");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to save order");
+  //     }
 
-      return response.json();
-    } catch (error) {
-      console.error("Error saving order to Sanity:", error);
-      throw error;
-    }
-  };
+  //     return response.json();
+  //   } catch (error) {
+  //     console.error("Error saving order to Sanity:", error);
+  //     throw error;
+  //   }
+  // };
 
-  const handleCheckout = async () => {
+  // const handleCheckout = async () => {
+  //   setIsLoading(true);
+
+  //   if (!phone || !address) {
+  //     alert("Please fill all fields");
+  //   }
+  //   const PaystackPop = (await import("@paystack/inline-js")).default;
+  //   const paystack = new PaystackPop();
+  //   const totalAmount = useBasketStore.getState().getTotalPrice();
+
+  //   paystack.newTransaction({
+  //     key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "",
+  //     email: user?.emailAddresses?.[0]?.emailAddress ?? "",
+  //     amount: totalAmount * 100,
+  //     currency: "NGN",
+  //     lastName: user?.firstName ?? "",
+  //     firstName: user?.lastName ?? "",
+  //     phone,
+
+  //     onSuccess: async (transaction) => {
+  //       const orderDetails = {
+  //         products: groupItems.map((item) => ({
+  //           _key: uuidv4(),
+  //           product: {
+  //             _type: "reference",
+  //             _ref: item.product._id,
+  //           },
+  //           quantity: item.quantity,
+  //         })),
+  //         totalPrice: totalAmount,
+  //         orderNumber: crypto.randomUUID(),
+  //         clerkUserId: user?.id,
+  //         status: "Paid",
+  //         OrderDate: new Date().toISOString(),
+  //         email: user?.emailAddresses?.[0]?.emailAddress ?? "",
+  //         customerName: user?.fullName ?? "",
+  //         phone: phone,
+  //         address: address,
+  //       } as Partial<Order>;
+  //       console.log(transaction);
+
+  //       try {
+  //         await saveOrderToSanity(orderDetails as Order);
+  //         setIsLoading(false);
+  //         push("/success"); // Redirect to a success page
+  //         toast.success("Payment Successfull");
+  //         clearBaseket();
+  //       } catch (error) {
+  //         setIsLoading(false);
+  //         console.error("Error saving order to Sanity:", error);
+  //         alert(
+  //           "Failed to save order. Please contact support, with your payment receipt if you have been debited",
+  //         );
+  //       }
+  //     },
+  //     onCancel: () => {
+  //       setIsLoading(false);
+  //       toast.error("Payment was cancelled");
+  //     },
+  //   });
+  // };
+
+  const handlePaymentCheckout = () => {
     setIsLoading(true);
-
-    if (!phone || !address) {
-      alert("Please fill all fields");
-    }
-    const PaystackPop = (await import("@paystack/inline-js")).default;
-    const paystack = new PaystackPop();
-    const totalAmount = useBasketStore.getState().getTotalPrice();
-
-    paystack.newTransaction({
-      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_TOKEN || "",
-      email: user?.emailAddresses?.[0]?.emailAddress ?? "",
-      amount: totalAmount * 100,
-      currency: "NGN",
-      lastName: user?.firstName ?? "",
-      firstName: user?.lastName ?? "",
-      phone,
-
-      onSuccess: async (transaction) => {
-        const orderDetails = {
-          products: groupItems.map((item) => ({
-            _key: uuidv4(),
-            product: {
-              _type: "reference",
-              _ref: item.product._id,
-            },
-            quantity: item.quantity,
-          })),
-          totalPrice: totalAmount,
-          orderNumber: crypto.randomUUID(),
-          clerkUserId: user?.id,
-          status: "Paid",
-          OrderDate: new Date().toISOString(),
-          email: user?.emailAddresses?.[0]?.emailAddress ?? "",
-          customerName: user?.fullName ?? "",
-          phone: phone,
-          address: address,
-        } as Partial<Order>;
-        console.log(transaction);
-
-        try {
-          await saveOrderToSanity(orderDetails as Order);
-          setIsLoading(false);
-          push("/success"); // Redirect to a success page
-          toast.success("Payment Successfull");
-          clearBaseket();
-        } catch (error) {
-          setIsLoading(false);
-          console.error("Error saving order to Sanity:", error);
-          alert(
-            "Failed to save order. Please contact support, with your payment receipt if you have been debited"
-          );
-        }
-      },
-      onCancel: () => {
-        setIsLoading(false);
-        toast.error("Payment was cancelled");
-      },
-    });
+    push(`/payment?address=${address}&phone=${phone}`);
+    setIsLoading(false);
   };
 
   const naira_sign = "\u20A6";
@@ -177,10 +184,7 @@ const CartPage = () => {
 
             <TableBody className=" mt-4">
               {groupItems.map((item) => (
-                <TableRow
-                  key={item.product._id}
-                  className="shadow-lg rounded-lg mb-8"
-                >
+                <TableRow key={item.product._id} className=" rounded-lg mb-8">
                   <TableCell className="py-4">
                     <div
                       className="flex items-center cursor-pointer"
@@ -209,7 +213,7 @@ const CartPage = () => {
                         <p className="md:hidden text-sm font-semibold pt-2">
                           {naira_sign}{" "}
                           {currencyFormatter(
-                            (item.product.price ?? 0) * item.quantity
+                            (item.product.price ?? 0) * item.quantity,
                           )}
                         </p>
                       </div>
@@ -227,7 +231,7 @@ const CartPage = () => {
                   <TableCell className="hidden md:table-cell text-center text-sm font-bold">
                     {naira_sign}{" "}
                     {currencyFormatter(
-                      (item.product.price ?? 0) * item.quantity
+                      (item.product.price ?? 0) * item.quantity,
                     )}
                   </TableCell>
 
@@ -256,9 +260,9 @@ const CartPage = () => {
               </span>
             </p>
           </div>
-          <button
+          <Button
             onClick={() => user && setIsModalOpen(true)}
-            className={`mt-[1rem]  w-full font-semibold rounded-md shadow h-[45px] 
+            className={`mt-[1rem]  w-full font-semibold rounded-md shadow 
               ${!user ? "bg-gray-500 text-white hover:bg-gray-600 " : "bg-[#d09e80] text-white hover:bg-[#bc8969]"} 
               transition-all duration-300`}
           >
@@ -267,7 +271,7 @@ const CartPage = () => {
                 <SignInButton>Sign In To Checkout</SignInButton>
               </ClerkLoaded>
             : "Proceed To Checkout"}
-          </button>
+          </Button>
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -305,7 +309,7 @@ const CartPage = () => {
 
           <div>
             <label htmlFor="address" className=" pl-2 pb-2 text-xs font-normal">
-              Address:
+              Enter full Address:
             </label>
             <input
               type="address"
@@ -316,15 +320,15 @@ const CartPage = () => {
             />
           </div>
         </main>
-        <button
+        <Button
           disabled={isLoading || !phone || !address}
-          onClick={handleCheckout}
-          className=" mt-[1rem] btn w-full flex justify-center items-center "
+          onClick={handlePaymentCheckout}
+          className={` mt-[1rem] w-full flex justify-center items-center ${isLoading || !phone || !address ? "bg-gray-500" : "bg-[#bc8969]"}`}
         >
           {isLoading ?
             <Spinner />
           : "Continue to Payment"}
-        </button>
+        </Button>
       </Modal>
     </div>
   );

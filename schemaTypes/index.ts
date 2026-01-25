@@ -1,6 +1,6 @@
 import product from "./product";
 import category from "./category";
 import { orderType } from "./order";
-import newArrivals from "./new-arrivals";
+import reviews from "./reviews";
 
-export const schemaTypes = [category, product, orderType, newArrivals];
+export const schemaTypes = [category, product, orderType, reviews];

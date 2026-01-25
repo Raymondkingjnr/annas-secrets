@@ -14,11 +14,11 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <div
-      className={`group grid shadow-md rounded-lg border border-gray-400 w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
+      className={` shadow-md rounded-lg border border-gray-400 md:w-[300px] ${isOutOfStock ? " opacity-50" : ""}`}
     >
       <Link href={`/product/${product?.slug?.current}`}>
         <div className=" relative aspect-square rounded-t-lg bg-white overflow-hidden">
-          <div className=" h-[250px] w-[280px]   ">
+          <div className=" md:h-[250px] md:w-[280px]   ">
             {product.image && (
               <div className=" ">
                 <Image
@@ -26,7 +26,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                   height={280}
                   src={imageUrl(product.image).url()}
                   alt={product.slug?.current || "Product Image"}
-                  className="object-contain rounded-md w-[280px] h-[280px] "
+                  className="object-contain rounded-md md:w-[280px] md:h-[280px] "
                 />
               </div>
             )}
@@ -44,7 +44,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div className="  p-4 ">
         <div className=" py-2 flex justify-between items-center">
           <div>
-            <p className="  text-xs md:text-sm font-bold capitalize">
+            <p className=" w-[100px] md:w-fit truncate  text-xs md:text-sm font-bold capitalize">
               {product.name ?? ""}
             </p>
             <p className=" pt-[2px] text-sm font-bold text-gray-500">
@@ -52,17 +52,12 @@ const ProductCard = ({ product }: { product: Product }) => {
             </p>
           </div>
         </div>
-        <div className=" flex justify-between pb-3 items-center gap-4">
-          <h2 className=" font-bold text-lg  text-[#333333]">
+        <div className=" flex flex-col md:flex-row justify-between pb-3 md:items-center gap-4">
+          <h2 className=" font-bold text-sm md:text-lg  text-[#333333]">
             {naira_sign} {currencyFormatter(Number(product?.price))}
           </h2>
           <AddCartButton product={product} disable={isOutOfStock} />
         </div>
-        {/* <Link
-          className=" border border-[#e7ba9e] py-2 w-full text-center rounded-md text-sm font-bold text-[#57524b]"
-        >
-          Details
-        </Link> */}
       </div>
     </div>
   );

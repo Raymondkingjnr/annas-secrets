@@ -28,7 +28,7 @@ const AddCartButton = ({ product, disable }: AddToCartButtonProps) => {
     return null;
   }
   return (
-    <div className=" flex items-center justify-center space-x-4">
+    <div className=" flex items-center md:justify-center space-x-4">
       <button
         onClick={() => removeItem(product._id)}
         className={`w-8 h-8 rounded-3xl flex items-center justify-center transition-colors duration-200 ${

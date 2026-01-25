@@ -49,14 +49,15 @@ body {
 }
 @media (max-width: 640px) {
   .gridFit {
-    display: flex;
+    /* display: flex;
     overflow-x: auto;
     place-content: start;
     place-items: start;
     -webkit-overflow-scrolling: touch;
     gap: 1rem;
-    padding: 0 0.75rem; /* optional: give some side padding */
-    scroll-snap-type: x mandatory;
+    padding: 0 0.75rem; 
+    scroll-snap-type: x mandatory; */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .button:hover {
