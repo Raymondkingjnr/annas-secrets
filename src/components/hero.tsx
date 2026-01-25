@@ -27,7 +27,7 @@ const Hero = () => {
               Order Now
             </Link>
             <Link
-              href={"./about-us"}
+              href={"/"}
               className=" border border-[#E3D1C6] py-2 w-[120px] text-center text-sm  rounded-md font-bold text-[#f6f5f2]"
             >
               Read More
