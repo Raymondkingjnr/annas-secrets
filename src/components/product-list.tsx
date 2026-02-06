@@ -73,7 +73,7 @@ function ProductList({ query }: { query: string }) {
           <h2 className="text-xl font-semibold">No products found</h2>
           <p className="text-gray-500">
             No results for{" "}
-            <span className="font-semibold text-black">"{query}"</span>
+            <span className="font-semibold text-black">{query}</span>
           </p>
           <p className="text-sm text-gray-400">
             Try searching for something else.

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { getCategory } from "@/lib/api";
 import useSWR from "swr";
 import { Category } from "../../../../sanity.types";
@@ -15,10 +14,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 const Services = () => {
-  const textVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-  };
   const fetchCategories = async () => {
     const categories = await getCategory();
 

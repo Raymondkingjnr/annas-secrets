@@ -19,11 +19,7 @@ const BrandsCom = () => {
     return data;
   };
 
-  const {
-    data: brandsList,
-    isLoading,
-    error,
-  } = useSWR("get/brands", fetchBrands);
+  const { data: brandsList, isLoading } = useSWR("get/brands", fetchBrands);
 
   const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
     return (

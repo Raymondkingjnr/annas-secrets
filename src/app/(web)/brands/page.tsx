@@ -13,7 +13,6 @@ import useSWR from "swr";
 import { ProductCardSkeleton } from "@/components/skeleton-comp";
 import Image from "next/image";
 import { imageUrl } from "@/lib/image-url";
-import { motion } from "framer-motion";
 
 import {
   Pagination,
@@ -34,11 +33,7 @@ const BrandsPage = () => {
     return data;
   };
 
-  const {
-    data: brandsList,
-    isLoading,
-    error,
-  } = useSWR("get/brands", fetchBrands);
+  const { data: brandsList, isLoading } = useSWR("get/brands", fetchBrands);
 
   const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
     return (
@@ -60,14 +55,6 @@ const BrandsPage = () => {
     return brandsList.slice(start, end);
   }, [brandsList, currentPage]);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, staggerChildren: 0.2 },
-    },
-  };
   return (
     <div className="min-h-screen md:mt-[6rem] mt-[9rem]">
       <section className=" max-w-[1550px] mx-auto px-5">
