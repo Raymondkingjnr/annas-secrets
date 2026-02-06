@@ -37,7 +37,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const naira_sign = "\u20A6";
 
   return (
-    <div className=" container mx-auto pt-6 px-4 pb-8 mt-[7rem]">
+    <div className=" container mx-auto pt-6 px-4 pb-8 mt-[8rem]">
       <div className="  mb-5">
         <Breadcrumb className="  md:pl-5">
           <BreadcrumbList>
@@ -56,7 +56,15 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            {/* <BreadcrumbSeparator /> */}
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="#" className=" font-bold text-sm">
+                  {product.name ?? ""}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>

@@ -138,7 +138,7 @@ const CartPage = () => {
   const naira_sign = "\u20A6";
   if (groupItems.length === 0) {
     return (
-      <div className="min-h-screen px-4 flex items-center justify-center">
+      <div className="min-h-screen px-4 flex items-center justify-center bg-white">
         <div className="max-w-2xl w-full py-10 rounded-md flex flex-col items-center bg-transparent px-4">
           <div>
             <Image
@@ -163,7 +163,7 @@ const CartPage = () => {
     );
   }
   return (
-    <div className=" h-screen container mx-auto pt-6 mt-[6rem] px-4 md:px-0">
+    <div className="min-h-screen container mx-auto pt-6 mt-[8rem] px-4 md:px-0">
       <h1 className=" text-2xl md:text-3xl font-bold mb-4 text-center pb-4 text-black">
         Your Cart
       </h1>

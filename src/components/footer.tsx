@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="px-[1rem] md:px-[2rem] lg:px-[4rem] py-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         {/* Brand */}
         <div>
-          <h3 className="text-xl font-semibold">Annas_Secrets</h3>
+          <h3 className="text-xl font-semibold">Brand Name</h3>
           <p className="text-xs text-gray-100 leading-5 mt-4 max-w-[220px]">
             Premium fashion and lifestyle essentials crafted to bring elegance,
             confidence, and comfort to everyday living.
@@ -82,7 +82,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-[#444] py-4 px-[1rem] md:px-[2rem] lg:px-[4rem] flex flex-col md:flex-row items-center justify-between text-xs text-[#757575]">
-        <p>© {new Date().getFullYear()} Annas_Secrets. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Brand Name. All rights reserved.</p>
         <p className="mt-2 md:mt-0">Designed & built with care.</p>
       </div>
     </footer>

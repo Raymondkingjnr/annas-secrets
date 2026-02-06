@@ -4,6 +4,8 @@ import ProductCard from "../product-card";
 import { motion } from "framer-motion";
 import { getFeaturedProduct } from "@/lib/api";
 import useSWR from "swr";
+import { ProductCardSkeleton } from "../skeleton-comp";
+import Link from "next/link";
 
 const BestSelling = () => {
   const fetchProducts = async () => {
@@ -12,7 +14,10 @@ const BestSelling = () => {
     return products;
   };
 
-  const { data: featuredProducts } = useSWR(`get/allPost`, fetchProducts);
+  const { data: featuredProducts, isLoading } = useSWR(
+    `get/allPost`,
+    fetchProducts,
+  );
 
   const textVariants = {
     hidden: { opacity: 0, y: 10 },
@@ -27,6 +32,16 @@ const BestSelling = () => {
       transition: { duration: 0.5, staggerChildren: 0.2 },
     },
   };
+
+  const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
+    return (
+      <div className=" gridFit gap-3 my-[4rem]">
+        {Array.from({ length: count }).map((_, i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  };
   return (
     <div className=" px-5 md:px-[2rem]   lg:px-[4rem] mb-[8rem] max-w-[1800px] mx-auto ">
       <motion.div
@@ -34,13 +49,19 @@ const BestSelling = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={textVariants}
-        className=" flex flex-col justify-center items-center pb-6"
+        className=" flex  justify-between md:px-[2rem] px-1 pb-4 items-center"
       >
-        <h2 className="text-xl  md:text-4xl pb-2 font-bold text-center text-[#251d14]">
+        <h2 className="text-lg  md:text-2xl font-bold text-center text-[#251d14]">
           Featured Products
         </h2>
-        <div className=" h-[1.6px] w-[170px] md:w-[300px] bg-black mb-4" />
+        <Link
+          href="/products"
+          className=" text-base text-[#b5844d]   underline font-semibold"
+        >
+          See All
+        </Link>
       </motion.div>
+      {isLoading && <ProductSkeletonGrid count={4} />}
 
       <motion.div
         className=" gridFit  "

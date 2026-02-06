@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Product } from "../../sanity.types";
 import { getNewArrivalProduct } from "@/lib/api";
 import ProductCard from "./product-card";
+import { ProductCardSkeleton } from "./skeleton-comp";
 
 const NewArrival = () => {
   const textVariants = {
@@ -17,10 +18,23 @@ const NewArrival = () => {
     return newArrival;
   };
 
-  const { data: newArrivals } = useSWR("get/new-arrivals", fetchNewArrivals);
+  const { data: newArrivals, isLoading } = useSWR(
+    "get/new-arrivals",
+    fetchNewArrivals,
+  );
+
+  const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
+    return (
+      <div className=" gridFit gap-3 my-[4rem]">
+        {Array.from({ length: count }).map((_, i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className=" max-w-[1800px] mx-auto pb-[5rem] px-5 md:px-[2rem]   lg:px-[4rem]">
+    <div className=" max-w-[1800px] mx-auto px-5 md:px-[2rem]   lg:px-[4rem]">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -29,10 +43,12 @@ const NewArrival = () => {
         className=" flex flex-col justify-center items-center pb-6"
       >
         <h2 className="text-xl md:text-3xl pb-2 font-bold text-center text-[#251d14]">
-          Our New Arrivals
+          Back In Stock
         </h2>
         <div className=" h-[1.6px] w-[160px] md:w-[300px] bg-black mb-4" />
       </motion.div>
+
+      {isLoading && <ProductSkeletonGrid count={4} />}
 
       <div className=" gridFit ">
         {newArrivals && newArrivals.length > 0 ?

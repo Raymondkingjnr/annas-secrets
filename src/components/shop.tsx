@@ -11,6 +11,7 @@ import Marquee from "react-fast-marquee";
 import StarRating from "./star-ratings";
 import { bannerImg2 } from "@/asset";
 import Image from "next/image";
+import { ProductCardSkeleton } from "./skeleton-comp";
 
 const ShopGoal = () => {
   const textVariants = {
@@ -43,7 +44,17 @@ const ShopGoal = () => {
 
     return products;
   };
-  const { data: products } = useSWR(`get/allPost`, fetchProducts);
+  const { data: products, isLoading } = useSWR(`get/allPost`, fetchProducts);
+
+  const ProductSkeletonGrid = ({ count = 4 }: { count?: number }) => {
+    return (
+      <div className=" gridFit gap-3 my-[4rem]">
+        {Array.from({ length: count }).map((_, i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -71,36 +82,42 @@ const ShopGoal = () => {
             pauseOnHover={true}
             autoFill={true}
             ref={tickerRef}
-            speed={50}
+            speed={30}
             className="flex  items-center justify-between"
           >
-            {products?.map((items, index) => (
-              <div
-                key={index}
-                className="relative border border-gray-200 w-[200px] md:w-fit rounded-md mx-3 gap-4"
-              >
-                <div className=" md:h-[300px] md:w-[300px]  bg-gray-100   ">
-                  {items?.image && (
-                    <Image
-                      width={200}
-                      height={200}
-                      src={imageUrl(items.image).url()}
-                      alt={items.slug?.current || "Product Image"}
-                      className="object-contain rounded-md md:w-[300px] md:h-[300px] "
-                    />
-                  )}
-                </div>
-                <div className=" items-center flex flex-col mt-2">
-                  <p className="text-sm font-bold">
-                    {naira_sign} {currencyFormatter(Number(items?.price))}
-                  </p>
-                  <p className=" font-normal text-sm w-[90px] truncate">
-                    {items?.name}
-                  </p>
-                  <StarRating rating={rating} onChange={setRating} />
-                </div>
+            {isLoading ?
+              <div className="relative w-[250px] rounded-md mx-3 gap-4">
+                <ProductSkeletonGrid count={1} />
               </div>
-            ))}
+            : products && products.length > 0 ?
+              products?.map((items, index) => (
+                <div
+                  key={index}
+                  className="relative border border-gray-200 w-[200px] md:w-fit rounded-md mx-3 gap-4"
+                >
+                  <div className=" md:h-[300px] md:w-[300px]  bg-gray-100   ">
+                    {items?.image && (
+                      <Image
+                        width={200}
+                        height={200}
+                        src={imageUrl(items.image).url()}
+                        alt={items.slug?.current || "Product Image"}
+                        className="object-contain rounded-md md:w-[300px] md:h-[300px] "
+                      />
+                    )}
+                  </div>
+                  <div className=" items-center flex flex-col mt-2">
+                    <p className="text-sm font-bold">
+                      {naira_sign} {currencyFormatter(Number(items?.price))}
+                    </p>
+                    <p className=" font-normal text-sm w-[90px] truncate">
+                      {items?.name}
+                    </p>
+                    <StarRating rating={rating} onChange={setRating} />
+                  </div>
+                </div>
+              ))
+            : <p className=" text-center">No Products Avaliable</p>}
           </Marquee>
         </div>
       </div>
@@ -113,7 +130,7 @@ const ShopGoal = () => {
         <section className=" max-w-[1550px] md:ml-14 h-full flex items-end">
           <div className="flex flex-col justify-center items-center md:items-start">
             <h3 className=" text-[#f6f5f2] text-2xl md:text-5xl md:leading-[4rem] font-extrabold tracking-wide">
-              Annas Skin Care
+              Brand Skin Care
             </h3>
             <p className="w-full md:w-[500px] text-center md:text-left text-[#f6f5f2] leading-7 my-5 font-normal">
               Daily soothing sunscreen, Dewy Finish with no Whitecast, Natural

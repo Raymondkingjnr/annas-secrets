@@ -7,6 +7,7 @@ import BackToTopButton from "@/components/bact-to-top";
 import Testimonials from "@/components/testimonials";
 import Collection from "@/components/collection";
 import NewArrival from "@/components/new-arrivals";
+import BrandsCom from "@/components/brands";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <Collection />
       <ShopGoal />
+      <BrandsCom />
       <BestSelling />
       <NewArrival />
       {/* <Choose /> */}

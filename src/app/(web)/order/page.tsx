@@ -16,7 +16,7 @@ async function OrderPage() {
   const orders = await getClientOrder(userId);
 
   return (
-    <div className="mt-[6rem] h-screen container mx-auto px-5">
+    <div className="mt-[8rem] h-screen container mx-auto px-5">
       <h1 className="text-xl font-bold mb-6">My Orders</h1>
 
       {orders.length === 0 ?

@@ -85,7 +85,7 @@ const PaymentScreen = () => {
   };
 
   return (
-    <div className=" px-4 mt-[6rem] flex items-center justify-center">
+    <div className=" px-4 mt-[8rem] flex items-center justify-center">
       <div className="max-w-2xl w-full py-10 rounded-md shadow-2xl px-4">
         <p className=" flex justify-end text-base font-normal">{address}</p>
         <main className=" flex pt-4 justify-between items-center border-b border-gray-300 pb-3">
@@ -110,7 +110,7 @@ const PaymentScreen = () => {
             been placed.
           </p>
           <h2 className=" font-medium text-xl py-4">Our Bank Details</h2>
-          <p className="text-lg font-semibold mt-[1.7rem]">Annas Skincare:</p>
+          <p className="text-lg font-semibold mt-[1.7rem]">Brand Skincare:</p>
           <div className=" flex gap-[4rem] mt-1 ">
             <div className=" ">
               <p>Bank:</p>

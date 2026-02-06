@@ -129,9 +129,24 @@ export const getCategory = groq`*[_type == "category" ]{
       }
     },
   }`;
+export const getBrandsQuery = groq`*[_type == "brands" ]{
+  _id,
+    name,
+      slug{
+        current
+      },
+          image{
+      asset -> {
+        url
+      }
+    },
+  }`;
 
 export const getCategoryBySlug = groq`
    *[_type == "category" && slug.current == $slug] | order(name asc)[0] 
+  `;
+export const getBrandsBySlug = groq`
+   *[_type == "brands" && slug.current == $slug] | order(name asc)[0] 
   `;
 
 export const getClientOrdersQuery = groq`
@@ -149,9 +164,43 @@ export const getProductsByCategorySlug = groq`
     $slug in categories[]->slug.current
   ] | order(_createdAt desc)
 `;
+export const getProductsByBrandSlug = groq`
+  *[
+    _type == "product" &&
+    brand->slug.current == $slug
+  ] | order(_createdAt desc)
+`;
 
-export const searchProductByName = (searchParams: string) =>
-  groq`*[_type == "product" && name match "${searchParams}*"] | order(name asc)`;
+export const searchProductByName = (searchParams: string) => {
+  const lowerSearch = searchParams.toLowerCase();
+
+  return groq`*[_type == "product" && (
+    lower(name) match "*${lowerSearch}*" ||
+    lower(brand->name) match "*${lowerSearch}*" ||
+    lower(categories[]->name) match "*${lowerSearch}*" ||
+    lower(description) match "*${lowerSearch}*"
+  )] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    _type,
+    name,
+    description,
+    price,
+    stock,
+    topSales,
+    slug,
+    image,
+    brand->{
+      _id,
+      name
+    },
+    categories[]->{
+      _id,
+      name
+    }
+  } | order(name asc)[0...50]`;
+};
 
 export const getProductWithReviewsQuery = groq`
   *[_type == "product" && slug.current == $slug][0]{

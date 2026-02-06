@@ -49,7 +49,7 @@ const Products = () => {
   const [sortByPrice, setSortByPrice] = React.useState<"asc" | "desc" | "">("");
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const debouncedSearchQuery = useDebounce(searchQuery, 5000);
+  const debouncedSearchQuery = useDebounce(searchQuery, 400);
 
   const [page, setPage] = React.useState<number>(1);
   const pageSize = 8;
@@ -98,7 +98,7 @@ const Products = () => {
   const totalPages = Math.ceil((numOfPost || 0) / pageSize);
 
   return (
-    <div className="  min-h-screen mt-[6rem] ">
+    <div className="  min-h-screen md:mt-[5rem] mt-[9rem] ">
       <BackToTopButton />
 
       <div
@@ -151,7 +151,7 @@ const Products = () => {
       </main>
       <div className="container mx-auto px-4">
         {/* 1️⃣ Loading */}
-        {loading && <ProductSkeletonGrid count={1} />}
+        {loading && <ProductSkeletonGrid count={4} />}
 
         {/* 2️⃣ Empty state */}
         {!loading && products.length === 0 && (

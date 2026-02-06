@@ -75,5 +75,12 @@ export default defineType({
       of: [{ type: "reference", to: { type: "category" } }],
       validation: (Rule) => Rule.required().error("Required"),
     }),
+    defineField({
+      name: "brand",
+      title: "Brand",
+      type: "reference",
+      to: { type: "brands" },
+      // validation: (Rule) => Rule.required().error("Required"),
+    }),
   ],
 });

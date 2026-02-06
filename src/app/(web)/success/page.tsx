@@ -34,7 +34,7 @@ const SuccessPage = () => {
           <span className=" capitalize font-semibold text-xl">
             {order.customerName}
           </span>{" "}
-          for shopping from Annas skincare!
+          for shopping from Brand skincare!
         </p>
 
         <div className="flex flex-col gap-2 justify-center border border-gray-600 rounded-lg items-center p-4 mt-9">

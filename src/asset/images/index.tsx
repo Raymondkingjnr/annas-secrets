@@ -7,6 +7,7 @@ import bannerImg2 from "./banner.jpg";
 import emptyCartImg from "./emptycart.png";
 import emptyStateImg from "./emptydata.png";
 import profileImg from "./profileImg.png";
+import brandImage from "./annassecrets.png";
 
 export {
   mastercard,
@@ -18,4 +19,5 @@ export {
   emptyStateImg,
   bannerImg2,
   profileImg,
+  brandImage,
 };

@@ -90,10 +90,26 @@ export async function getCategory() {
   );
   return result;
 }
+export async function getBrands() {
+  const result = await client.fetch<Category[]>(
+    queries.getBrandsQuery,
+    {},
+    { cache: "no-cache" },
+  );
+  return result;
+}
 
 export async function getSingleCategory(slug: string) {
   const result = await client.fetch<Category>(
     queries.getCategoryBySlug,
+    { slug },
+    { cache: "no-cache" },
+  );
+  return result;
+}
+export async function getSingleBrand(slug: string) {
+  const result = await client.fetch<Category>(
+    queries.getBrandsBySlug,
     { slug },
     { cache: "no-cache" },
   );
@@ -107,16 +123,28 @@ export async function getProductsByCategory(slug: string) {
     { cache: "no-cache" },
   );
 }
-
-export async function getSearchedProduct(searchParams: string) {
-  if (!searchParams) return [];
-  const result = await client.fetch<Product[]>(
-    queries.searchProductByName(searchParams),
-    {},
+export async function getProductsByBrand(slug: string) {
+  return client.fetch(
+    queries.getProductsByBrandSlug,
+    { slug },
     { cache: "no-cache" },
   );
+}
 
-  return result;
+export async function getSearchedProduct(searchParams: string) {
+  if (!searchParams || !searchParams.trim()) return [];
+
+  try {
+    const result = await client.fetch<Product[]>(
+      queries.searchProductByName(searchParams.trim()),
+      {},
+      { cache: "no-cache" },
+    );
+    return result;
+  } catch (error) {
+    console.error("Error fetching searched products:", error);
+    throw error;
+  }
 }
 
 export async function getSingleProduct(slug: string) {

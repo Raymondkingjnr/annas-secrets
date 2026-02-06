@@ -7,7 +7,13 @@ import { Category } from "../../../../sanity.types";
 import { imageUrl } from "@/lib/image-url";
 import Link from "next/link";
 import Image from "next/image";
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 const Services = () => {
   const textVariants = {
     hidden: { opacity: 0, y: 10 },
@@ -22,18 +28,27 @@ const Services = () => {
   const { data: categories } = useSWR("get/categories", fetchCategories);
 
   return (
-    <div className=" max-w-[1500px] px-5 md:px-0 mx-auto pt-[2rem] mt-[6rem]">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={textVariants}
-        className=""
-      >
-        <h2 className="text-xl md:text-3xl font-bold text-center pb-6 text-[#251d14]">
-          Our Collection
-        </h2>
-      </motion.div>
+    <div className=" max-w-[1500px] px-5 md:px-0 mx-auto md:mt-[6rem] mt-[9rem]">
+      <Breadcrumb className="  md:pl-5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/" className=" font-bold text-sm">
+                Home
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href={"#"} className=" font-bold text-sm">
+                Collections
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          {/* <BreadcrumbSeparator /> */}
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className=" gridFit pt-6">
         {categories && categories.length > 0 ?

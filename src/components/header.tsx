@@ -22,12 +22,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PiInstagramLogo, PiWhatsappLogo } from "react-icons/pi";
+import SearchInput from "./Search-input";
+import Image from "next/image";
+import { brandImage } from "@/asset";
 
 /* ---------------- NAV LINKS ---------------- */
 
 const navLinks = [
   { title: "shop", href: "/products" },
   { title: "collections", href: "/service" },
+  { title: "brands", href: "/brands" },
   // { title: "about", href: "/about-us" },
   { title: "contact", type: "dropdown" },
   { title: "my orders", href: "/order", auth: true },
@@ -37,12 +41,15 @@ const socials = [
   {
     icon: <PiInstagramLogo strokeWidth={3} size={30} />,
     label: "Instagram",
-    href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
+    // href: "https://www.instagram.com/annas_secrets?igsh=a2hkZ2dkZWdpMTE5",
+    href: "",
   },
   {
     icon: <PiWhatsappLogo strokeWidth={3} size={30} />,
     label: "WhatsApp",
-    href: "https://wa.me/2348060665069",
+    // href: "https://wa.me/2348060665069",
+    // href: "https://wa.me/2348023113621?text=Hello%Brand%name!%20I%20would%20like%20to%20inquire%20about%20your%20products.",
+    href: "",
   },
 ];
 
@@ -109,9 +116,20 @@ const Header = () => {
     <div className="fixed top-3 left-0 right-0 z-50 max-w-[1550px] mx-auto px-2">
       <header className="flex items-center justify-between rounded-md bg-white px-4 md:px-8 lg:px-16 py-1">
         {/* LOGO */}
-        <Link href="/" className="text-lg md:text-xl font-bold text-black/75">
-          Annas
-        </Link>
+        <main className=" flex items-center gap-5">
+          <Link href="/" className="text-lg md:text-xl font-bold text-black/75">
+            <Image
+              src={brandImage}
+              width={40}
+              height={40}
+              alt="brand-image"
+              className=" rounded-full"
+            />
+          </Link>
+          <div className=" hidden md:flex">
+            <SearchInput />
+          </div>
+        </main>
 
         {/* DESKTOP NAV */}
         <nav className="hidden lg:flex items-center gap-8">
@@ -188,6 +206,10 @@ const Header = () => {
           />
         </div>
       </header>
+
+      <div className="md:hidden mt-4 mx-2">
+        <SearchInput />
+      </div>
 
       {/* MOBILE NAV */}
       <AnimatePresence>
