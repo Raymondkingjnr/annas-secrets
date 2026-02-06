@@ -13,7 +13,7 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
-  title: "Home | Annas skincare website nigeria",
+  title: "brand name website nigeria",
   description:
     "Butt and Hips Enlargement,Breast Enlargement, Breast Firming, weight Gain, weight loss, flat Tummy, vagina care,intimate care products,Infections product, Bumps and ingrown Hairs products ..All Natural and Effective 👌",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "dark spots",
   ],
   openGraph: {
-    title: "Annas skincare",
+    title: "brand name",
     url: "https://www.annaskincare.store",
     siteName: "Annasskincare",
     images: [{ url: "../../asset/images/annassecrets.png" }],
