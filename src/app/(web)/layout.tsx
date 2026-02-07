@@ -15,13 +15,13 @@ const mulish = Mulish({
 export const metadata: Metadata = {
   title: "brand name website nigeria",
   description:
-    "Butt and Hips Enlargement,Breast Enlargement, Breast Firming, weight Gain, weight loss, flat Tummy, vagina care,intimate care products,Infections product, Bumps and ingrown Hairs products ..All Natural and Effective 👌",
+    "Shop high-quality skincare designed to fix real skin problems, not hide them. Trusted products for clear, healthy, confident skin.",
   keywords: [
     "skicare website in nigeria",
     "anual",
     "skincare products",
     "cerave",
-    "dark spots",
+    "clear dark spots",
   ],
   openGraph: {
     title: "brand name",
